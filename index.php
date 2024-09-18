@@ -1,7 +1,7 @@
 <?php
 
 
-header('Location: ./carpetas/pac1-primera-app/hola.php');
+header('Location: ./practicas/pac1-primera-app/hola.php');
 exit;
 /*----------------------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
