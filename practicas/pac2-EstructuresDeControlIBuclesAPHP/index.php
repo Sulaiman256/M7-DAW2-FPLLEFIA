@@ -51,9 +51,11 @@
     echo "<h1>Practicas {$date}</h1>";
     ?>
     <div class="container">
-        <a href="/practicas/pac2-EstructuresDeControlIBuclesAPHP//ejercicio1.php">Ejercicio 1: Nombres parells</a>
-        <a href="/practicas/pac2-EstructuresDeControlIBuclesAPHP//ejercicio2.php">Ejercicio 2: Taules de Multiplicar</a>
-        <a href="/practicas/pac2-EstructuresDeControlIBuclesAPHP//ejercicio3.php">Ejercicio 3: Calculadora</a>
+        <a href="./ejercicio1.php">Ejercicio 1: Nombres parells</a>
+        <a href="./ejercicio2.php">Ejercicio 2: Taules de Multiplicar</a>
+        <a href="./ejercicio3.php">Ejercicio 3: Calculadora</a>
+        <a href="./extra1.php">Extra 1: Divisors d'un nombre i verificació de nombre primer</a>
+        <a href="./extra2.php">Extra 2: L’home del temps </a>
     </div>
 </body>
 </html>

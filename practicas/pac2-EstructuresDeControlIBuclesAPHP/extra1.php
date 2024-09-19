@@ -5,54 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Extra 1 Divisors d'un nombre i verificació de nombre primer</title>
     <style>
+        body{
+            font-family: arrayial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            margin-bottom: 100px;
+        }
         h1{
             text-align: center;
-            font-size: 2em;
+            font-size: 1.3em;
             color: #333;
+            margin-bottom: 100px;
         }
-        h5{
+        h3,h5{
             text-align: center;
-            color: #444;
-            font-size: 1.2em;
+            color: #555;
         }
         .containerContenido{
             width: 80%;
             margin: 0 auto;
-            border: 1px solid black;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
-        div{
-            margin: 10px;
-            padding: 10px;
-            text-align: center;
-        }
-        #EsPrimo{
-            background-color: #bad80a;
-            border: 1px solid black;
-            color: white;
-            border-radius: 2px;
-        }
-
-        #NoEsPrimo{
-            background-color: red;
-            border: 1px solid black;
-            color: white;
-            border-radius: 2px;
-        }
-
         .divContainer{
-            display: flex !important;
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
+            gap: 10px;
         }
         .divDivisores{
-            border: 1px solid black;
-            padding: 10px;
-            margin: 10px;
-            text-align: center;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #fafafa;
+            border-radius: 4px;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
         }
-
-
-
-
+        #EsPrimo{
+            background-color: #4caf50;
+            border: 1px solid #388e3c;
+            color: white;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #NoEsPrimo{
+            background-color: #f44336;
+            border: 1px solid #d32f2f;
+            color: white;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -82,7 +93,7 @@ function SiEsPrimo($numero) {
     }
     for ($i =2; $i < $numero; $i++) {
         if($numero % $i == 0){
-            echo "<div id='NoEsPrimo'>$numero NO es un primo</div>";
+            echo "<div id='NoEsPrimo'>$numero NO es primo</div>";
             return false;
         }
     }
@@ -93,13 +104,13 @@ function SiEsPrimo($numero) {
   
 
 function MostrarDivisores($numero) {
+    echo "<div class='divContainer'>";
     for ($i=1; $i < $numero; $i++) {
         if($numero % $i == 0){
-            echo "<div class='divContainer'>
-            <div class='divDivisores'>$i</div>
-            </div>";
+            echo "<div class='divDivisores'>$i</div>";
         }
     }
+    echo "</div>";
 }
 
 
