@@ -7,6 +7,92 @@
     
 </head>
 <body>
+<div class="d-flex justify-content-end">
+    <!-- Enlace que cambia el color a rojo -->
+    <a href="ejercicio2.php?color=rojo" class="btn btn-danger" style="width: 10px; height: 10px;"></a>
+    <?php
+        if (isset($_GET['color']) && $_GET['color'] === 'rojo') {
+            echo '
+            <style>
+            body {
+                background-color: red;
+            }
+            </style>
+            ';
+        }
+    ?>
+
+    <a href="ejercicio2.php?color=azul" class="btn btn-primary" style="width: 10px; height:10px" >
+    <?php
+        if (isset($_GET['color']) && $_GET['color'] === 'azul') {
+            echo '
+            <style>
+            body {
+                background-color: blue;
+            }
+            </style>
+            ';
+        }
+    ?>
+    </a>
+
+    <a href="ejercicio2.php?color=verde" class="btn btn-success" style="width: 10px; height:10px" >
+    <?php
+        if (isset($_GET['color']) && $_GET['color'] === 'verde') {
+            echo '
+            <style>
+            body {
+                background-color: green;
+            }
+            </style>
+            ';
+        }
+    ?>
+    </a>
+   
+    <a href="ejercicio2.php?color=amarillo" class="btn btn-warning" style="width: 10px; height:10px" >
+    <?php
+        if (isset($_GET['color']) && $_GET['color'] === 'amarillo') {
+            echo '
+            <style>
+            body {
+                background-color: yellow;
+            }
+            </style>
+            ';
+        }
+    ?>
+    </a>
+    <a href="ejercicio2.php?color=rosa" class="btn btn-primary" style="width: 10px; height:10px;  background-color: #ff69b4;" >
+    <?php
+        if (isset($_GET['color']) && $_GET['color'] === 'rosa') {
+            echo '
+            <style>
+            body {
+                background-color: pink;
+            }
+            </style>
+            ';
+        }
+    ?>
+    </a>
+    <a href="ejercicio2.php?color=naranja" class="btn btn-primary" style="width: 10px; height:10px;background-color: #ffa500; " >
+    <?php
+        if (isset($_GET['color']) && $_GET['color'] === 'naranja') {
+            echo '
+            <style>
+            body {
+                background-color: orange;
+            }
+            </style>
+            ';
+        }
+    ?>
+    </a>
+       
+</div>
+
+
     <div class="container mt-5">
         <h1 class="text-center">Selecciona tu fruta favorita</h1>
 
@@ -49,57 +135,122 @@
                 ?>
                     
                     
-                <tr class="table-danger">
-                    <td >Plátano</td>
+              
                         <?php
                 // Vamos a mirar si ha llegado el get y si lo hace pintaremos el td de color verde
                 if(isset($_GET['fruta']) && $_GET['fruta'] ==='platano'){
-                    echo '<td style="background-color: green;">  ✔ Seleccionada</td>';
+                    echo '
+                    <tr style="background-color: green;">
+                    <td>Platano</td>
+                    <td>  ✔ Seleccionada</td>
+                     <td><a class="btn btn-primary" href="ejercicio2.php?fruta=platano">Seleccionar</a>
+               
+                </td>
+                </tr>
+
+                    ';
                 } else {
-                    echo '<td>✖ No seleccionada</td>';
+                    echo '
+                    <tr class="table-danger">
+                    <td>Platano</td>
+                    <td>✖ No seleccionada</td>
+                    <td><a class="btn btn-primary" href="ejercicio2.php?fruta=platano">Seleccionar</a>
+               
+                </td>
+                </tr>
+                    
+                    ';
                 }
                 
                 ?>
-                    <td><a class="btn btn-primary" href="ejercicio2.php?fruta=platano">Seleccionar</a></td>
                 </tr>
-                <tr class="table-danger">
-                    <td>Naranja</td>
+                
                          <?php
                 // Vamos a mirar si ha llegado el get y si lo hace pintaremos el td de color verde
                 if(isset($_GET['fruta']) && $_GET['fruta'] ==='naranja'){
-                    echo '<td style="background-color: green;">  ✔ Seleccionada</td>';
+                    echo '
+                    <tr style="background-color: green;">
+                    <td>Naranja</td>
+                    <td>  ✔ Seleccionada</td>
+                     <td><a class="btn btn-primary" href="ejercicio2.php?fruta=naranja">Seleccionar</a>
+               
+                </td>
+                </tr>
+
+                    ';
                 } else {
-                    echo '<td>✖ No seleccionada</td>';
+                    echo '
+                    <tr class="table-danger">
+                    <td>Naranja</td>
+                    <td>✖ No seleccionada</td>
+                    <td><a class="btn btn-primary" href="ejercicio2.php?fruta=naranja">Seleccionar</a>
+               
+                </td>
+                </tr>
+                    
+                    ';
                 }
                 
                 ?>
-                    <td><a class="btn btn-primary" href="ejercicio2.php?fruta=naranja">Seleccionar</a></td>
                 </tr>
-                <tr class="table-danger">
-                    <td>Fresa</td>
+                
                            <?php
                 // Vamos a mirar si ha llegado el get y si lo hace pintaremos el td de color verde
                 if(isset($_GET['fruta']) && $_GET['fruta'] ==='fresa'){
-                    echo '<td style="background-color: green;">  ✔ Seleccionada</td>';
+                    echo '
+                    <tr style="background-color: green;">
+                    <td>Fresa</td>
+                    <td>  ✔ Seleccionada</td>
+                     <td><a class="btn btn-primary" href="ejercicio2.php?fruta=fresa">Seleccionar</a>
+               
+                </td>
+                </tr>
+
+                    ';
                 } else {
-                    echo '<td>✖ No seleccionada</td>';
+                    echo '
+                    <tr class="table-danger">
+                    <td>Fresa</td>
+                    <td>✖ No seleccionada</td>
+                    <td><a class="btn btn-primary" href="ejercicio2.php?fruta=fresa">Seleccionar</a>
+               
+                </td>
+                </tr>
+                    
+                    ';
                 }
                 
                 ?>
-                    <td><a class="btn btn-primary" href="ejercicio2.php?fruta=fresa">Seleccionar</a></td>
                 </tr>
-                <tr class="table-danger">
-                    <td>Kiwi</td>
+               
                            <?php
                 // Vamos a mirar si ha llegado el get y si lo hace pintaremos el td de color verde
                 if(isset($_GET['fruta']) && $_GET['fruta'] ==='kiwi'){
-                    echo '<td style="background-color: green;">  ✔ Seleccionada</td>';
+                    echo '
+                    <tr style="background-color: green;">
+                    <td>Kiwi</td>
+                    <td>  ✔ Seleccionada</td>
+                     <td><a class="btn btn-primary" href="ejercicio2.php?fruta=kiwi">Seleccionar</a>
+               
+                </td>
+                </tr>
+
+                    ';
                 } else {
-                    echo '<td>✖ No seleccionada</td>';
+                    echo '
+                    <tr class="table-danger">
+                    <td>Kiwi</td>
+                    <td>✖ No seleccionada</td>
+                    <td><a class="btn btn-primary" href="ejercicio2.php?fruta=kiwi">Seleccionar</a>
+               
+                </td>
+                </tr>
+                    
+                    ';
                 }
                 
                 ?>
-                    <td><a class="btn btn-primary" href="ejercicio2.php?fruta=kiwi">Seleccionar</a></td>
+                   
                 </tr>
             </tbody>
         </table>
