@@ -128,7 +128,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               <button type="button" class="btn btn-sm btn-outline-secondary"><a href="trailer.php">Veure tràiler</a></button>
-              <button type="button" class="btn btn-sm btn-outline-secondary"><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/detall.php?='.$peliculas['id'].'">Veure més informació</a></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary"><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/detall.php?id='.$peliculas['id'].'">Veure més informació</a></button>
             </div>
             <small class="text-muted">9 mins</small>
           </div>

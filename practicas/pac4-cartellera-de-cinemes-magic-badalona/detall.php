@@ -1,3 +1,30 @@
+<?php
+
+include 'pelicules.php';
+
+//var_dump($pelicula);
+
+ if(isset($_GET['id']) && is_numeric($_GET['id'])){
+   $id = $_GET['id'];
+
+   foreach($pelicula as $peliculas) {
+     if($peliculas['id'] == $id){
+       $detallesPelicula = $peliculas;
+       break;
+     }
+   }
+ }
+
+ if(!isset($detallesPelicula)){
+  echo 'Pelicula no encontrada';
+  exit;
+ }
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,17 +54,17 @@
           include 'pelicules.php';
           echo '
             <div class="col-md-4">
-               <img src="'.$pelicula['imagen'].'" alt="Pelicula" class="movieImg">
+               <img src="'.$detallesPelicula['imagen'].'" alt="Pelicula" class="movieImg">
             </div>
             <div class="col md-8">
-                <h2>'.$pelicula['nombre'].'</h2>
-                <p>'.$pelicula['sinopsis'].'</p>
+                <h2>'.$detallesPelicula['nombre'].'</h2>
+                <p>'.$detallesPelicula['sinopsis'].'</p>
                 <ul class="list-unstyled">
-                    <li>Durada : '.$pelicula['duracion'].' </li>
-                    <li>Director: '.$pelicula['director'].' </li>
-                    <li>Actors: '.$pelicula['reparto'].' </li>
-                    <li>Qualificació: '.$pelicula['calificacion'].' </li>
-                    <li>Genere: '.$pelicula['genero'].' </li>
+                    <li>Durada : '.$detallesPelicula['duracion'].' </li>
+                    <li>Director: '.$detallesPelicula['director'].' </li>
+                    <li>Actors: '.$detallesPelicula['reparto'].' </li>
+                    <li>Qualificació: '.$detallesPelicula['calificacion'].' </li>
+                    <li>Genere: '.$detallesPelicula['genero'].' </li>
                 </ul>
                   <div class="showtimes">
           <strong>Horaris:</strong>
