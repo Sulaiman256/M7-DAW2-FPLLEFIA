@@ -44,6 +44,15 @@ include 'pelicules.php';
       .showtimes button {
       margin-right: 10px;
     }
+    .star{
+      font-size: 2rem;
+      color: #ffcc00;
+    }
+    .star-empty {
+      font-size: 2rem;
+      color: #ccc;
+
+    }
         
     </style>
 </head>
@@ -72,13 +81,49 @@ include 'pelicules.php';
           <button class="btn btn-outline-secondary">'.$detallesPelicula['horario_array'][1].'</button>
           <button class="btn btn-outline-secondary">'.$detallesPelicula['horario_array'][2].'</button>
           <button class="btn btn-outline-secondary">'.$detallesPelicula['horario_array'][3].'</button>
-        </div>
-            </div>
-          '
-          
+          <div class="containerValoracion mt-5">
+          <h4>Valoracion: </h4>
+          <div class="star-rating">';
+        $valoracion = intval($detallesPelicula['valoracion']); 
+        for($i=1; $i<=5; $i++){
+          if($i<=$valoracion){
+          echo '<i class="star">&#9733</i>'; 
+          }else{
+            //  estrellas pero vacias
+            echo '<i class="star-empty">&#9734</i>';
+          }
+        }
+         echo '
+                        </div>
+                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="'.implode($detallesPelicula['imagenesCarrusel']).'" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+                    </div>
+                </div>
+            ';
           ?>
         </div>
+        
     </div>
+  
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
