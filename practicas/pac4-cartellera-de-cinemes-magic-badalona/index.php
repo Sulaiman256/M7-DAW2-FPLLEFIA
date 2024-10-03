@@ -60,17 +60,13 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">Add some information about the album below, the author, or any other background
-              context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off
-              to some social networking sites or contact information.</p>
+            <h4 class="text-white">Sobre mi pagina web</h4>
+            <p class="text-muted">Sulaiman Cartellera Cinema es tu portal definitivo para explorar el fascinante mundo del cine. Nos apasiona el séptimo arte y queremos compartir esa pasión contigo. En nuestro sitio, encontrarás todo lo que necesitas saber sobre los últimos estrenos, películas clásicas y recomendaciones imperdibles para cualquier tipo de espectador.</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 class="text-white">Contact</h4>
             <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Follow on Twitter</a></li>
-              <li><a href="#" class="text-white">Like on Facebook</a></li>
-              <li><a href="#" class="text-white">Email me</a></li>
+              <li><a href="https://www.linkedin.com/in/suleiman-el-taha-santos-6b0054254/" class="text-white">Linkedin</a></li>
             </ul>
           </div>
         </div>
@@ -101,10 +97,6 @@
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="font-weight-light">Sulaiman Cartellera Cinema</h1>
           <p class="lead text-muted">Este es un cine del propietario llamado Sulaiman El Taha Santos </p>
-          <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-          </p>
         </div>
       </div>
     </section>
@@ -127,7 +119,7 @@
           <p class="card-text">' . $peliculas['horario_proyeccion'] . '</p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary"><a href="trailer.php">Veure tràiler</a></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary"><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/trailer.php?id='.$peliculas['id'].'">Veure tràiler</a></button>
               <button type="button" class="btn btn-sm btn-outline-secondary"><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/detall.php?id='.$peliculas['id'].'">Veure més informació</a></button>
             </div>
             <small class="text-muted">9 mins</small>
@@ -136,11 +128,13 @@
       </div>
     </div>
   ';
+  
           }
           
           ?>
           </div>
       </div>
+ 
     </div>
 
   </main><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/detall.php"></a>

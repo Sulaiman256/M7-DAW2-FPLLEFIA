@@ -30,7 +30,7 @@ include 'pelicules.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?php echo $detallesPelicula['nombre'];?></title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -52,6 +52,11 @@ include 'pelicules.php';
       font-size: 2rem;
       color: #ccc;
 
+    }
+
+    .carousel-item img {
+      height: 300px;
+      object-fit: cover;
     }
         
     </style>
@@ -93,20 +98,27 @@ include 'pelicules.php';
             echo '<i class="star-empty">&#9734</i>';
           }
         }
-         echo '
-                        </div>
-                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+         ?>
+         </div>
+         </div>
+      
+                        
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="'.implode($detallesPelicula['imagenesCarrusel']).'" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-  </div>
+    <?php 
+    $active = true;
+    foreach($detallesPelicula['imagenesCarrusel'] as $imagen){
+      if($active){
+          echo '<div class="carousel-item active">';
+          $active = false;
+      }else {
+        echo '<div class="carousel-item">';
+      }
+      echo '<img src="'.$imagen.'" class="d-block w-100" alt="...">';
+      echo '</div>';
+    }
+    
+    ?>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
@@ -118,8 +130,7 @@ include 'pelicules.php';
 </div>
                     </div>
                 </div>
-            ';
-          ?>
+          
         </div>
         
     </div>
