@@ -62,16 +62,16 @@ include 'pelicules.php';
                 <ul class="list-unstyled">
                     <li>Durada : '.$detallesPelicula['duracion'].' </li>
                     <li>Director: '.$detallesPelicula['director'].' </li>
-                    <li>Actors: '.$detallesPelicula['reparto'].' </li>
+                    <li>Actors: '.implode(" ",$detallesPelicula['reparto']).' </li>
                     <li>Qualificació: '.$detallesPelicula['calificacion'].' </li>
-                    <li>Genere: '.$detallesPelicula['genero'].' </li>
+                    <li>Genere: '.implode(" ", $detallesPelicula['genero']).' </li>
                 </ul>
                   <div class="showtimes">
           <strong>Horaris:</strong>
-          <button class="btn btn-outline-secondary">16:00</button>
-          <button class="btn btn-outline-secondary">18:00</button>
-          <button class="btn btn-outline-secondary">20:00</button>
-          <button class="btn btn-outline-secondary">22:30</button>
+          <button class="btn btn-outline-secondary">'.$detallesPelicula['horario_array'][0].'</button>
+          <button class="btn btn-outline-secondary">'.$detallesPelicula['horario_array'][1].'</button>
+          <button class="btn btn-outline-secondary">'.$detallesPelicula['horario_array'][2].'</button>
+          <button class="btn btn-outline-secondary">'.$detallesPelicula['horario_array'][3].'</button>
         </div>
             </div>
           '
