@@ -9,7 +9,7 @@ $pelicula = [
     [
     'id' => 1,
     'nombre' =>  'Pulp Fiction',
-    'imagen' => 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Pulp_Fiction_Logo.svg',
+    'imagen' => 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/66cf2910776883.560eaca5f2a02.jpg',
     'horario_proyeccion' => '12:00  - 17:30',
     'horario_array' => ['9:00','11:45', '14:30', '17:15' ],
     'sinopsis' => 'Una pareja de adolescentes conocidos como el protagonista, Wes Anderson (Brad Pitt) y el enemigo, Michael Douglas (Christopher Nolan)',
@@ -18,7 +18,7 @@ $pelicula = [
    'reparto' => ['Quentin Tarantino', 'Brad Pitt', 'Christopher Nolan', 'Kate Winslet', 'Anurag Kashyap'],
     'calificacion' => '+18',
     'genero' => ['Drama', 'Thriller'],
-    'url_trailer' => 'https://youtu.be/auCgsj0MV-M?si=EaC3EKY92Cyny5lb',
+    'url_trailer' => 'https://ucarecdn.com/c9ff771b-d282-46d1-9730-7e2913c0aaa2/',
     'valoracion' => 5,
     'imagenesCarrusel' => ['https://hips.hearstapps.com/es.h-cdn.co/fotoes/images/peliculas/origen/galeria/3947111-4-esl-ES/Origen.jpg?crop=1xw:0.84375xh;center,top', 'https://webipedia.es/wp-content/uploads/2020/05/05_ControvertidoFinal-1024x578.jpg','https://i.blogs.es/66c967/dicapriocobb_650/450_1000.jpg', 'https://cdn.culturagenial.com/es/imagenes/ariadne-dom-inception-cke.jpg?class=article' ]
     ],
@@ -34,7 +34,7 @@ $pelicula = [
         'reparto' => ['Leonardo DiCaprio', 'Joseph Gordon-Levitt', 'Elliot Page', 'Tom Hardy'],
         'calificacion' => 13,
         'genero' => ['Ciencia Ficción', 'Acción'],
-        'url_trailer' => 'https://youtu.be/RV9L7ui9Cn8?si=vOiaBlixwz2lEzFb',
+        'url_trailer' => 'https://ucarecdn.com/219ba2da-494e-49eb-94b3-5845237c74b7/',
         'valoracion' => 2,
         'imagenesCarrusel' => ['https://img.europapress.es/fotoweb/fotonoticia_20150606095824_690.jpg', 'https://hips.hearstapps.com/es.h-cdn.co/fotoes/images/cinefilia/finales-polemicos/inception-movie-image-19/101981075-1-esl-ES/Inception-movie-image-19.jpg','https://hips.hearstapps.com/es.h-cdn.co/fotoes/images/cinefilia/finales-polemicos/inception-movie-image-19/101981075-1-esl-ES/Inception-movie-image-19.jpg','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfKcSObBP4r5mvvzpxHZ5d7MxuKDbpXbLdYA2dxi6ySg-cuIdyUo-DzBk9pjRqfq0ge38&usqp=CAU']
     ],
@@ -50,7 +50,7 @@ $pelicula = [
         'reparto' => ['Tim Robbins', 'Morgan Freeman'],
         'calificacion' => '+18',
         'genero' => ['Drama'],
-        'url_trailer' => 'https://youtu.be/xB4nJg0fyE0?si=Z5d_yNF5MQ9_lxpF',
+        'url_trailer' => 'https://ucarecdn.com/edcfefbb-10db-4ffa-80b4-37ce6ff2dea6/',
          'valoracion' => 2,
         'imagenesCarrusel' => ['https://m.media-amazon.com/images/M/MV5BNjQ2NDA3MDcxMF5BMl5BanBnXkFtZTgwMjE5NTU0NzE@._V1_.jpg','https://m.media-amazon.com/images/M/MV5BMTgxMTU1MDkwOV5BMl5BanBnXkFtZTcwMDQxNDY3Mw@@._V1_.jpg','https://www.simplemost.com/wp-content/uploads/2019/07/shawshank-redemption-e1564422107851.jpg','https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/02/09/09/ShawshankRedempt_184Pyxurz.jpg']
     ],
@@ -66,7 +66,7 @@ $pelicula = [
         'reparto' => ['Marlon Brando', 'Al Pacino', 'James Caan'],
         'calificacion' => '+18',
         'genero' => ['Crimen', 'Drama'],
-        'url_trailer' => 'https://youtu.be/v72XprPxy3E?si=wQkSv9aeag06moXz',
+        'url_trailer' => 'https://ucarecdn.com/e3ecd286-706d-4528-83e6-7069157cd66f/',
          'valoracion' => 1,
         'imagenesCarrusel' => ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1uvAtjNDScKw9ET3tDcO5uIOuEw0c1w9Lzg&s','https://static1.moviewebimages.com/wordpress/wp-content/uploads/2024/03/is-the-corleone-family-from-the-godfather-real_.jpg','https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/06/the-godfather.jpg','https://static1.srcdn.com/wordpress/wp-content/uploads/2024/03/the-godfather-ending.jpg']
     ],
@@ -82,7 +82,7 @@ $pelicula = [
         'reparto' => ['Brad Pitt', 'Edward Norton', 'Helena Bonham Carter'],
         'calificacion' => +18,
         'genero' => ['Drama', 'Thriller'],
-        'url_trailer' => 'https://youtu.be/eUm7FNowyNo?si=pHeT9gEfIYg7gxcK',
+        'url_trailer' => 'https://ucarecdn.com/2d087e67-8c1c-4770-94dd-2f15745d1025/',
          'valoracion' => 5,
         'imagenesCarrusel' => ['https://media.newyorker.com/photos/5dbafcc91b4a6700085a7a9b/master/pass/Baker-FightClub.jpg','https://i.guim.co.uk/img/media/0cc3f6e9036a5026463368a34d74cc55ea1eb51e/0_0_2048_1229/master/2048.jpg?width=465&dpr=1&s=none','https://c8.alamy.com/comp/BKANW9/fight-club-1999-jared-leto-edward-norton-fgcb-005foh-moviestore-collection-BKANW9.jpg','https://preview.redd.it/2xu5ljxrdn051.jpg?auto=webp&s=49ba2ea84d3af225536c86bb713b43f1957e6cb0']
     ],
@@ -98,7 +98,7 @@ $pelicula = [
         'reparto' => ['Tom Hanks', 'Robin Wright', 'Gary Sinise'],
         'calificacion' => 13,
         'genero' => ['Drama', 'Romance'],
-        'url_trailer' => 'https://youtu.be/Cyh1LpxnaxI?si=eYNhabFh70tzcNNQ',
+        'url_trailer' => 'https://ucarecdn.com/b8e88105-edb8-48bf-beaa-c7fb6c52dd1b/',
          'valoracion' => 5,
         'imagenesCarrusel' => ['https://static.posters.cz/image/750/art-photo/forrest-gump-i134951.jpg', 'https://i.blogs.es/d3c1a2/forrest-gump-feather/450_1000.jpg','https://www.pluggedin.com/wp-content/uploads/2020/01/Forrest-Gump-large-1200x686.jpg','https://blogtomados.wordpress.com/wp-content/uploads/2012/06/forrest-gump.jpg'],
     ],
@@ -114,7 +114,7 @@ $pelicula = [
         'reparto' => ['Christian Bale', 'Heath Ledger', 'Aaron Eckhart'],
         'calificacion' => 13,
         'genero' => ['Acción', 'Crimen', 'Drama'],
-        'url_trailer' => 'https://youtu.be/Qs-NylETt1E?si=AiBy0hoX8rYPZjGL',
+        'url_trailer' => 'https://ucarecdn.com/71ba48b6-122e-409c-8b98-bd71ba9cdd4c/',
          'valoracion' => 5,
         'imagenesCarrusel' => ['https://play-lh.googleusercontent.com/proxy/MI1iDBePMmwOUCfsLAU6ibqOG8snlh3kG26WepGHcOfZfBay9oVQ7XDxnu5FeDwXf1tCFd1fdAAG1OM_9SJlV1tGQMzcdaDitSS9BVRLiPInFnLYo6Y=s3840-w3840-h2160','https://theconsultingdetectivesblog.com/wp-content/uploads/2014/06/the-dark-knight-original.jpg','https://elgolocine.wordpress.com/wp-content/uploads/2023/04/dkr1.0.jpeg','https://cdn.britannica.com/78/253178-050-7F4A01C5/Publicity-still-showing-Christian-Bale-in-The-Dark-Knight-Batman-movie.jpg'],
         
@@ -131,7 +131,7 @@ $pelicula = [
         'reparto' => ['Keanu Reeves', 'Laurence Fishburne', 'Carrie-Anne Moss'],
         'calificacion' => '+18',
         'genero' => ['Acción', 'Ciencia Ficción'],
-        'url_trailer' => 'https://youtu.be/Pl_H2Lmjn6k?si=L-6FnCSaOr3EEPwn'
+        'url_trailer' => 'https://ucarecdn.com/38427f86-7bab-4ff7-a133-a4d84d501b2d/'
         , 'valoracion' => 4,
         'imagenesCarrusel' => ['https://i.guim.co.uk/img/media/b295f1c9d47d4e21463c51b568588f2dd055627a/0_49_2000_1200/master/2000.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=300c5ff59a025011176116cfbd4c5212','https://media.gq-magazine.co.uk/photos/646c9413b4c3aec3e98eae2b/master/pass/The-matrix-reloaded-HP.jpg','https://media.gq.com.mx/photos/6176bdb0f865d472dfcd6685/16:9/w_2560%2Cc_limit/MATRIX.jpg','https://cdn.culturagenial.com/es/imagenes/neo-matrix-keanu-reeves.jpg?class=article'],
     ],
@@ -147,7 +147,7 @@ $pelicula = [
         'reparto' => ['Jodie Foster', 'Anthony Hopkins', 'Scott Glenn'],
         'calificacion' => '+18',
         'genero' => ['Crimen', 'Drama', 'Thriller'],
-        'url_trailer' => 'https://youtu.be/3VZa6KAxE1I?si=XMJAJo9BeqU6-9XK',
+        'url_trailer' => 'https://ucarecdn.com/45de50dc-bee4-4590-89cc-4d3413b17d3e/',
          'valoracion' => 2,
     'imagenesCarrusel' => ['https://m.media-amazon.com/images/M/MV5BMTczMDE3NzU2M15BMl5BanBnXkFtZTcwNjkwNjM5NA@@._V1_.jpg','https://i0.wp.com/thescriptblog.com/wp-content/uploads/2021/04/main-characters-The-Silence-of-the-Lambs-thescriptblog.com_-1.jpeg?fit=835%2C771&quality=95&strip=all&ssl=1','https://res.cloudinary.com/bloomsbury-atlas/image/upload/w_568,c_scale,dpr_1.5/jackets/9781839023675.jpg','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkNsixQ8ZZxPVeFnhHjqBcp-3zvyRUNcRkhOJL1A6U3I4hq7oEhw8KjUMlAN8I0bKbAKs&usqp=CAU'],
     ],
@@ -163,7 +163,7 @@ $pelicula = [
         'reparto' => ['Liam Neeson', 'Ben Kingsley', 'Ralph Fiennes'],
         'calificacion' => '+18',
         'genero' => ['Biografía', 'Drama', 'Historia'],
-        'url_trailer' => 'https://youtu.be/BmkchuRJ82w?si=RgZpyiAshkD7k9Je',
+        'url_trailer' => 'https://ucarecdn.com/34a41358-479e-4a30-929c-2520168d46a2/',
          'valoracion' => 3,
         'imagenesCarrusel' => ['https://i.ytimg.com/vi/7q-ETFeMxwI/mqdefault.jpg','https://th-thumbnailer.cdn-si-edu.com/jE5-nDmdQg4Q9K-847UWbyi2yF4=/fit-in/1600x0/filters:focal(700x527:701x528)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ce/60/ce606b0a-bd71-43b3-84d6-08811e7828c7/schindlers.jpg','https://dondisco.net/17110-large_default/bso-cd-la-lista-de-schindler-schindler-s-list.jpg','https://www.indiewire.com/wp-content/uploads/2023/05/Schindlers.jpg'],
     ]

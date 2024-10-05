@@ -19,21 +19,21 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
   <style>
+    .containerImg{
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .imgCustom{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   
 
 
-    .imgCustom {
-        width: 100% !important; 
-        height: 100% !important;
-    }
-
-    .containerImg{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: "300px" !important;
-        height: "225px" !important;
-    }
     a{
         text-decoration: none;
         color: #333;
@@ -111,22 +111,24 @@
           foreach ($pelicula as $peliculas) {
             // var_dump($peliculas);
             echo '
-             <div class="col">
-      <div class="card shadow-sm">
-        <img src="' . $peliculas['imagen'] . '" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="Imagen de ' . $peliculas['nombre'] . ' ' . $peliculas['director'] . '">
-        <div class="card-body">
-          <h5 class="card-title">' . $peliculas['nombre'] .  '</h5>
-          <p class="card-text">' . $peliculas['horario_proyeccion'] . '</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary"><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/trailer.php?id='.$peliculas['id'].'">Veure tràiler</a></button>
-              <button type="button" class="btn btn-sm btn-outline-secondary"><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/detall.php?id='.$peliculas['id'].'">Veure més informació</a></button>
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
+        <div class="col">
+    <div class="card shadow-sm">
+        <div class="containerImg">
+            <img src="' . $peliculas['imagen'] . '" class="imgCustom" alt="Imagen de ' . $peliculas['nombre'] . ' ' . $peliculas['director'] . '">
         </div>
-      </div>
+        <div class="card-body">
+            <h5 class="card-title">' . $peliculas['nombre'] .  '</h5>
+            <p class="card-text">' . $peliculas['horario_proyeccion'] . '</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary"><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/trailer.php?id='.$peliculas['id'].'">Veure tràiler</a></button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary"><a href="../../practicas/pac4-cartellera-de-cinemes-magic-badalona/detall.php?id='.$peliculas['id'].'">Veure més informació</a></button>
+                </div>
+                <small class="text-muted">9 mins</small>
+            </div>
+        </div>
     </div>
+</div>
   ';
   
           }
