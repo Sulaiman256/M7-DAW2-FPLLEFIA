@@ -169,13 +169,63 @@ function ordenarArrayAlfabetico($nombres){
 ordenarArrayAlfabetico(['Sulaiman', 'El Taha', 'Santos']);
 
 function filtrarMayores($numeros, $valor){
-    $resultado = array_filter($numeros);
-        if($numeros > $valor){
-            echo '<h2>'.implode(" ", $resultado).'<h2>';
-        }
-
+    $filtrarMayores = array_filter($numeros, function($numero) use ($valor){
+        return $numero > $valor;
+    });
+    echo '<h2>Números mayores a '.$valor.': '.implode(', ', $filtrarMayores).'</h2>';
 }
-filtrarMayores([5,3,2,6,7,1], 5)
+filtrarMayores([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5);
 
+function buscarEnArray($array, $valor){
+    $buscarEnArray = in_array($valor, $array);
+    echo '<h2>El valor '.$valor.' está en el array: '.($buscarEnArray? 'Sí' : 'No').'</h2>';
+}
+
+buscarEnArray([1, 2, 3, 4, 5], 3);
+
+function contarElementos($array){
+    $contarElementos = count($array);
+    echo '<h2>Número de elementos en el array: '.$contarElementos.'</h2>';
+}
+
+contarElementos([1, 2, 3, 4, 5]);
+
+function obtenerMaximo($numeros){
+    $maximo = max($numeros);
+    echo '<h2>Número máximo: '.$maximo.'</h2>';
+}
+
+obtenerMaximo([1, 2, 3, 4, 5]);
+
+function obtenerMinimo($numeros){
+    $minimo = min($numeros);
+    echo '<h2>Número mínimo: '.$minimo.'</h2>';
+}
+
+obtenerMinimo([1, 2, 3, 4, 5]);
+
+function eliminarDuplicados($array){
+    $eliminarDuplicados = array_unique($array);
+    echo '<h2>Array sin duplicados: '.implode(', ', $eliminarDuplicados).'</h2>';
+}
+
+eliminarDuplicados([1, 2, 3, 4, 5, 2, 3, 4, 5]);
+
+function combinarArrays($array1, $array2){
+    $combinarArrays = array_merge($array1, $array2);
+    echo '<h2>Array combinados: '.implode(', ', $combinarArrays).'</h2>';
+}
+
+combinarArrays([1, 2, 3], [4, 5, 6]);
+
+function dividirArray($array, $tamanio){
+    $dividirArray = array_chunk($array, $tamanio);
+    foreach($dividirArray as $chunk){
+        echo '<h2>Chunk: '.implode(', ', $chunk).'</h2>';
+    }
+}
+dividirArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3);
 ?>
+
+
 
