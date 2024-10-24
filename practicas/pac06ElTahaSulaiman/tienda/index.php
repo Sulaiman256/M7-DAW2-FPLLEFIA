@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Practica 6 - Mercadona</title>
 </head>
 <body>
     <header>
         <?php include_once './includes/header.php'; ?>
     </header>
     <main>
-        <h1>Bienvenido a Mercadona!</h1>
-        <p>Esta es la página principal de Mercadona.</p>
+        <?php include_once './data/productos.php'  ?>
+         <?php include_once './includes/funciones.php'; ?>
+
     </main>
 
     <footer>
