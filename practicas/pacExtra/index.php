@@ -3,7 +3,7 @@
 session_start();
 
 $usuarios = [
-    ['name' => 'Juan', 'email' => 'juan@example.com', 'password' => '1234'],
+    ['name' => 'Juan', 'email' => 'juan@gmail.com', 'password' => '1234'],
     ['name' => 'Maria', 'email' => 'maria@example.com', 'password' => 'abcd'],
 ];
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php if (isset($error)): ?>
             <div class="alert alert-danger"><?php echo $error; ?></div>
         <?php endif; ?>
-        <form action="" method="POST">
+        <form action="formApuestas.php" method="POST">
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico:</label>
                 <input type="email" class="form-control" id="email" name="email" required>
