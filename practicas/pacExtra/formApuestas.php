@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 if (!isset($_SESSION['usuario'])) {
     header('Location: index.php');
     exit;
@@ -49,7 +51,7 @@ paso 2 , 3 , 4 , 5 con PHP  -->
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">Bienvenido <?php echo $_SESSION['usuario'] ?></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -58,32 +60,14 @@ paso 2 , 3 , 4 , 5 con PHP  -->
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
+
                 </ul>
                 <div class="d-flex align-items-center">
-                    <?php if (isset($_SESSION['user'])): ?>
-                        <span class="me-3">Hola, <?php echo $_SESSION['user']; ?>!</span>
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <span class="me-3">Hola, <?php echo $_SESSION['usuario']; ?>! quieres cerrar sesion</span>
                         <a href="logout.php" class="btn btn-danger">Cerrar Sesión</a>
                     <?php else: ?>
-                        <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
+                        <a href="index.php" class="btn btn-primary">Iniciar Sesión</a>
                     <?php endif; ?>
                 </div>
             </div>
