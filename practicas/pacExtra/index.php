@@ -5,7 +5,9 @@ session_start();
 
 include_once 'users.php';
 
-var_dump($_SESSION['usuario']);
+if (!isset($_SESSION['usuario'])) {
+    $_SESSION['usuario'] = $usuarios;
+}
 
 
 
@@ -22,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     $error = "Credenciales incorrectas";
 }
+
+var_dump($_SESSION['usuario'])
 
 
 ?>
