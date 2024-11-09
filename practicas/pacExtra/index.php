@@ -46,7 +46,7 @@ var_dump($_SESSION['usuario'])
         <?php if (isset($error)): ?>
             <div class="alert alert-danger"><?php echo $error; ?></div>
         <?php endif; ?>
-        <form action="index.php" method="POST">
+        <form action="../../practicas/pacExtra/index.php" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico:</label>
                 <input type="email" class="form-control" id="email" name="email" required>
