@@ -1,5 +1,9 @@
 <?php
 
+session_start();
+
+
+
 
 
 function generarNum()
@@ -14,12 +18,30 @@ $color = ($numeroGanador === 0) ? "Verde" : (($numeroGanador % 2 === 0) ? "Negro
 $apuestaTipo = $_POST['apuesta'];
 $valorApuesta = $_POST['valorApuesta'];
 $cantidadApostada = $_POST['money'];
-
-$resultado = "Numero ganador:  $numeroGanador ($color)<br>";
 $ganancia = 0;
 
+
+if (!isset($_SESSION['historial_apostes'])) {
+    $_SESSION['historial_apostes'] = [];
+}
+
+
+var_dump($ganancia); // Verifica el valor de ganancia
+$_SESSION['historial_apostes'][] = [
+    'apuestaTipo' => $apuestaTipo,
+    'valorApuesta' => $valorApuesta,
+    'cantidadApostada' => $cantidadApostada,
+    'fecha' => date('Y-m-d H:i:s'),
+    'Perdida' => $ganancia < 0 ? abs($ganancia) : 0,
+    'Ganancia' => $ganancia > 0 ? $ganancia : 0
+];
+
+
+$resultado = "Numero ganador:  $numeroGanador ($color)<br>";
+
+
 switch ($apuestaTipo) {
-    
+
     case '1':
         var_dump($color, $valorApuesta);
         if (strtolower($valorApuesta) === strtolower($color)) {

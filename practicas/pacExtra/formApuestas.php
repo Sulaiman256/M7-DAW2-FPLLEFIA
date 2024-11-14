@@ -5,6 +5,7 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: index.php'); // Redirige a login si no hay usuario en la sesión
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +46,7 @@ paso 2 , 3 , 4 , 5 con PHP  -->
 <body>
     <?php
     session_start();
+
     ?>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -76,11 +78,29 @@ paso 2 , 3 , 4 , 5 con PHP  -->
         <h4>Apuestas realizadas</h4>
         <ul>
             <?php
-            $apuestas = isset($_SESSION['apuestas']) ? $_SESSION['apuestas'] : [];
-            foreach ($apuestas as $apuesta) {
-                echo "<li>Tipo: {$apuesta['tipoApuesta']} - Valor: {$apuesta['valorApuesta']} - Cantidad: {$apuesta['money']}</li>";
+            session_start();
+
+            if (isset($_SESSION['historial_apostes']) && count($_SESSION['historial_apostes']) > 0) {
+                echo "<h2>Historial d'Apostes</h2>";
+                echo "<table border='1'>";
+                echo "<tr><th>Data</th><th>Tipus d'Aposta</th><th>Valor d'Aposta</th><th>Quantitat Apostada</th><th>Perdida</th><th>Ganancia</th></tr>";
+
+                foreach ($_SESSION['historial_apostes'] as $aposta) {
+                    echo "<tr>";
+                    echo "<td>" . (isset($aposta['fecha']) ? $aposta['fecha'] : 'No disponible') . "</td>";
+                    echo "<td>" . (isset($aposta['apuestaTipo']) ? $aposta['apuestaTipo'] : 'No disponible') . "</td>";
+                    echo "<td>" . (isset($aposta['valorApuesta']) ? $aposta['valorApuesta'] : 'No disponible') . "</td>";
+                    echo "<td>" . (isset($aposta['cantidadApostada']) ? $aposta['cantidadApostada'] : 'No disponible') . "</td>";
+                    echo "<td>" . (isset($aposta['Perdida']) ? $aposta['Perdida'] : '0') . "</td>";
+                    echo "<td>" . (isset($aposta['Ganancia']) ? $aposta['Ganancia'] : '0') . "</td>";
+                    echo "</tr>";
+                }
+
+
+                echo "</table>";
+            } else {
+                echo "<p>No tens apostes anteriors.</p>";
             }
-            
             ?>
         </ul>
         <hr>
@@ -271,8 +291,6 @@ paso 2 , 3 , 4 , 5 con PHP  -->
                     break;
             }
         });
-
-        
     </script>
 </body>
 
