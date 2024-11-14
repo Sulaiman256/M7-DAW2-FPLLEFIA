@@ -19,8 +19,10 @@ $resultado = "Numero ganador:  $numeroGanador ($color)<br>";
 $ganancia = 0;
 
 switch ($apuestaTipo) {
+    
     case '1':
-        if ($valorApuesta === $color) {
+        var_dump($color, $valorApuesta);
+        if (strtolower($valorApuesta) === strtolower($color)) {
             $ganancia = $cantidadApostada * 1;
             $resultado .= "¡Ganaste! Tu ganancia es: $ganancia";
         } else {
@@ -35,7 +37,7 @@ switch ($apuestaTipo) {
             $resultado .= "Perdiste! Tu pérdida es: $ganancia";
         } else {
             $parImparGanador = ($numeroGanador % 2 === 0) ? "Par" : "Impar";
-            if ($valorApuesta === strtolower($parImparGanador)) {
+            if (strtolower($valorApuesta) === strtolower($parImparGanador)) {
                 $ganancia = $cantidadApostada * 1;
                 $resultado .= "¡Ganaste! Tu ganancia es: $ganancia";
             } else {
