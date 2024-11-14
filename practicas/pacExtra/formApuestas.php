@@ -72,6 +72,27 @@ paso 2 , 3 , 4 , 5 con PHP  -->
         </div>
     </nav>
 
+    <div class="fixed-left">
+        <h4>Apuestas realizadas</h4>
+        <ul>
+            <?php
+            $apuestas = isset($_SESSION['apuestas']) ? $_SESSION['apuestas'] : [];
+            foreach ($apuestas as $apuesta) {
+                echo "<li>Tipo: {$apuesta['tipoApuesta']} - Valor: {$apuesta['valorApuesta']} - Cantidad: {$apuesta['money']}</li>";
+            }
+            ?>
+        </ul>
+        <hr>
+        <?php
+        $sueldo = 1000;
+        ?>
+        <span>
+            <label for="sueldo">Sueldo actual: $<?php echo $sueldo; ?></label>
+            <input type="hidden" name="sueldo" value="<?php echo $sueldo; ?>">
+        </span>
+
+    </div>
+
     <div class="container">
         <h2>Formulario de Apuestas</h2>
         <form action="main.php" method="post">
