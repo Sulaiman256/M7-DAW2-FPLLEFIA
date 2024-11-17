@@ -74,224 +74,286 @@ paso 2 , 3 , 4 , 5 con PHP  -->
         </div>
     </nav>
 
-    <div class="fixed-left">
-        <h4>Apuestas realizadas</h4>
-        <ul>
-            <?php
-            session_start();
+    <?php
+    session_start();
 
-            if (isset($_SESSION['historial_apostes']) && count($_SESSION['historial_apostes']) > 0) {
-                echo "<h2>Historial d'Apostes</h2>";
-                echo "<table border='1'>";
-                echo "<tr><th>Data</th><th>Tipus d'Aposta</th><th>Valor d'Aposta</th><th>Quantitat Apostada</th><th>Perdida</th><th>Ganancia</th></tr>";
+    $saldo = isset($_SESSION['saldo']) ? $_SESSION['saldo'] : 1000;
 
-                foreach ($_SESSION['historial_apostes'] as $aposta) {
-                    echo "<tr>";
-                    echo "<td>" . (isset($aposta['fecha']) ? $aposta['fecha'] : 'No disponible') . "</td>";
-                    echo "<td>" . (isset($aposta['apuestaTipo']) ? $aposta['apuestaTipo'] : 'No disponible') . "</td>";
-                    echo "<td>" . (isset($aposta['valorApuesta']) ? $aposta['valorApuesta'] : 'No disponible') . "</td>";
-                    echo "<td>" . (isset($aposta['cantidadApostada']) ? $aposta['cantidadApostada'] : 'No disponible') . "</td>";
-                    echo "<td>" . (isset($aposta['Perdida']) ? $aposta['Perdida'] : '0') . "</td>";
-                    echo "<td>" . (isset($aposta['Ganancia']) ? $aposta['Ganancia'] : '0') . "</td>";
-                    echo "</tr>";
+    function formatMoney($amount)
+    {
+        return number_format($amount, 2, ',', '.');
+    }
+    ?>
+
+    <!DOCTYPE html>
+    <html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Historial de Apuestas</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .badge-win {
+                background-color: #28a745;
+            }
+
+            .badge-loss {
+                background-color: #dc3545;
+            }
+        </style>
+
+
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Historial de Apuestas</h4>
+                        </div>
+                        <div class="card-body">
+                            <?php
+                            var_dump($_SESSION['historial_apostes']);
+                            ?>
+                            <?php if (isset($_SESSION['historial_apostes']) && count($_SESSION['historial_apostes']) > 0): ?>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Tipo de Apuesta</th>
+                                                <th>Valor de Apuesta</th>
+                                                <th>Cantidad Apostada</th>
+                                                <th>Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($_SESSION['historial_apostes'] as $aposta): ?>
+                                                <tr>
+                                                    <td><?php echo isset($aposta['fecha']) ? $aposta['fecha'] : 'No disponible'; ?></td>
+                                                    <td><?php echo isset($aposta['apuestaTipo']) ? $aposta['apuestaTipo'] : 'No disponible'; ?></td>
+                                                    <td><?php echo isset($aposta['valorApuesta']) ? $aposta['valorApuesta'] : 'No disponible'; ?></td>
+                                                    <td><?php echo isset($aposta['cantidadApostada']) ? formatMoney($aposta['cantidadApostada']) : 'No disponible'; ?> €</td>
+                                                    <td>
+                                                        <?php if (isset($aposta['Ganancia']) && $aposta['Ganancia'] > 0): ?>
+                                                            <span class="badge badge-win">+<?php echo formatMoney($aposta['Ganancia']); ?> €</span>
+                                                        <?php elseif (isset($aposta['Perdida']) && $aposta['Perdida'] < 0): ?>
+                                                            <!-- Mostramos la perdida con signo negativo -->
+                                                            <span class="badge badge-loss">-<?php echo formatMoney($aposta['Perdida']); ?> €</span>
+                                                        <?php else: ?>
+                                                            <span class="badge bg-secondary">Sin resultado</span>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                            <?php else: ?>
+                                <p class="text-muted">No tienes apuestas anteriores.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0">Saldo Actual</h4>
+                        </div>
+                        <div class="card-body">
+                            <?php if (isset($saldo) && $saldo > 0): ?>
+                                <h2 class="display-4 text-center"><?php echo formatMoney($saldo); ?> €</h2>
+                            <?php else: ?>
+                                <h2 class="display-4 text-center">Saldo no disponible</h2>
+                            <?php endif; ?>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2>Formulario de Apuestas</h2>
+            <form action="main.php" method="post">
+                <div class="mb-3">
+                    <label for="apuesta" class="form-label">Tipo de apuesta:</label>
+                    <select class="form-select" id="apuesta" name="apuesta">
+                        <option value="">Seleccione una opción</option>
+                        <option value="Rojo/Negro">Rojo/Negro</option>
+                        <option value="Par/Impar">Par/Impar</option>
+                        <option value="Pasa/Falta">Pasa/Falta</option>
+                        <option value="Pleno">Pleno</option>
+                        <option value="Docena">Docena</option>
+                        <option value="Columna">Columna</option>
+                        <option value="Dos docenas">Dos docenas</option>
+                        <option value="Dos columnas">Dos columnas</option>
+                        <option value="Seisena">Seisena</option>
+                        <option value="Cuadro">Cuadro</option>
+                        <option value="Transversal">Transversal</option>
+                        <option value="Caballo">Caballo</option>
+
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="valorApuesta" class="form-label">Valor de apuesta:</label>
+                    <select class="form-select" id="valorApuesta" name="valorApuesta">
+                        <option value="">Seleccione una opción</option>
+                    </select>
+
+                </div>
+                <div class="mb-3">
+                    <label for="money" class="form-label">Cantidad de dinero:</label>
+                    <input type="number" class="form-control" name="money" id="money" required>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Aceptar términos y condiciones</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Apuesta</button>
+            </form>
+
+
+            <!-- tabla -->
+            <h2 class="text-center mb-4">Tabla de Apuestas</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Apuesta</th>
+                        <th>Se juega a</th>
+                        <th>Premio</th>
+                        <th>Ejemplo en la imagen (ficha)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rojo/Negro</td>
+                        <td>Se apuesta al color del número ganador, si será rojo o negro. Con esta apuesta se está jugando a 18 números, ya que hay 18 números rojos y 18 negros.</td>
+                        <td>1 x 1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Par/Impar</td>
+                        <td>Se apuesta a si el número donde cae la bola será par o impar. Con esta apuesta se está jugando a 18 números, bien a los 18 pares o impares.</td>
+                        <td>1 x 1</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>Pasa/Falta</td>
+                        <td>Se trata de apostar si el número estará entre 1-18 (falta) o 19-36 (pasa). Por tanto, se juega a 18 números.</td>
+                        <td>1 x 1</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>Docena</td>
+                        <td>Se apuesta a qué docena estará el número ganador. El tapete se divide en 3 docenas, cada una abarca 12 números. Se juega a 12 números.</td>
+                        <td>2 x 1</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>Columna</td>
+                        <td>Se apuesta a qué columna estará el número ganador. El tapete se divide en 3 columnas, cada una alberga 12 números. Se juega a 12 números.</td>
+                        <td>2 x 1</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Dos docenas</td>
+                        <td>Se apuesta a dos docenas contiguas, es decir, se puede apostar a las docenas 1 y 2, o a las docenas 2 y 3. Se juega a 24 números.</td>
+                        <td>0,5 x 1</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>Dos columnas</td>
+                        <td>Se apuesta a dos columnas contiguas. Se puede apostar a las columnas 1 y 2 o a las columnas 2 y 3. Se juega a 24 números.</td>
+                        <td>0,5 x 1</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>Seisena</td>
+                        <td>Se apuesta a 6 números con una sola apuesta. Los 6 números están en dos filas contiguas.</td>
+                        <td>5 x 1</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>Cuadro</td>
+                        <td>Se apuesta a 4 números con una sola apuesta. Esta apuesta se realiza sobre 4 números que forman un cuadrado en el tapete.</td>
+                        <td>8 x 1</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>Transversal</td>
+                        <td>Se apuesta a 3 números en una fila. Existen dos variaciones: a los números 0, 1 y 2 o a 0, 2 y 3.</td>
+                        <td>11 x 1</td>
+                        <td>10, 11, 12</td>
+                    </tr>
+                    <tr>
+                        <td>Caballo</td>
+                        <td>Se apuesta a 2 números contiguos en el tapete de manera horizontal o vertical.</td>
+                        <td>17 x 1</td>
+                        <td>13, 14</td>
+                    </tr>
+                    <tr>
+                        <td>Pleno</td>
+                        <td>Se apuesta a un solo número.</td>
+                        <td>35 x 1</td>
+                        <td>15</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+            console.log("Ruleta Americana")
+            const apuestaSelect = document.querySelector('#apuesta')
+            const valorApuesta = document.querySelector('#valorApuesta')
+
+            apuestaSelect.addEventListener('change', function() {
+                valorApuesta.innerHTML = '<option value="">Seleccione una opción</option>';
+                switch (this.value) {
+                    case 'Rojo/Negro':
+                        valorApuesta.innerHTML += '<option value="rojo">Rojo</option><option value="negro">Negro</option>';
+                        break;
+                    case 'Par/Impar':
+                        valorApuesta.innerHTML += '<option value="par">Par</option><option value="impar">Impar</option>';
+                        break;
+                    case 'Pasa/Falta':
+                        valorApuesta.innerHTML += '<option value="pasa">Pasa</option><option value="falta">Falta</option>';
+                        break;
+                    case 'Pleno':
+                        valorApuesta.innerHTML += '<option value="pleno">Pleno</option>';
+                        break;
+                    case 'Docena':
+                        valorApuesta.innerHTML += '<option value="docena1">Primera Docena</option><option value="docena2">Segunda Docena</option><option value="docena3">Tercera Docena</option>';
+                        break;
+                    case 'Columna':
+                        valorApuesta.innerHTML += '<option value="columna1">Primera Columna</option><option value="columna2">Segunda Columna</option><option value="columna3">Tercera Columna</option>';
+                        break;
+                    case 'Dos docenas':
+                        valorApuesta.innerHTML += '<option value="dosdocena1">Docenas 1 y 2</option><option value="dosdocena2">Docenas 2 y 3</option>';
+                        break;
+                    case 'Dos columnas':
+                        valorApuesta.innerHTML += '<option value="doscolumna1">Columnas 1 y 2</option><option value="doscolumna2">Columnas 2 y 3</option>';
+                        break;
+                    case 'Seisena':
+                        valorApuesta.innerHTML += '<option value="seisena">Una Seisena</option>';
+                        break;
+                    case 'Cuadro':
+                        valorApuesta.innerHTML += '<option value="cuadro">Cuadro</option>';
+                        break;
+                    case 'Transversal':
+                        valorApuesta.innerHTML += '<option value="transversal1">Transversal (0, 1, 2)</option><option value="transversal2">Transversal (0, 2, 3)</option>';
+                        break;
+                    case 'Caballo':
+                        valorApuesta.innerHTML += '<option value="caballo">Horizontal/Vertical</option>';
+                        break;
+                    default:
+                        break;
                 }
-
-
-                echo "</table>";
-            } else {
-                echo "<p>No tens apostes anteriors.</p>";
-            }
-            ?>
-        </ul>
-        <hr>
-        <?php
-        $sueldo = 1000;
-        ?>
-        <span>
-            <label for="sueldo">Sueldo actual: $<?php echo $sueldo; ?></label>
-            <input type="hidden" name="sueldo" value="<?php echo $sueldo; ?>">
-        </span>
-
-    </div>
-
-    <div class="container">
-        <h2>Formulario de Apuestas</h2>
-        <form action="main.php" method="post">
-            <div class="mb-3">
-                <label for="apuesta" class="form-label">Tipo de apuesta:</label>
-                <select class="form-select" id="apuesta" name="apuesta">
-                    <option value="">Seleccione una opción</option>
-                    <option value="1">Rojo/Negro</option>
-                    <option value="2">Par/Impar</option>
-                    <option value="3">Pasa/Falta</option>
-                    <option value="4">Pleno</option>
-                    <option value="5">Docena</option>
-                    <option value="6">Columna</option>
-                    <option value="7">Dos docenas</option>
-                    <option value="8">Dos columnas</option>
-                    <option value="9">Seisena</option>
-                    <option value="10">Cuadro</option>
-                    <option value="11">Transversal</option>
-                    <option value="12">Caballo</option>
-
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="valorApuesta" class="form-label">Valor de apuesta:</label>
-                <select class="form-select" id="valorApuesta" name="valorApuesta">
-                    <option value="">Seleccione una opción</option>
-                </select>
-
-            </div>
-            <div class="mb-3">
-                <label for="money" class="form-label">Cantidad de dinero:</label>
-                <input type="number" class="form-control" name="money" id="money" required>
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Aceptar términos y condiciones</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar Apuesta</button>
-        </form>
-
-
-        <!-- tabla -->
-        <h2 class="text-center mb-4">Tabla de Apuestas</h2>
-        <table class="table table-bordered table-striped">
-            <thead class="table-primary">
-                <tr>
-                    <th>Apuesta</th>
-                    <th>Se juega a</th>
-                    <th>Premio</th>
-                    <th>Ejemplo en la imagen (ficha)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Rojo/Negro</td>
-                    <td>Se apuesta al color del número ganador, si será rojo o negro. Con esta apuesta se está jugando a 18 números, ya que hay 18 números rojos y 18 negros.</td>
-                    <td>1 x 1</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>Par/Impar</td>
-                    <td>Se apuesta a si el número donde cae la bola será par o impar. Con esta apuesta se está jugando a 18 números, bien a los 18 pares o impares.</td>
-                    <td>1 x 1</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>Pasa/Falta</td>
-                    <td>Se trata de apostar si el número estará entre 1-18 (falta) o 19-36 (pasa). Por tanto, se juega a 18 números.</td>
-                    <td>1 x 1</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>Docena</td>
-                    <td>Se apuesta a qué docena estará el número ganador. El tapete se divide en 3 docenas, cada una abarca 12 números. Se juega a 12 números.</td>
-                    <td>2 x 1</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>Columna</td>
-                    <td>Se apuesta a qué columna estará el número ganador. El tapete se divide en 3 columnas, cada una alberga 12 números. Se juega a 12 números.</td>
-                    <td>2 x 1</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>Dos docenas</td>
-                    <td>Se apuesta a dos docenas contiguas, es decir, se puede apostar a las docenas 1 y 2, o a las docenas 2 y 3. Se juega a 24 números.</td>
-                    <td>0,5 x 1</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>Dos columnas</td>
-                    <td>Se apuesta a dos columnas contiguas. Se puede apostar a las columnas 1 y 2 o a las columnas 2 y 3. Se juega a 24 números.</td>
-                    <td>0,5 x 1</td>
-                    <td>7</td>
-                </tr>
-                <tr>
-                    <td>Seisena</td>
-                    <td>Se apuesta a 6 números con una sola apuesta. Los 6 números están en dos filas contiguas.</td>
-                    <td>5 x 1</td>
-                    <td>8</td>
-                </tr>
-                <tr>
-                    <td>Cuadro</td>
-                    <td>Se apuesta a 4 números con una sola apuesta. Esta apuesta se realiza sobre 4 números que forman un cuadrado en el tapete.</td>
-                    <td>8 x 1</td>
-                    <td>9</td>
-                </tr>
-                <tr>
-                    <td>Transversal</td>
-                    <td>Se apuesta a 3 números en una fila. Existen dos variaciones: a los números 0, 1 y 2 o a 0, 2 y 3.</td>
-                    <td>11 x 1</td>
-                    <td>10, 11, 12</td>
-                </tr>
-                <tr>
-                    <td>Caballo</td>
-                    <td>Se apuesta a 2 números contiguos en el tapete de manera horizontal o vertical.</td>
-                    <td>17 x 1</td>
-                    <td>13, 14</td>
-                </tr>
-                <tr>
-                    <td>Pleno</td>
-                    <td>Se apuesta a un solo número.</td>
-                    <td>35 x 1</td>
-                    <td>15</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        console.log("Ruleta Americana")
-        const apuestaSelect = document.querySelector('#apuesta')
-        const valorApuesta = document.querySelector('#valorApuesta')
-
-        apuestaSelect.addEventListener('change', function() {
-            valorApuesta.innerHTML = '<option value="">Seleccione una opción</option>';
-            switch (this.value) {
-                case '1':
-                    valorApuesta.innerHTML += '<option value="rojo">Rojo</option><option value="negro">Negro</option>';
-                    break;
-                case '2':
-                    valorApuesta.innerHTML += '<option value="par">Par</option><option value="impar">Impar</option>';
-                    break;
-                case '3':
-                    valorApuesta.innerHTML += '<option value="pasa">Pasa</option><option value="falta">Falta</option>';
-                    break;
-                case '4':
-                    valorApuesta.innerHTML += '<option value="pleno">Pleno</option>';
-                    break;
-                case '5':
-                    valorApuesta.innerHTML += '<option value="docena1">Primera Docena</option><option value="docena2">Segunda Docena</option><option value="docena3">Tercera Docena</option>';
-                    break;
-                case '6':
-                    valorApuesta.innerHTML += '<option value="columna1">Primera Columna</option><option value="columna2">Segunda Columna</option><option value="columna3">Tercera Columna</option>';
-                    break;
-                case '7':
-                    valorApuesta.innerHTML += '<option value="dosdocena1">Docenas 1 y 2</option><option value="dosdocena2">Docenas 2 y 3</option>';
-                    break;
-                case '8':
-                    valorApuesta.innerHTML += '<option value="doscolumna1">Columnas 1 y 2</option><option value="doscolumna2">Columnas 2 y 3</option>';
-                    break;
-                case '9':
-                    valorApuesta.innerHTML += '<option value="seisena">Una Seisena</option>';
-                    break;
-                case '10':
-                    valorApuesta.innerHTML += '<option value="cuadro">Cuadro</option>';
-                    break;
-                case '11':
-                    valorApuesta.innerHTML += '<option value="transversal1">Transversal (0, 1, 2)</option><option value="transversal2">Transversal (0, 2, 3)</option>';
-                    break;
-                case '12':
-                    valorApuesta.innerHTML += '<option value="caballo">Horizontal/Vertical</option>';
-                    break;
-                default:
-                    break;
-            }
-        });
-    </script>
+            });
+        </script>
 </body>
 
 </html>
