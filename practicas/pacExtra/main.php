@@ -18,6 +18,7 @@ $color = ($numeroGanador === 0) ? "Verde" : (($numeroGanador % 2 === 0) ? "Negro
 $apuestaTipo = $_POST['apuesta'];
 $valorApuesta = $_POST['valorApuesta'];
 
+
 $cantidadApostada = (int) ($_POST['money'] ?? 0);
 $ganancia = $cantidadApostada;
 
@@ -70,11 +71,15 @@ switch ($apuestaTipo) {
             if (strtolower($valorApuesta) === strtolower($parImparGanador)) {
                 $ganancia = $cantidadApostada * 1;
                 $resultado .= "¡Ganaste! Tu ganancia es: $ganancia";
+                $saldo += $ganancia;
             } else {
                 $ganancia = -$cantidadApostada;
                 $resultado .= "Perdiste! Tu pérdida es: $ganancia";
+                $saldo -= abs($ganancia);
             }
         }
+        $_SESSION['saldo'] = $saldo;
+
         break;
 
     case 'Pasa/Falta':
@@ -87,22 +92,30 @@ switch ($apuestaTipo) {
             ) {
                 $ganancia = $cantidadApostada * 1;
                 $resultado .= "¡Ganaste! Tu ganancia es: $ganancia";
+                $saldo += $ganancia;
             } else {
                 $ganancia = -$cantidadApostada;
                 $resultado .= "Perdiste! Tu pérdida es: $ganancia";
+                $saldo -= abs($ganancia);
             }
         }
+        $_SESSION['saldo'] = $saldo;
+
         break;
 
     case 'Pleno':
-        if ($numeroGanador == $valorApuesta) {
+        if ((int)$valorApuesta === $numeroGanador) { // Comparación correcta de números
             $ganancia = $cantidadApostada * 35;
-            $resultado .= "Ganaste! Tu ganancia es: $ganancia";
+            $resultado .= "¡Ganaste! Tu ganancia es: $ganancia";
+            $saldo += $ganancia;
         } else {
             $ganancia = -$cantidadApostada;
             $resultado .= "Perdiste! Tu pérdida es: $ganancia";
+            $saldo -= abs($ganancia);
         }
+        $_SESSION['saldo'] = $saldo;
         break;
+
     case 'Docena':
         $docenaGanadora = ($numeroGanador <= 12) ? 'docena1' : (($numeroGanador <= 24) ? 'docena2' : 'docena3');
         if ($valorApuesta === $docenaGanadora) {
