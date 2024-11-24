@@ -1,4 +1,55 @@
 <?php
+function agregarLibro($titulo, $autor, $imagen, $descripcion)
+{
+    include './array.php';
+
+    if (!isset($libros) || !is_array($libros)) {
+        $libros = [];
+    }
+
+    $nuevoLibro = [
+        'id' => count($libros) + 1,
+        'titulo' => $titulo,
+        'autor' => $autor,
+        'imagen' => $imagen,
+        'descripcion' => $descripcion,
+    ];
+
+    $libros[] = $nuevoLibro;
+
+    guardarLibros($libros);
+
+    return true;
+}
+
+
+function editarLibro($id, $titulo, $autor, $imagen, $descripcion)
+{
+    include './array.php';
+
+    foreach ($libros as &$libro) {
+        if ($libro['id'] == $id) {
+            $libro['titulo'] = $titulo;
+            $libro['autor'] = $autor;
+            $libro['imagen'] = $imagen;
+            $libro['descripcion'] = $descripcion;
+            break;
+        }
+    }
+
+    guardarLibros($libros);
+
+    return true;
+}
+
+function guardarLibros($libros)
+{
+    $contenido = '<?php' . PHP_EOL . '$libros = ' . var_export($libros, true) . ';' . PHP_EOL;
+    file_put_contents('./array.php', $contenido);
+}
+
+
+
 
 include_once './array.php';
 
@@ -9,8 +60,54 @@ if ($_SESSION['usuario'] != 'admin') {
     exit();
 }
 
+if ($_SESSION['role'] != 'admin') {
+    header('Location: home.php');
+    exit();
+}
+
+
+$id = isset($_GET['id']) ? $_GET['id'] : null;
+$titulo = '';
+$autor = '';
+$imagen = '';
+$descripcion = '';
+
+if ($id !== null) {
+    foreach ($libros as $libro) {
+        if ($libro['id'] == $id) {
+            $titulo = $libro['titulo'];
+            $autor = $libro['autor'];
+            $imagen = $libro['imagen'];
+            $descripcion = $libro['descripcion'];
+            break;
+        }
+        header('Location: home.php');
+        exit();
+    }
+}
+
+// Validar y procesar el formulario
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $titulo = trim($_POST['titulo']);
+    $autor = trim($_POST['autor']);
+    $imagen = trim($_POST['imagen']);
+    $descripcion = trim($_POST['descripcion']);
+
+    if (empty($titulo) || empty($autor)) {
+        echo "<script>alert('Por favor, completa los campos requeridos.');</script>";
+    } else {
+        if ($id !== null) {
+            editarLibro($id, $titulo, $autor, $imagen, $descripcion);
+        } else {
+            agregarLibro($titulo, $autor, $imagen, $descripcion);
+        }
+    }
+}
+
+
 ?>
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -25,8 +122,8 @@ if ($_SESSION['usuario'] != 'admin') {
     <header class="bg-light py-3 mb-4 shadow-sm">
         <div class="container d-flex align-items-center justify-content-between">
             <div>
-                <h4 class="m-0">👋 Bienvenido, NOMBRE DE USUARIO</h4>
-                <p class="text-muted m-0"><i class="fas fa-user-shield text-success"></i> ROL ADMIN O ROL LECTOR???</p>
+                <h4 class="m-0">👋 Bienvenido, <?= $_SESSION['usuario'] ?></h4>
+                <p class="text-muted m-0"><i class="fas fa-user-shield text-success"></i><?= $_SESSION['role'] ?></p>
             </div>
             <a href="home.php" class="btn btn-secondary btn-sm">
                 <i class="fas fa-arrow-left"></i> Volver a la Biblioteca
@@ -36,30 +133,30 @@ if ($_SESSION['usuario'] != 'admin') {
 
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold"></h2>
-            <p class="lead"></p>
+            <h2 class="fw-bold"><?= $id !== null ? 'Editar Libro' : 'Agregar Nuevo Libro' ?></h2>
+            <p class="lead"><?= $id !== null ? 'Modifica los datos del libro.' : 'Completa los datos para agregar un libro.' ?></p>
         </div>
 
-        <!-- Formulario para agregar o editar libro. DEPENDIENDO DE SI SE AÑADE O SE EDITA CAMBIARÁN COSA DEL FORMULARIO, USA TERNARIOS SON MUY ÚTILES-->
+        <!-- Formulario -->
         <form method="POST" class="mx-auto" style="max-width: 600px;">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="titulo" name="titulo" value="" placeholder="Título" required>
+                <input type="text" class="form-control" id="titulo" name="titulo" value="<?= htmlspecialchars($titulo) ?>" placeholder="Título" required>
                 <label for="titulo">Título</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="autor" name="autor" value="" placeholder="Autor" required>
+                <input type="text" class="form-control" id="autor" name="autor" value="<?= htmlspecialchars($autor) ?>" placeholder="Autor" required>
                 <label for="autor">Autor</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="imagen" name="imagen" value="" placeholder="URL de la Imagen">
+                <input type="text" class="form-control" id="imagen" name="imagen" value="<?= htmlspecialchars($imagen) ?>" placeholder="URL de la Imagen">
                 <label for="imagen">URL de la Imagen</label>
             </div>
             <div class="form-floating mb-4">
-                <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" style="height: 150px;"><?= $descripcion ?></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" style="height: 150px;"><?= htmlspecialchars($descripcion) ?></textarea>
                 <label for="descripcion">Descripción</label>
             </div>
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-lg"></button>
+                <button type="submit" class="btn btn-primary btn-lg"><?= $id !== null ? 'Guardar Cambios' : 'Agregar Libro' ?></button>
             </div>
         </form>
     </div>

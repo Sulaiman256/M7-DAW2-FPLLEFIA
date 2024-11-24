@@ -4,7 +4,7 @@
 session_start();
 include_once './array.php'; // Se añadió el punto y coma faltante.
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['usuario'])) {
     header('Location: login.php');
     exit;
 }
@@ -86,6 +86,8 @@ var_dump($_SESSION['usuario']);
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php
             foreach ($_SESSION['libros'] as $libro) {
+                var_dump($libro['id']);
+                var_dump($libro);
             ?>
                 <div class="col">
                     <div class="card h-100 shadow-sm">
@@ -94,6 +96,10 @@ var_dump($_SESSION['usuario']);
                             <h5 class="card-title"><?php echo $libro['titulo']; ?></h5>
                             <p class="card-text"><strong><?php echo $libro['autor']; ?></strong> </p>
                             <p class="card-text"><?php echo $libro['descripcion']; ?></p>
+                            <div class="btn-group">
+                                <a href="./add_edit_book.php?id=<?php echo $libro['id']; ?>" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                <a href="delete_book.php?id=<?php echo $libro['id']; ?>" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            </div>
                         </div>
                     </div>
                 </div>
