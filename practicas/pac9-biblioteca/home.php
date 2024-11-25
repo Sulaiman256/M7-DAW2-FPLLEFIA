@@ -99,9 +99,12 @@ var_dump($_SESSION['usuario']);
                             <p class="card-text"><strong><?= htmlspecialchars($libro['autor']) ?></strong></p>
                             <p class="card-text"><?= htmlspecialchars($libro['descripcion']) ?></p>
                             <div class="btn-group">
-                                <a href="./add_edit_book.php?id=<?= $libro['id'] ?>" class="btn btn-sm btn-outline-secondary">Editar</a>
-                                <a href="delete_book.php?id=<?= $libro['id'] ?>" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                    <a href="./add_edit_book.php?id=<?= $libro['id'] ?>" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                    <a href="delete_book.php?id=<?= $libro['id'] ?>" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                <?php endif; ?>
                             </div>
+
                         </div>
                     </div>
                 </div>
