@@ -2,16 +2,20 @@
 session_start();
 
 include_once './array.php';
+include_once './user.php';
 
 // Procesamiento del formulario.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $photo = $_POST['photo'];
 
     foreach ($usuarios as $usuario) {
         if ($usuario['username'] === $username && $usuario['password'] === $password) {
             $_SESSION['usuario'] = $usuario['username'];
             $_SESSION['role'] = $usuario['role'];
+            $_SESSION['photo'] = $photo;
+
             header('Location: home.php');
             exit;
         }

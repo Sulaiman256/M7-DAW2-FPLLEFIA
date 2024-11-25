@@ -7,6 +7,7 @@ if (isset($_SESSION['message'])) {
     unset($_SESSION['message']); // Limpiar mensaje después de mostrarlo
 }
 include_once './array.php'; // Se añadió el punto y coma faltante.
+include_once './user.php';
 
 if (!isset($_SESSION['usuario'])) {
     header('Location: login.php');
@@ -45,7 +46,7 @@ var_dump($_SESSION['usuario']);
     <header class="bg-light py-3 mb-4 shadow-sm">
         <div class="container d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img src="aqui va la foto de perfil" alt="Foto de perfil" class="w-25 rounded-circle me-3">
+                <img src="<?php echo htmlspecialchars($_SESSION['photo']); ?>" alt="Foto de perfil" class="w-25 rounded-circle me-3">
                 <div>
                     <h4 class="m-0">👋 Bienvenido, <?php echo $_SESSION['usuario']; ?>!</h4>
 
@@ -65,7 +66,7 @@ var_dump($_SESSION['usuario']);
 
                 </div>
             </div>
-            <a href="logout.php" class="btn btn-warning btn-sm">
+            <a href="./logout.php" class="btn btn-warning btn-sm">
                 Cerrar sesión ❌
             </a>
         </div>
