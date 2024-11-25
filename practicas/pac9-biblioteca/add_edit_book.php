@@ -1,4 +1,5 @@
 <?php
+
 function agregarLibro($titulo, $autor, $imagen, $descripcion)
 {
     include './array.php';
@@ -54,6 +55,7 @@ function guardarLibros($libros)
 include_once './array.php';
 
 session_start();
+
 
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] != 'admin') {
     header('Location: home.php');

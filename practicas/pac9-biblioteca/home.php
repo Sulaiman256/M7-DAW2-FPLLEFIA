@@ -2,6 +2,10 @@
 // Verifica si el usuario ha iniciado sesión; si no, redirige a login.php.
 
 session_start();
+if (isset($_SESSION['message'])) {
+    echo "<p>" . $_SESSION['message'] . "</p>";
+    unset($_SESSION['message']); // Limpiar mensaje después de mostrarlo
+}
 include_once './array.php'; // Se añadió el punto y coma faltante.
 
 if (!isset($_SESSION['usuario'])) {
