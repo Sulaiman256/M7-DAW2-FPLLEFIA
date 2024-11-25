@@ -18,6 +18,7 @@ if (!isset($_SESSION['role'])) {
 // Obtener la lista de libros desde la sesión
 $_SESSION['libros'] = $libros;
 
+
 var_dump($_SESSION['role']);
 var_dump($_SESSION['usuario']);
 
@@ -84,29 +85,24 @@ var_dump($_SESSION['usuario']);
 
         <!-- Mostrar lista de libros en un grid de tarjetas con tamaño uniforme -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <?php
-            foreach ($_SESSION['libros'] as $libro) {
-                var_dump($libro['id']);
-                var_dump($libro);
-            ?>
+            <?php foreach ($_SESSION['libros'] as $libro): ?>
                 <div class="col">
                     <div class="card h-100 shadow-sm">
-                        <img src="<?php echo $libro['imagen']; ?>" class="card-img-top" alt="" style="height: 400px; object-fit: cover;">
+                        <img src="<?= htmlspecialchars($libro['imagen']) ?>" class="card-img-top" alt="<?= htmlspecialchars($libro['titulo']) ?>" style="height: 400px; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $libro['titulo']; ?></h5>
-                            <p class="card-text"><strong><?php echo $libro['autor']; ?></strong> </p>
-                            <p class="card-text"><?php echo $libro['descripcion']; ?></p>
+                            <h5 class="card-title"><?= htmlspecialchars($libro['titulo']) ?></h5>
+                            <p class="card-text"><strong><?= htmlspecialchars($libro['autor']) ?></strong></p>
+                            <p class="card-text"><?= htmlspecialchars($libro['descripcion']) ?></p>
                             <div class="btn-group">
-                                <a href="./add_edit_book.php?id=<?php echo $libro['id']; ?>" class="btn btn-sm btn-outline-secondary">Editar</a>
-                                <a href="delete_book.php?id=<?php echo $libro['id']; ?>" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                <a href="./add_edit_book.php?id=<?= $libro['id'] ?>" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                <a href="delete_book.php?id=<?= $libro['id'] ?>" class="btn btn-sm btn-outline-danger">Eliminar</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            <?php
-            }
-            ?>
+            <?php endforeach; ?>
         </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

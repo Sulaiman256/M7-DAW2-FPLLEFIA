@@ -22,24 +22,27 @@ function agregarLibro($titulo, $autor, $imagen, $descripcion)
     return true;
 }
 
-
 function editarLibro($id, $titulo, $autor, $imagen, $descripcion)
 {
     include './array.php';
 
+    $encontrado = false;
     foreach ($libros as &$libro) {
         if ($libro['id'] == $id) {
             $libro['titulo'] = $titulo;
             $libro['autor'] = $autor;
             $libro['imagen'] = $imagen;
             $libro['descripcion'] = $descripcion;
+            $encontrado = true;
             break;
         }
     }
 
-    guardarLibros($libros);
+    if ($encontrado) {
+        guardarLibros($libros);
+    }
 
-    return true;
+    return $encontrado;
 }
 
 function guardarLibros($libros)
@@ -48,23 +51,19 @@ function guardarLibros($libros)
     file_put_contents('./array.php', $contenido);
 }
 
-
-
-
 include_once './array.php';
 
 session_start();
 
-if ($_SESSION['usuario'] != 'admin') {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] != 'admin') {
     header('Location: home.php');
     exit();
 }
 
-if ($_SESSION['role'] != 'admin') {
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     header('Location: home.php');
     exit();
 }
-
 
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 $titulo = '';
@@ -73,20 +72,23 @@ $imagen = '';
 $descripcion = '';
 
 if ($id !== null) {
+    $encontrado = false;
     foreach ($libros as $libro) {
         if ($libro['id'] == $id) {
             $titulo = $libro['titulo'];
             $autor = $libro['autor'];
             $imagen = $libro['imagen'];
             $descripcion = $libro['descripcion'];
+            $encontrado = true;
             break;
         }
+    }
+
+    if (!$encontrado) {
         header('Location: home.php');
         exit();
     }
 }
-
-// Validar y procesar el formulario
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $titulo = trim($_POST['titulo']);
@@ -98,16 +100,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('Por favor, completa los campos requeridos.');</script>";
     } else {
         if ($id !== null) {
-            editarLibro($id, $titulo, $autor, $imagen, $descripcion);
+            if (editarLibro($id, $titulo, $autor, $imagen, $descripcion)) {
+                echo "<script>alert('Libro editado correctamente.');</script>";
+            } else {
+                echo "<script>alert('Error al editar el libro.');</script>";
+            }
         } else {
             agregarLibro($titulo, $autor, $imagen, $descripcion);
+            echo "<script>alert('Libro agregado correctamente.');</script>";
         }
     }
 }
-
-
 ?>
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -118,12 +123,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <!-- Encabezado del formulario -->
     <header class="bg-light py-3 mb-4 shadow-sm">
         <div class="container d-flex align-items-center justify-content-between">
             <div>
-                <h4 class="m-0">👋 Bienvenido, <?= $_SESSION['usuario'] ?></h4>
-                <p class="text-muted m-0"><i class="fas fa-user-shield text-success"></i><?= $_SESSION['role'] ?></p>
+                <h4 class="m-0">👋 Bienvenido, <?= htmlspecialchars($_SESSION['usuario']) ?></h4>
+                <p class="text-muted m-0"><i class="fas fa-user-shield text-success"></i> <?= htmlspecialchars($_SESSION['role']) ?></p>
             </div>
             <a href="home.php" class="btn btn-secondary btn-sm">
                 <i class="fas fa-arrow-left"></i> Volver a la Biblioteca
@@ -137,7 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p class="lead"><?= $id !== null ? 'Modifica los datos del libro.' : 'Completa los datos para agregar un libro.' ?></p>
         </div>
 
-        <!-- Formulario -->
         <form method="POST" class="mx-auto" style="max-width: 600px;">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="titulo" name="titulo" value="<?= htmlspecialchars($titulo) ?>" placeholder="Título" required>
