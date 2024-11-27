@@ -1,38 +1,27 @@
 <?php
 session_start();
+include 'actions.php';
 
-
-
-// Si no existe la sesión de basura, inicializarla
+// Inicializar sesiones si no existen
 if (!isset($_SESSION['basura'])) {
-    $_SESSION['basura'] = ['Glass', 'Paper', 'Plastic', 'Organic']; // Cola de residuos
-
-
+    $_SESSION['basura'] = array_fill(0, 5, null);
+    $tiposBasura = ['paper', 'glass', 'organic', 'plastic'];
+    foreach ($_SESSION['basura'] as &$item) {
+        $item = $tiposBasura[array_rand($tiposBasura)];
+    }
 }
 
-// Variables de contenedores
-$containers = [
-    'Glass' => 0,
-    'Paper' => 0,
-    'Plastic' => 0,
-    'Organic' => 0
+$_SESSION['contador'] = $_SESSION['contador'] ?? 0;
+$_SESSION['contenedor'] = $_SESSION['contenedor'] ?? [
+    'paper' => 0,
+    'organic' => 0,
+    'plastic' => 0,
+    'glass' => 0,
 ];
 
-// Función para actualizar los contenedores
-if (isset($_SESSION['containers'])) {
-    $containers = $_SESSION['containers'];
-}
-
-// Si se ha hecho una acción
-if (isset($_GET['accion'])) {
-    $accion = $_GET['accion'];
-    include 'actions.php'; // Incluir la lógica de actions.php
-}
-
-// Residuos procesados (simple contador)
-$processedWaste = array_sum($containers);
-
+include_once("./components/navbar.php");
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -45,84 +34,62 @@ $processedWaste = array_sum($containers);
 </head>
 
 <body>
-
     <div class="container mt-4">
-        <form action="../../practicas/pac-extra-reciclaje/reset.php" method="POST">
-            <button type="submit">Reiniciar Joc</button>
-        </form>
         <h1 class="text-center">Gestión del reciclaje</h1>
-
-        <!-- Mensaje de contenedores llenos -->
-        <?php if (max($containers) >= 7): ?>
-            <div class="alert alert-warning text-center">
-                ¡Uno o más contenedores están llenos! Por favor vacíalos.
-            </div>
-        <?php endif; ?>
-
-        <!-- Contador de basura procesada -->
         <button type="button" class="btn p-3 btn-secondary text-white">
-            Basura procesada: <span class="badge bg-danger"><?= $processedWaste ?></span>
+            Basura procesada: <span class="badge bg-danger"><?= $_SESSION['contador']; ?></span>
         </button>
         <hr>
 
-        <!-- Visualización de la cola de basura -->
         <div class="mt-4">
             <h3>¿Qué toca reciclar ahora?</h3>
             <div class="d-flex align-items-center justify-content-center mb-4">
-                <!-- Basura actual -->
-                <div class="text-center p-3 mx-2 border border-success rounded" style="background-color: #d4edda;">
+                <div class="text-center p-3 mx-2 border border-success rounded bg-light">
                     <h4 class="text-success">Ahora: <?= $_SESSION['basura'][0] ?></h4>
-                    <img src="./images/<?php echo $_SESSION['basura'][0] ?>.jpg" alt="Imagen de basura" class="img-fluid" style="width: 80px;">
+                    <img src="./images/<?= $_SESSION['basura'][0]; ?>.jpg" alt="" class="img-fluid" style="width: 80px;">
                 </div>
-                <!-- Cola de basura -->
+
                 <div class="d-flex gap-2">
-                    <?php foreach ($_SESSION['basura'] as $residuo): ?>
-                        <div class="text-center p-3 mx-2 border rounded" style="background-color: #f8f9fa;">
-                            <h6><?= $residuo ?></h6>
-                            <!-- <img src="imagenbasuraquetoca.jpg" alt="Imagen de basura" class="img-fluid" style="width: 50px;"> -->
+                    <?php foreach (array_slice($_SESSION['basura'], 1) as $basura): ?>
+                        <div class="text-center p-3 mx-2 border rounded bg-light">
+                            <h6><?= $basura; ?></h6>
+                            <img src="./images/<?= $basura; ?>.jpg" alt="" class="img-fluid" style="width: 50px;">
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
-        </div>
 
-        <!-- Botones de contenedores -->
-        <div class="d-flex justify-content-center flex-wrap gap-3">
-            <a href="index.php?accion=Glass" class="btn btn-success">
-                Glass
-            </a>
-            <a href="index.php?accion=Organic" class="btn btn-secondary">
-                Organic
-            </a>
-            <a href="index.php?accion=Paper" class="btn btn-primary">
-                Paper
-            </a>
-            <a href="index.php?accion=Plastic" class="btn btn-warning">
-                Plastic
-            </a>
-            <a href="index.php?accion=vaciarCamion" class="btn btn-danger">
-                <img src="./images/camion.png" alt="Vaciar Camión" class="img-fluid" style="width: 50px;"> Vaciar Camión
-            </a>
-        </div>
-
-        <!-- Estado de los contenedores -->
-        <h2 class="mt-5">Estado de los Contenedores</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Tipo</th>
-                    <th>Cantidad</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($containers as $type => $count): ?>
-                    <tr>
-                        <td><?= $type ?></td>
-                        <td><?= $count ?> / 7</td>
-                    </tr>
+            <div class="d-flex justify-content-center flex-wrap gap-3">
+                <?php
+                $acciones = ['glass' => 'success', 'organic' => 'secondary', 'paper' => 'primary', 'plastic' => 'warning'];
+                foreach ($acciones as $accion => $color): ?>
+                    <a href="index.php?accion=<?= $accion ?>" class="btn btn-<?= $color; ?>">
+                        <?= ucfirst($accion); ?>
+                    </a>
                 <?php endforeach; ?>
-            </tbody>
-        </table>
+                <a href="index.php?accion=vaciarCamion" class="btn btn-danger">
+                    <img src="images/camion.png" alt="Vaciar Camión" class="img-fluid" style="width: 50px;"> Vaciar Camión
+                </a>
+            </div>
+
+            <h2 class="mt-5">Estado de los Contenedores</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($_SESSION['contenedor'] as $tipo => $cantidad): ?>
+                        <tr>
+                            <td><?= ucfirst($tipo); ?></td>
+                            <td><?= $cantidad; ?> / 7</td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <?php include 'components/footer.php'; ?>

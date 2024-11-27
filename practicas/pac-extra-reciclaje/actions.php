@@ -1,22 +1,39 @@
+
 <?php
-session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
-    $accion = $_POST['accion'];
+if (isset($_REQUEST['accion'])) {
+    $accion = $_REQUEST['accion'];
 
-    if (!isset($_SESSION['basura']) || empty($_SESSION['basura'])) {
-        header('Location: index.php');
-        exit;
+    function procesarReciclaje($tipo)
+    {
+        if ($_SESSION['contenedor'][$tipo] < 7) {
+            $_SESSION['contenedor'][$tipo]++;
+            $_SESSION['contador']++;
+            array_shift($_SESSION['basura']);
+            $tiposBasura = ['paper', 'glass', 'organic', 'plastic'];
+            $_SESSION['basura'][] = $tiposBasura[array_rand($tiposBasura)];
+        } else {
+            echo "<script>alert('Contenedor de $tipo lleno.');</script>";
+        }
     }
 
-    $residu_actual = array_shift($_SESSION['basura']); // Eliminamos el residuo actual
-
-    // Actualizamos el contenedor correspondiente
-    if (isset($_SESSION['contenedores'][$accion])) {
-        $_SESSION['contenedores'][$accion]++;
+    // Verifica si la acción corresponde al primer elemento de basura
+    if ($accion === $_SESSION['basura'][0]) {
+        $tiposValidos = ['paper', 'plastic', 'organic', 'glass'];
+        if (in_array($accion, $tiposValidos)) {
+            procesarReciclaje($accion);
+        }
     }
 
-    // Redirigimos de nuevo al index
-    header('Location: index.php');
-    exit;
+    // Acción para vaciar el camión
+    if ($accion === "vaciarCamion") {
+        $_SESSION['contenedor'] = [
+            'paper' => 0,
+            'organic' => 0,
+            'plastic' => 0,
+            'glass' => 0,
+        ];
+    }
 }
+?>
+
