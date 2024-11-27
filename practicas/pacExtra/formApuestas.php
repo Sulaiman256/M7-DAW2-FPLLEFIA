@@ -223,7 +223,7 @@ paso 2 , 3 , 4 , 5 con PHP  -->
 
                     <div class="mb-3" id="numeroPleno" style="display: none;">
                         <label for="numeroPlenoInput" class="form-label">Número de Pleno (0-36):</label>
-                        <input type="number" class="form-control" id="numeroPlenoInput" name="numeroPleno" min="0" max="36" required>
+                        <input type="number" class="form-control" id="numeroPlenoInput" name="numeroPleno" min="0" max="36">
                     </div>
 
                 </div>
