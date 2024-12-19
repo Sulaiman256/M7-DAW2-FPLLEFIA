@@ -1,5 +1,4 @@
-<?php
-// Definir la clase DB y las habilidades
+<!-- 
 class DB {
     public string $name;
     public float $hp;
@@ -166,51 +165,4 @@ Class Player {
         
     }
 }
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joc Rol Sulaiman</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-900">
-    <h1 class="text-4xl text-center py-8">Joc Rol DB</h1>
-
-    <!-- Formulario para mostrar ataques -->
-    <div class="max-w-md mx-auto mt-8 p-4 bg-white shadow-lg rounded-lg">
-        <h2 class="text-2xl font-bold mb-4">Elige un ataque</h2>
-
-        <!-- Formulario que se envía al hacer clic en "Mostrar Habilidades" -->
-        <form action="" method="POST">
-            <div class="mb-4">
-                <button type="submit" name="show_form" class="bg-blue-500 text-white py-2 px-4 rounded-lg">Mostrar Habilidades</button>
-            </div>
-        </form>
-
-        <?php
-        // Si el usuario ha hecho clic en el botón "Mostrar Habilidades"
-        if (isset($_POST['show_form'])):
-        ?>
-            <form action="" method="POST">
-                <?php
-                // Generar las opciones de ataque
-                foreach ($goku->hability as $attackName => $attackDetails) {
-                    echo '<label class="block mb-2">';
-                    echo '<input type="radio" name="attack" value="' . $attackName . '" class="mr-2"> ' . $attackName;
-                    echo '</label>';
-                }
-                ?>
-                <div class="text-center mt-4">
-                    <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded-lg">Usar Ataque</button>
-                </div>
-            </form>
-        <?php
-        endif;
-        ?>
-
-    </div>
-</body>
-</html>
+?> -->
