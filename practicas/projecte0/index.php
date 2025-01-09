@@ -1,13 +1,17 @@
 <?php
-session_start();
 include_once './class/Biblioteca.php'; 
 include_once './class/Llibre.php';
+session_start();
 
 if (!isset($_SESSION['biblioteca'])) {
     $_SESSION['biblioteca'] = new Biblioteca();
+} else {
+    if (is_string($_SESSION['biblioteca'])) {
+        $_SESSION['biblioteca'] = unserialize($_SESSION['biblioteca']);
+    }
 }
 
-$biblioteca = $_SESSION['biblioteca'];
+$biblioteca = $_SESSION['biblioteca']; 
 
 if (isset($_POST['afegir'])) {
     $titol = $_POST['titol'];
@@ -16,10 +20,12 @@ if (isset($_POST['afegir'])) {
     $foto = $_POST['foto'];
 
     $nouLlibre = new Llibre($titol, $autor, $any, $foto);
+
     $biblioteca->afegirLlibre($nouLlibre);
+
+    $_SESSION['biblioteca'] = $biblioteca;
 }
 
-// Cercar llibres
 $cerca = '';
 if (isset($_GET['cerca'])) {
     $cerca = $_GET['cerca'];
@@ -62,7 +68,7 @@ if (isset($_GET['cerca'])) {
             </div>
             <div>
                 <input type="submit" name="afegir" value="Afegir Llibre"
-                    class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+                    class="w-full bg-[#BAD80A] text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 ease-in-out">
             </div>
         </form>
 

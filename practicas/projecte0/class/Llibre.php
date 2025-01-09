@@ -1,4 +1,5 @@
 <?php
+
 class Llibre {
     public $titol;
     public $autor;
@@ -13,7 +14,7 @@ class Llibre {
     }
 
     public function getDetalls() {
-        return "Títol: $this->titol, Autor: $this->autor, Any de Publicació: $this->anyPublicacio";
+        return "Títol: $this->titol, Autor: $this->autor, Any de Publicació: $this->anyPublicacio, Foto: $this->foto";
     }
 }
 ?>
