@@ -1,11 +1,11 @@
 <?php
 include_once "./carta.class.php";
 class Baraja {
-    private $conjunto_cartas = [];
+    public $conjunto_cartas = [];
 
     public function crea_baraja() {
         $pals = ['yellow', 'red', 'green', 'blue'];
-        $numeros = array_merge(range(1, 9), ['reverse', 'skip', 'picker']);
+        $numeros = array_merge(range(0, 9), ['reverse', 'skip', 'picker']);
 
         $index = 0;
         foreach ($pals as $palo) {
