@@ -26,16 +26,5 @@ public function pinta_carta_link() {
         echo '<img class="inline-block" width="100px" src="./images/carta_girada.png" alt="carta girada">';
     }
 
-    public function getPalo() {
-        return $this->palo;
-    }
-
-    public function getNumero() {
-        return $this->numero;
-    }
-
-    public function getIndex() {
-        return $this->index;
-    }
 }
 ?>

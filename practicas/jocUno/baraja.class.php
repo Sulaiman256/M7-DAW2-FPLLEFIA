@@ -1,36 +1,42 @@
 <?php
-include_once "./carta.class.php";
+
+require_once 'carta.class.php';
+
 class Baraja {
     public $conjunto_cartas = [];
 
     public function crea_baraja() {
-        $pals = ['yellow', 'red', 'green', 'blue'];
-        $numeros = array_merge(range(0, 9), ['reverse', 'skip', 'picker']);
-
         $index = 0;
-        foreach ($pals as $palo) {
-            foreach ($numeros as $numero) {
-                $this->conjunto_cartas[] = new Carta($palo, $numero, $index++);
+
+        foreach (['red', 'yellow', 'blue', 'green'] as $color) {
+            for ($i = 0; $i <= 9; $i++) {
+                $this->conjunto_cartas[] = new Carta($color, $i, $index++);
+            }
+            // Afegim cartes especials
+            foreach (['reverse', 'skip', 'picker'] as $especial) {
+                $this->conjunto_cartas[] = new Carta($color, $especial, $index++);
             }
         }
     }
+
     public function mezcla() {
         shuffle($this->conjunto_cartas);
     }
+
     public function pinta_baraja() {
+        $output = '';
         foreach ($this->conjunto_cartas as $carta) {
-            $carta->pinta_carta();
+            $output .= $carta->pinta_carta();
         }
+        return $output;
     }
 
     public function pinta_baraja_girada() {
+        $output = '';
         foreach ($this->conjunto_cartas as $carta) {
-            $carta->pinta_carta_girada();
+            $output .= $carta->pinta_carta_girada();
         }
-    }
-
-    public function getConjuntoCartas() {
-        return $this->conjunto_cartas;
+        return $output;
     }
 }
 
