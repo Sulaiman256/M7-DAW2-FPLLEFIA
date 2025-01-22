@@ -19,19 +19,16 @@ class Partida {
         $this->baraja->crea_baraja();
         $this->baraja->mezcla();
 
-        // Inicialitzem jugadors
         for ($i = 0; $i < $this->numero_jugadores; $i++) {
             $this->array_jugadores[] = new Jugador($i);
         }
 
-        // Repartim cartes
         for ($i = 0; $i < $this->numero_cartas; $i++) {
             foreach ($this->array_jugadores as $jugador) {
                 $jugador->afegir_carta(array_shift($this->baraja->conjunto_cartas));
             }
         }
 
-        // Carta inicial a la taula
         $this->carta_en_mesa = array_shift($this->baraja->conjunto_cartas);
     }
 

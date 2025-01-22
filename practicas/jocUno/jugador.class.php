@@ -14,13 +14,13 @@ class Jugador {
 
     public function eliminar_carta($index) {
         unset($this->mano[$index]);
-        $this->mano = array_values($this->mano); // Reindexem l'array
+        $this->mano = array_values($this->mano);
     }
 
     public function mostrar_ma() {
         $output = '';
         foreach ($this->mano as $carta) {
-            $output .= $carta->pinta_carta();
+            $output .= $carta->pinta_carta_link();
         }
         return $output;
     }

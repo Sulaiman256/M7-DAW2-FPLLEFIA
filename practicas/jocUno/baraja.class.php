@@ -12,7 +12,6 @@ class Baraja {
             for ($i = 0; $i <= 9; $i++) {
                 $this->conjunto_cartas[] = new Carta($color, $i, $index++);
             }
-            // Afegim cartes especials
             foreach (['reverse', 'skip', 'picker'] as $especial) {
                 $this->conjunto_cartas[] = new Carta($color, $especial, $index++);
             }
@@ -26,7 +25,7 @@ class Baraja {
     public function pinta_baraja() {
         $output = '';
         foreach ($this->conjunto_cartas as $carta) {
-            $output .= $carta->pinta_carta();
+            $output .= $carta->pinta_carta_link();
         }
         return $output;
     }
