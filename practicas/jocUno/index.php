@@ -56,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_de_jugadores']) 
         header("Location: index.php?numero_de_cartas={$_GET['numero_de_cartas']}&numero_de_jugadores={$_GET['numero_de_jugadores']}");
         exit;
     }
+    if ($jugador_actual->baraja->conjunto_cartas == 'skip') {
+        $partida->turno = ($partida->turno + 2) % $partida->numero_jugadores;
+    }
 
     echo "<div class='container mx-auto p-4'>";
     echo "<h1 class='text-3xl font-bold mb-4'>Partida Inicializada</h1>";
