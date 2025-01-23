@@ -10,7 +10,7 @@ class Partida {
     public $baraja;
     public $array_jugadores = [];
     public $carta_en_mesa;
-    public $constante_sentido = 1; // 1: horari, -1: antihorari
+    public $constante_sentido = 1; 
 
     public function __construct($numero_jugadores, $numero_cartas) {
         $this->numero_jugadores = $numero_jugadores;
