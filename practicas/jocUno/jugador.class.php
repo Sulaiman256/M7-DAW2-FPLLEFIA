@@ -19,11 +19,14 @@ class Jugador {
 
     public function mostrar_ma() {
         $output = '';
+        
         foreach ($this->mano as $carta) {
             $output .= $carta->pinta_carta_link();
+
         }
         return $output;
     }
+
 }
 
 ?>

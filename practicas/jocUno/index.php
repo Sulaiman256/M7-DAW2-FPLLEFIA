@@ -95,7 +95,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_de_jugadores']) 
         echo "<div class='mb-4'>";
         echo "<h2 class='text-2xl font-semibold'>Jugador {$jugador->id}</h2>";
         echo "<div class='bg-gray-100 p-2 rounded-lg shadow-md'>";
-        echo $jugador->mostrar_ma();
+        if ($partida->turno == $jugador->id) {
+            echo $jugador->mostrar_ma();
+        } else {
+            foreach ($jugador->mano as $carta) {
+                echo $carta->pinta_carta_girada();
+            }
+        }
         echo "</div>";
 
         if ($partida->turno == $jugador->id) {
@@ -106,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_de_jugadores']) 
 
         echo "</div>";
     }
+
 
     echo "<h2 class='text-2xl font-semibold mt-6'>Carta en Mesa:</h2>";
     echo "<div class='bg-yellow-100 p-2 rounded-lg shadow-md'>";
