@@ -32,9 +32,15 @@ class Partida {
         $this->carta_en_mesa = array_shift($this->baraja->conjunto_cartas);
     }
 
-    public function cambiar_turno() {
-        $this->turno = ($this->turno + $this->constante_sentido + $this->numero_jugadores) % $this->numero_jugadores;
+    public function cambiar_turno()
+    {
+        $this->turno = ($this->turno + $this->constante_sentido) % $this->numero_jugadores;
+
+        if ($this->turno < 0) {
+            $this->turno += $this->numero_jugadores;
+        }
     }
+
 
     public function cambiar_sentido() {
         $this->constante_sentido *= -1;
