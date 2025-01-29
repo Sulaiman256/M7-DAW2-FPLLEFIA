@@ -31,12 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_de_jugadores']) 
                         $partida->turno = ($partida->turno + 2) % $partida->numero_jugadores;
                     } else if ($carta->numero === 'reverse') {
                         $partida->cambiar_sentido();
-                    } else if($carta->numero === 'picker'){
-                        
-                    }
-                    
-                    
-                    else {
+                    } else if ($carta->numero === 'picker') {
+                        $siguiente_turno = ($partida->turno + $partida->constante_sentido) % $partida->numero_jugadores;
+
+                        if ($siguiente_turno < 0) {
+                            $siguiente_turno += $partida->numero_jugadores;
+                        }
+
+                        if (count($partida->baraja->conjunto_cartas) >= 2) {
+                            $partida->array_jugadores[$siguiente_turno]->afegir_carta(array_shift($partida->baraja->conjunto_cartas));
+                            $partida->array_jugadores[$siguiente_turno]->afegir_carta(array_shift($partida->baraja->conjunto_cartas));
+                        }
+                        $partida->cambiar_turno();
+                    } else {
                         $partida->cambiar_turno();
                     }
                     break;
