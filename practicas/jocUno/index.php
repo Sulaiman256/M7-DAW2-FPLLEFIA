@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_de_jugadores']) 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-    <title>Document</title>
+    <title>Game Uno Sulaiman</title>
 </head>
 
 <body>
