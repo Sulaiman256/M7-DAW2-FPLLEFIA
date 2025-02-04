@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_de_jugadores']) 
                         $partida->turno = ($partida->turno + 2) % $partida->numero_jugadores;
                     } else if ($carta->numero === 'reverse') {
                         $partida->cambiar_sentido();
+                        $partida->cambiar_turno();
                     } else if ($carta->numero === 'picker') {
                         $siguiente_turno = ($partida->turno + $partida->constante_sentido) % $partida->numero_jugadores;
 
@@ -70,11 +71,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_de_jugadores']) 
                 $jugador_actual->cartas_robadas++;
             }
         } else if ($jugador_actual->cartas_robadas == 2) {
-            $partida->turno = ($partida->turno + 1) % $partida->numero_jugadores;
+            // Cambiar turno según el sentido actual de la partida
+            $partida->turno = ($partida->turno + $partida->constante_sentido) % $partida->numero_jugadores;
+
+            // Asegúrate de que el turno no sea negativo
+            if ($partida->turno < 0) {
+                $partida->turno += $partida->numero_jugadores;
+            }
         }
 
         $_SESSION['partida'] = serialize($partida);
 
+        // Si no es el caso de "robar", cambiamos el turno normalmente
         $partida->cambiar_turno();
 
         header("Location: index.php?numero_de_cartas={$_GET['numero_de_cartas']}&numero_de_jugadores={$_GET['numero_de_jugadores']}");
