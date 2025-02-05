@@ -1,5 +1,12 @@
 <?php
 
+include_once '../header.php';
+include_once '../footer.php';
+
+?>
+
+<?php
+
 // La clase Producto: Documento
 class Document
 {

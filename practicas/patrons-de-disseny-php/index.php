@@ -1,3 +1,11 @@
+<?php
+
+include_once 'header.php';
+include_once 'footer.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -58,12 +66,7 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 Todos los derechos reservados</p>
-        </div>
-    </footer>
+
 
 </body>
 

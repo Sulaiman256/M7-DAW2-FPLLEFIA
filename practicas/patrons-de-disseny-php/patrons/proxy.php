@@ -1,43 +1,7 @@
 <?php
 
-// Objeto real: Servicio de carga de datos costoso
-class RealDataService
-{
-    public function loadData()
-    {
-        sleep(2);  // Simulando un proceso costoso (como una consulta a una base de datos)
-        return "Datos cargados desde el servicio real.";
-    }
-}
-
-// Proxy: Controla el acceso al objeto real
-class ProxyDataService
-{
-    private $realDataService;
-    private $cache;
-
-    public function __construct()
-    {
-        $this->realDataService = new RealDataService();
-        $this->cache = null;
-    }
-
-    public function loadData()
-    {
-        // Si ya tenemos los datos en caché, no necesitamos cargar de nuevo
-        if ($this->cache === null) {
-            $this->cache = $this->realDataService->loadData();
-        }
-
-        // Devolver los datos, ya sea de la caché o cargados
-        return $this->cache;
-    }
-}
-
-// Cliente: Accede a los datos a través del Proxy
-$proxyService = new ProxyDataService();
-$data = $proxyService->loadData();  // La primera vez, se carga desde el objeto real
-$dataAgain = $proxyService->loadData();  // La segunda vez, se carga desde la caché (más rápido)
+include_once '../header.php';
+include_once '../footer.php';
 
 ?>
 

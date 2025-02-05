@@ -1,5 +1,9 @@
 <?php
 
+include_once '../header.php';
+include_once '../footer.php';
+
+
 // Implementación de la parte "implementadora" del patrón Bridge
 interface Implementor
 {

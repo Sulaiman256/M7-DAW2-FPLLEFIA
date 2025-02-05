@@ -1,3 +1,9 @@
+<?php
+
+include_once 'header.php';
+include_once 'footer.php';
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 

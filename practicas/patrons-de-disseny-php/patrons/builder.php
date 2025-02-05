@@ -1,5 +1,9 @@
 <?php
 
+include_once '../header.php';
+include_once '../footer.php';
+
+
 // La clase Producto: Pizza
 class Pizza
 {

@@ -1,5 +1,9 @@
 <?php
 
+include_once '../header.php';
+include_once '../footer.php';
+
+
 // Flyweight: Definimos la clase que será el objeto compartido
 class Character
 {
