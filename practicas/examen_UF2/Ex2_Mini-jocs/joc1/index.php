@@ -8,20 +8,20 @@ class JocAdivinacio
     public function __construct()
     {
         $this->numeroSecret = rand(1, 20);
-        echo "Número secret generat: " . $this->numeroSecret . "<br>";
+        echo "Numero secret generado: " . $this->numeroSecret . "<br>";
     }
 
     public function comprovar($num)
     {
         $this->intentos++;
         if ($num == $this->numeroSecret) {
-            return "Felicitats! Has acertat el número secret en $this->intentos intentos.";
+            return "Felicidades! Has acertado el número secreto en $this->intentos intentos.";
         } else if ($this->intentos >= 3) {
-            return "Has superat el número d'intentos. El número secret era $this->numeroSecret.";
+            return "Has superado el número de intentos. El numero secreto era $this->numeroSecret.";
         } else if ($num < $this->numeroSecret) {
-            return "El número secret és més gran. Tens $this->intentos intentos.";
+            return "El número secreto es mas grande. Tens $this->intentos intentos.";
         } else {
-            return "El número secret és més petit. Tens $this->intentos intentos.";
+            return "El número secret és mas pequeño. Tens $this->intentos intentos.";
         }
     }
 }

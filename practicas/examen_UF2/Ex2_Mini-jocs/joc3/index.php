@@ -29,14 +29,13 @@ class Usuari
 
         $dominio = $partesCorreo[1];
         if (strpos($dominio, ".") === false) {
-            $errors[] = "El correo electrónico no tiene un dominio válido.";
+            $errors[] = "El correo electronico no tiene un dominio valido.";
         }
 
         return $errors;
     }
 }
 
-// Verificar si ya existen usuarios en la sesión, si no, inicializarlos como un array vacío.
 if (!isset($_SESSION['usuarios'])) {
     $_SESSION['usuarios'] = [];
 }
@@ -50,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errors = $usuari->validarDades();
 
     if (empty($errors)) {
-        // Agregar el usuario al array de usuarios en sesión
         $_SESSION['usuarios'][] = $usuari;
         echo "Les dades són vàlides. Usuari guardat en sessió.";
     } else {
@@ -60,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Mostrar los usuarios almacenados en la sesión
 if (isset($_SESSION['usuarios']) && count($_SESSION['usuarios']) > 0) {
     echo "<h2 class='mt-8 text-xl'>Usuarios creados:</h2>";
     echo "<ul class='list-disc ml-5 mt-4'>";

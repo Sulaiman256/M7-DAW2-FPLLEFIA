@@ -65,6 +65,12 @@ if (!isset($_SESSION['factures'])) {
     <div class="container mx-auto p-8">
         <h1 class="text-2xl text-center mb-4">Factures amb Descompte</h1>
 
+        <div class="flex justify-end">
+            <form method="post" action="destroySesion.php">
+                <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300">Cerrar Sesión</button>
+            </form>
+        </div>
+
         <table class="min-w-full table-auto border-collapse">
             <thead>
                 <tr class="bg-gray-200">
