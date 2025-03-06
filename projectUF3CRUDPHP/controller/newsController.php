@@ -7,4 +7,16 @@ function readNews($mysqli) {
     $result = $mysqli->query($sql);
     return $result;
 }
+
+// Function to read all news 
+
+function readAllNews($mysqli) {
+    $sql = "SELECT * FROM news";
+    $result = $mysqli->query($sql);
+    return $result;
+}
+
+
+
+
 ?>

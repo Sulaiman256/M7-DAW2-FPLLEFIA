@@ -1,3 +1,14 @@
+<?php
+  include_once '../config/config.php';
+ if(isset($_GET['id'])){
+     $id = $_GET['id'];
+     $sql = "SELECT * FROM news WHERE id = $id";
+     $result = $mysqli->query($sql);
+     $new = $result->fetch_assoc();
+ }
+
+?>
+
 <!DOCTYPE html>
 
 <!--
@@ -35,8 +46,18 @@
   <!--Favicon-->
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-
+ <style>
+  .elipsis {
+  display: -webkit-box;               /* Usar un contenedor tipo caja flexible */
+  -webkit-box-orient: vertical;       /* Orientar el contenido verticalmente */
+  overflow: hidden;                   /* Ocultar el contenido que sobrepasa */
+  -webkit-line-clamp: 2;              /* Limitar el texto a 3 líneas */
+  line-height: 1.5;                   /* Definir la altura de la línea (ajustar según tu necesidad) */
+  max-height: 4.5em;                  /* Limitar la altura máxima al tamaño de 3 líneas (1.5 * 3 líneas) */
+}
+ </style>
 </head>
+
 
 <body>
   
@@ -102,12 +123,13 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <h3 class="font-tertiary mb-5">What should be the proper purpose of UI and UX design?</h3>
+        <h3 class="font-tertiary mb-5"><?php
+        echo $new['title'];
+        ?></h3>
         <img src="images/blog/post-1.jpg" alt="post-thumb" class="img-fluid w-100 mb-3">
-        <p class="float-left mr-4">Post by Themefisher</p>
         <p>May 26, 2017</p>
         <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+          <p class="elipsis">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
             ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
             nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
