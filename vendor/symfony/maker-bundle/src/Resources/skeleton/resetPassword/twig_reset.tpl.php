@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.php.twig' %}
 
 {% block title %}Reset your password{% endblock %}
 

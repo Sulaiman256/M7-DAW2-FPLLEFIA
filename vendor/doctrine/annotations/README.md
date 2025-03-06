@@ -8,7 +8,7 @@ We do not recommend using this library in new projects and encourage authors
 of downstream libraries to offer support for attributes as an alternative to
 Doctrine Annotations.
 
-Have a look at [our blog](https://www.doctrine-project.org/2022/11/04/annotations-to-attributes.html)
+Have a look at [our blog](https://www.doctrine-project.org/2022/11/04/annotations-to-attributes.php)
 to learn more.
 
 # Doctrine Annotations
@@ -23,9 +23,9 @@ Docblock Annotations Parser library (extracted from [Doctrine Common](https://gi
 
 ## Documentation
 
-See the [doctrine-project website](https://www.doctrine-project.org/projects/doctrine-annotations/en/stable/index.html).
+See the [doctrine-project website](https://www.doctrine-project.org/projects/doctrine-annotations/en/stable/index.php).
 
 ## Contributing
 
 When making a pull request, make sure your changes follow the
-[Coding Standard Guidelines](https://www.doctrine-project.org/projects/doctrine-coding-standard/en/current/reference/index.html#introduction).
+[Coding Standard Guidelines](https://www.doctrine-project.org/projects/doctrine-coding-standard/en/current/reference/index.php#introduction).

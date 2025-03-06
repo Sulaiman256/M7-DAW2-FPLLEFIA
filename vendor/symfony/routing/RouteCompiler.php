@@ -33,7 +33,7 @@ class RouteCompiler implements RouteCompilerInterface
 
     /**
      * The maximum supported length of a PCRE subpattern name
-     * http://pcre.org/current/doc/html/pcre2pattern.html#SEC16.
+     * http://pcre.org/current/doc/html/pcre2pattern.php#SEC16.
      *
      * @internal
      */
@@ -168,7 +168,7 @@ class RouteCompiler implements RouteCompilerInterface
                 // the same that will be matched. Example: new Route('/{page}.{_format}', ['_format' => 'html'])
                 // If {page} would also match the separating dot, {_format} would never match as {page} will eagerly consume everything.
                 // Also even if {_format} was not optional the requirement prevents that {page} matches something that was originally
-                // part of {_format} when generating the URL, e.g. _format = 'mobile.html'.
+                // part of {_format} when generating the URL, e.g. _format = 'mobile.php'.
                 $nextSeparator = self::findNextSeparator($followingPattern, $useUtf8);
                 $regexp = sprintf(
                     '[^%s%s]+',

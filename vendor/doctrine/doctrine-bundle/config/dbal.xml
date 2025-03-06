@@ -20,7 +20,7 @@
         <service id="Doctrine\DBAL\Connection" alias="database_connection" public="false" />
 
         <service id="data_collector.doctrine" class="%doctrine.data_collector.class%" public="false">
-            <tag name="data_collector" template="@Doctrine/Collector/db.html.twig" id="db" priority="250" />
+            <tag name="data_collector" template="@Doctrine/Collector/db.php.twig" id="db" priority="250" />
             <argument type="service" id="doctrine" />
             <argument>true</argument>
             <argument type="service" id="doctrine.debug_data_holder" on-invalid="null"/>

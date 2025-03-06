@@ -183,7 +183,7 @@ class DoctrineMigrationsExtension extends Extension
         ]);
         $collectorDefinition
             ->addTag('data_collector', [
-                'template' => '@DoctrineMigrations/Collector/migrations.html.twig',
+                'template' => '@DoctrineMigrations/Collector/migrations.php.twig',
                 'id' => 'doctrine_migrations',
                 'priority' => '249',
             ]);

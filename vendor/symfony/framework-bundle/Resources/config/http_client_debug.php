@@ -17,7 +17,7 @@ return static function (ContainerConfigurator $container) {
     $container->services()
         ->set('data_collector.http_client', HttpClientDataCollector::class)
             ->tag('data_collector', [
-                'template' => '@WebProfiler/Collector/http_client.html.twig',
+                'template' => '@WebProfiler/Collector/http_client.php.twig',
                 'id' => 'http_client',
                 'priority' => 250,
             ])

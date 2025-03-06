@@ -17,7 +17,7 @@ class <?= $class_name ?> extends AbstractController
 <?php if (isset($repository_full_class_name)): ?>
     public function index(<?= $repository_class_name ?> $<?= $repository_var ?>): Response
     {
-        return $this->render('<?= $templates_path ?>/index.html.twig', [
+        return $this->render('<?= $templates_path ?>/index.php.twig', [
             '<?= $entity_twig_var_plural ?>' => $<?= $repository_var ?>->findAll(),
         ]);
     }
@@ -28,7 +28,7 @@ class <?= $class_name ?> extends AbstractController
             ->getRepository(<?= $entity_class_name ?>::class)
             ->findAll();
 
-        return $this->render('<?= $templates_path ?>/index.html.twig', [
+        return $this->render('<?= $templates_path ?>/index.php.twig', [
             '<?= $entity_twig_var_plural ?>' => $<?= $entity_var_plural ?>,
         ]);
     }
@@ -61,12 +61,12 @@ class <?= $class_name ?> extends AbstractController
 <?php } ?>
 
 <?php if ($use_render_form) { ?>
-        return $this->renderForm('<?= $templates_path ?>/new.html.twig', [
+        return $this->renderForm('<?= $templates_path ?>/new.php.twig', [
             '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
             'form' => $form,
         ]);
 <?php } else { ?>
-        return $this->render('<?= $templates_path ?>/new.html.twig', [
+        return $this->render('<?= $templates_path ?>/new.php.twig', [
             '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
             'form' => $form->createView(),
         ]);
@@ -76,7 +76,7 @@ class <?= $class_name ?> extends AbstractController
 <?= $generator->generateRouteForControllerMethod(sprintf('/{%s}', $entity_identifier), sprintf('%s_show', $route_name), ['GET']) ?>
     public function show(<?= $entity_class_name ?> $<?= $entity_var_singular ?>): Response
     {
-        return $this->render('<?= $templates_path ?>/show.html.twig', [
+        return $this->render('<?= $templates_path ?>/show.php.twig', [
             '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
         ]);
     }
@@ -106,12 +106,12 @@ class <?= $class_name ?> extends AbstractController
 <?php } ?>
 
 <?php if ($use_render_form) { ?>
-        return $this->renderForm('<?= $templates_path ?>/edit.html.twig', [
+        return $this->renderForm('<?= $templates_path ?>/edit.php.twig', [
             '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
             'form' => $form,
         ]);
 <?php } else { ?>
-        return $this->render('<?= $templates_path ?>/edit.html.twig', [
+        return $this->render('<?= $templates_path ?>/edit.php.twig', [
             '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
             'form' => $form->createView(),
         ]);

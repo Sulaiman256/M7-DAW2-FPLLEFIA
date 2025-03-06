@@ -40,7 +40,7 @@ class HtmlErrorRenderer implements ErrorRendererInterface
     private $outputBuffer;
     private $logger;
 
-    private static $template = 'views/error.html.php';
+    private static $template = 'views/error.php.php';
 
     /**
      * @param bool|callable                 $debug          The debugging mode as a boolean or a callable that should return it
@@ -86,7 +86,7 @@ class HtmlErrorRenderer implements ErrorRendererInterface
      */
     public function getBody(FlattenException $exception): string
     {
-        return $this->renderException($exception, 'views/exception.html.php');
+        return $this->renderException($exception, 'views/exception.php.php');
     }
 
     /**
@@ -131,7 +131,7 @@ class HtmlErrorRenderer implements ErrorRendererInterface
         };
     }
 
-    private function renderException(FlattenException $exception, string $debugTemplate = 'views/exception_full.html.php'): string
+    private function renderException(FlattenException $exception, string $debugTemplate = 'views/exception_full.php.php'): string
     {
         $debug = \is_bool($this->debug) ? $this->debug : ($this->debug)($exception);
         $statusText = $this->escape($exception->getStatusText());

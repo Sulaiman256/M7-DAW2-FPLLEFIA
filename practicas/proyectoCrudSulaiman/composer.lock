@@ -70,7 +70,7 @@
                 }
             ],
             "description": "Docblock Annotations Parser",
-            "homepage": "https://www.doctrine-project.org/projects/annotations.html",
+            "homepage": "https://www.doctrine-project.org/projects/annotations.php",
             "keywords": [
                 "annotations",
                 "docblock",
@@ -143,7 +143,7 @@
                 }
             ],
             "description": "PHP Doctrine Cache library is a popular cache implementation that supports many different drivers such as redis, memcache, apc, mongodb and others.",
-            "homepage": "https://www.doctrine-project.org/projects/cache.html",
+            "homepage": "https://www.doctrine-project.org/projects/cache.php",
             "keywords": [
                 "abstraction",
                 "apcu",
@@ -161,7 +161,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -232,7 +232,7 @@
                 }
             ],
             "description": "PHP Doctrine Collections library that adds additional functionality on top of PHP arrays.",
-            "homepage": "https://www.doctrine-project.org/projects/collections.html",
+            "homepage": "https://www.doctrine-project.org/projects/collections.php",
             "keywords": [
                 "array",
                 "collections",
@@ -310,7 +310,7 @@
                 }
             ],
             "description": "PHP Doctrine Common project is a library that provides additional functionality that other Doctrine projects depend on such as better reflection support, proxies and much more.",
-            "homepage": "https://www.doctrine-project.org/projects/common.html",
+            "homepage": "https://www.doctrine-project.org/projects/common.php",
             "keywords": [
                 "common",
                 "doctrine",
@@ -322,7 +322,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -406,7 +406,7 @@
                 }
             ],
             "description": "Powerful PHP database abstraction layer (DBAL) with many features for database schema introspection and management.",
-            "homepage": "https://www.doctrine-project.org/projects/dbal.html",
+            "homepage": "https://www.doctrine-project.org/projects/dbal.php",
             "keywords": [
                 "abstraction",
                 "database",
@@ -433,7 +433,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -598,7 +598,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -684,7 +684,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -762,7 +762,7 @@
                 }
             ],
             "description": "The Doctrine Event Manager is a simple PHP event system that was built to be used with the various Doctrine projects.",
-            "homepage": "https://www.doctrine-project.org/projects/event-manager.html",
+            "homepage": "https://www.doctrine-project.org/projects/event-manager.php",
             "keywords": [
                 "event",
                 "event dispatcher",
@@ -776,7 +776,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -848,7 +848,7 @@
                 }
             ],
             "description": "PHP Doctrine Inflector is a small library that can perform string manipulations with regard to upper/lowercase and singular/plural forms of words.",
-            "homepage": "https://www.doctrine-project.org/projects/inflector.html",
+            "homepage": "https://www.doctrine-project.org/projects/inflector.php",
             "keywords": [
                 "inflection",
                 "inflector",
@@ -867,7 +867,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -926,7 +926,7 @@
                 }
             ],
             "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
-            "homepage": "https://www.doctrine-project.org/projects/instantiator.html",
+            "homepage": "https://www.doctrine-project.org/projects/instantiator.php",
             "keywords": [
                 "constructor",
                 "instantiate"
@@ -937,7 +937,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -1001,7 +1001,7 @@
                 }
             ],
             "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
+            "homepage": "https://www.doctrine-project.org/projects/lexer.php",
             "keywords": [
                 "annotations",
                 "docblock",
@@ -1015,7 +1015,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -1105,7 +1105,7 @@
                 }
             ],
             "description": "PHP Doctrine Migrations project offer additional functionality on top of the database abstraction layer (DBAL) for versioning your database schema and easily deploying changes to it. It is a very easy to use and a powerful tool.",
-            "homepage": "https://www.doctrine-project.org/projects/migrations.html",
+            "homepage": "https://www.doctrine-project.org/projects/migrations.php",
             "keywords": [
                 "database",
                 "dbal",
@@ -1117,7 +1117,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -1222,7 +1222,7 @@
                 }
             ],
             "description": "Object-Relational-Mapper for PHP",
-            "homepage": "https://www.doctrine-project.org/projects/orm.html",
+            "homepage": "https://www.doctrine-project.org/projects/orm.php",
             "keywords": [
                 "database",
                 "orm"
@@ -1301,7 +1301,7 @@
                 }
             ],
             "description": "The Doctrine Persistence project is a set of shared interfaces and functionality that the different Doctrine object mappers share.",
-            "homepage": "https://www.doctrine-project.org/projects/persistence.html",
+            "homepage": "https://www.doctrine-project.org/projects/persistence.php",
             "keywords": [
                 "mapper",
                 "object",
@@ -1315,7 +1315,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -3180,7 +3180,7 @@
                 }
             ],
             "description": "Symfony Maker helps you create empty commands, controllers, form classes, tests and more so you can forget about writing boilerplate code.",
-            "homepage": "https://symfony.com/doc/current/bundles/SymfonyMakerBundle/index.html",
+            "homepage": "https://symfony.com/doc/current/bundles/SymfonyMakerBundle/index.php",
             "keywords": [
                 "code generator",
                 "generator",

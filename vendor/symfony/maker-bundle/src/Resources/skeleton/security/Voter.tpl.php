@@ -14,7 +14,7 @@ class <?= $class_name ?> extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // replace with your own logic
-        // https://symfony.com/doc/current/security/voters.html
+        // https://symfony.com/doc/current/security/voters.php
         return in_array($attribute, [self::EDIT, self::VIEW])
             && $subject instanceof \App\Entity\<?= str_replace('Voter', null, $class_name) ?>;
     }

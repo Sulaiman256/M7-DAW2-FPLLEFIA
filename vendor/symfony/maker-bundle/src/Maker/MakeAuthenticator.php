@@ -106,7 +106,7 @@ final class MakeAuthenticator extends AbstractMaker
 
         // @legacy - Can be removed when Symfony 5.4 support is dropped
         if (interface_exists(GuardAuthenticatorInterface::class) && !($securityData['security']['enable_authenticator_manager'] ?? false)) {
-            throw new RuntimeCommandException('MakerBundle only supports the new authenticator based security system. See https://symfony.com/doc/current/security.html');
+            throw new RuntimeCommandException('MakerBundle only supports the new authenticator based security system. See https://symfony.com/doc/current/security.php');
         }
 
         // authenticator type
@@ -351,7 +351,7 @@ final class MakeAuthenticator extends AbstractMaker
 
         // create login form template
         $this->generator->generateTemplate(
-            'security/login.html.twig',
+            'security/login.php.twig',
             'authenticator/login_form.tpl.php',
             [
                 'username_field' => $userNameField,
@@ -385,7 +385,7 @@ final class MakeAuthenticator extends AbstractMaker
                 $nextTexts[] = sprintf('- Review <info>%s::getUser()</info> to make sure it matches your needs.', $authenticatorClass);
             }
 
-            $nextTexts[] = '- Review & adapt the login template: <info>'.$this->fileManager->getPathForTemplate('security/login.html.twig').'</info>.';
+            $nextTexts[] = '- Review & adapt the login template: <info>'.$this->fileManager->getPathForTemplate('security/login.php.twig').'</info>.';
         }
 
         return $nextTexts;

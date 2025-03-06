@@ -128,7 +128,7 @@ final class MakeMessage extends AbstractMaker
         $io->text([
             'Next: Open your new message class and add the properties you need.',
             '      Then, open the new message handler and do whatever work you want!',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/messenger.html</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/messenger.php</>',
         ]);
     }
 

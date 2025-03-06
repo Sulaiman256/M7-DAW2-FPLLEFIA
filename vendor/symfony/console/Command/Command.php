@@ -32,7 +32,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Command
 {
-    // see https://tldp.org/LDP/abs/html/exitcodes.html
+    // see https://tldp.org/LDP/abs/html/exitcodes.php
     public const SUCCESS = 0;
     public const FAILURE = 1;
     public const INVALID = 2;

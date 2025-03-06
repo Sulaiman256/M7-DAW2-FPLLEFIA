@@ -190,7 +190,7 @@ class SqlitePlatform extends AbstractPlatform
      * The DBAL doesn't support databases on the SQLite platform. The expression here always returns a fixed string
      * as an indicator of an implicitly selected database.
      *
-     * @link https://www.sqlite.org/lang_select.html
+     * @link https://www.sqlite.org/lang_select.php
      * @see Connection::getDatabase()
      */
     public function getCurrentDatabaseExpression(): string

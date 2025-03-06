@@ -36,7 +36,7 @@
             "email": "ocramius@gmail.com"
         }
     ],
-    "homepage": "https://www.doctrine-project.org/projects/event-manager.html",
+    "homepage": "https://www.doctrine-project.org/projects/event-manager.php",
     "require": {
         "php": "^7.1 || ^8.0",
         "doctrine/deprecations": "^0.5.3 || ^1"

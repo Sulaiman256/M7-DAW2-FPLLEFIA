@@ -75,7 +75,7 @@ final class MakeValidator extends AbstractMaker
 
         $io->text([
             'Next: Open your new constraint & validators and add your logic.',
-            'Find the documentation at <fg=yellow>http://symfony.com/doc/current/validation/custom_constraint.html</>',
+            'Find the documentation at <fg=yellow>http://symfony.com/doc/current/validation/custom_constraint.php</>',
         ]);
     }
 

@@ -320,17 +320,17 @@ class MakeResetPassword extends AbstractMaker
         );
 
         $generator->generateTemplate(
-            'reset_password/check_email.html.twig',
+            'reset_password/check_email.php.twig',
             'resetPassword/twig_check_email.tpl.php'
         );
 
         $generator->generateTemplate(
-            'reset_password/email.html.twig',
+            'reset_password/email.php.twig',
             'resetPassword/twig_email.tpl.php'
         );
 
         $generator->generateTemplate(
-            'reset_password/request.html.twig',
+            'reset_password/request.php.twig',
             'resetPassword/twig_request.tpl.php',
             [
                 'email_field' => $this->emailPropertyName,
@@ -338,7 +338,7 @@ class MakeResetPassword extends AbstractMaker
         );
 
         $generator->generateTemplate(
-            'reset_password/reset.html.twig',
+            'reset_password/reset.php.twig',
             'resetPassword/twig_reset.tpl.php'
         );
 

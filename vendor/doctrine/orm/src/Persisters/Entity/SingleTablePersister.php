@@ -19,7 +19,7 @@ use function implode;
  * Persister for entities that participate in a hierarchy mapped with the
  * SINGLE_TABLE strategy.
  *
- * @link https://martinfowler.com/eaaCatalog/singleTableInheritance.html
+ * @link https://martinfowler.com/eaaCatalog/singleTableInheritance.php
  */
 class SingleTablePersister extends AbstractEntityInheritancePersister
 {

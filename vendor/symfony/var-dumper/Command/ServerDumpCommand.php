@@ -69,7 +69,7 @@ dumps in a single place for debugging you application:
 You can consult dumped data in HTML format in your browser by providing the <comment>--format=html</comment> option
 and redirecting the output to a file:
 
-  <info>php %command.full_name% --format="html" > dump.html</info>
+  <info>php %command.full_name% --format="html" > dump.php</info>
 
 EOF
             )

@@ -75,7 +75,7 @@ final class MakeSerializerNormalizer extends AbstractMaker
 
         $io->text([
             'Next: Open your new serializer normalizer class and start customizing it.',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/serializer/custom_normalizer.html</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/serializer/custom_normalizer.php</>',
         ]);
     }
 

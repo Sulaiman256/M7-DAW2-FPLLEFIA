@@ -77,7 +77,7 @@ class ProfilerController
             return new Response('This query cannot be explained.');
         }
 
-        return new Response($this->twig->render('@Doctrine/Collector/explain.html.twig', [
+        return new Response($this->twig->render('@Doctrine/Collector/explain.php.twig', [
             'data' => $results,
             'query' => $query,
         ]));

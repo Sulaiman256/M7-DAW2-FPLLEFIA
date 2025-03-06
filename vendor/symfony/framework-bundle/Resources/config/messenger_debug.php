@@ -17,7 +17,7 @@ return static function (ContainerConfigurator $container) {
     $container->services()
         ->set('data_collector.messenger', MessengerDataCollector::class)
             ->tag('data_collector', [
-                'template' => '@WebProfiler/Collector/messenger.html.twig',
+                'template' => '@WebProfiler/Collector/messenger.php.twig',
                 'id' => 'messenger',
                 'priority' => 100,
             ])

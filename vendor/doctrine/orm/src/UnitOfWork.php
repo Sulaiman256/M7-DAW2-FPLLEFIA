@@ -115,7 +115,7 @@ class UnitOfWork implements PropertyChangedListener
      * Hint used to collect all primary keys of associated entities during hydration
      * and execute it in a dedicated query afterwards
      *
-     * @see https://www.doctrine-project.org/projects/doctrine-orm/en/stable/reference/dql-doctrine-query-language.html#temporarily-change-fetch-mode-in-dql
+     * @see https://www.doctrine-project.org/projects/doctrine-orm/en/stable/reference/dql-doctrine-query-language.php#temporarily-change-fetch-mode-in-dql
      */
     public const HINT_DEFEREAGERLOAD = 'deferEagerLoad';
 
@@ -1373,7 +1373,7 @@ class UnitOfWork implements PropertyChangedListener
                     continue;
                 }
 
-                // According to https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/annotations-reference.html#annref_joincolumn,
+                // According to https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/annotations-reference.php#annref_joincolumn,
                 // the default for "nullable" is true. Unfortunately, it seems this default is not applied at the metadata driver, factory or other
                 // level, but in fact we may have an undefined 'nullable' key here, so we must assume that default here as well.
                 //

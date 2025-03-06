@@ -30,7 +30,7 @@
             "email": "schmittjoh@gmail.com"
         }
     ],
-    "homepage": "https://www.doctrine-project.org/projects/annotations.html",
+    "homepage": "https://www.doctrine-project.org/projects/annotations.php",
     "require": {
         "php": "^7.2 || ^8.0",
         "ext-tokenizer": "*",

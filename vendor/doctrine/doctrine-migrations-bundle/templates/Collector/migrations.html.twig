@@ -1,4 +1,4 @@
-{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+{% extends '@WebProfiler/Profiler/layout.php.twig' %}
 
 {% block toolbar %}
     {% if collector.data.unavailable_migrations_count is defined %}
@@ -53,7 +53,7 @@
                 </div>
             {% endset %}
 
-            {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url, status: status_color }) }}
+            {{ include('@WebProfiler/Profiler/toolbar_item.php.twig', { link: profiler_url, status: status_color }) }}
         {% endif %}
     {% endif %}
 {% endblock %}

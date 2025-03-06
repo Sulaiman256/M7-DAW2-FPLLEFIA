@@ -52,7 +52,7 @@
             <div class="tab-content">
                 <?php
                 foreach ($exceptionAsArray as $i => $e) {
-                    echo $this->include('views/traces.html.php', [
+                    echo $this->include('views/traces.php.php', [
                         'exception' => $e,
                         'index' => $i + 1,
                         'expand' => in_array($i, $exceptionWithUserCode, true) || ([] === $exceptionWithUserCode && 0 === $i),
@@ -71,7 +71,7 @@
 
             <div class="tab-content">
                 <?php if ($logger->getLogs()) { ?>
-                    <?= $this->include('views/logs.html.php', ['logs' => $logger->getLogs()]); ?>
+                    <?= $this->include('views/logs.php.php', ['logs' => $logger->getLogs()]); ?>
                 <?php } else { ?>
                     <div class="empty">
                         <p>No log messages</p>
@@ -93,7 +93,7 @@
             <div class="tab-content">
                 <?php
                 foreach ($exceptionAsArray as $i => $e) {
-                    echo $this->include('views/traces_text.html.php', [
+                    echo $this->include('views/traces_text.php.php', [
                         'exception' => $e,
                         'index' => $i + 1,
                         'numExceptions' => $exceptionAsArrayCount,

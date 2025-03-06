@@ -55,6 +55,6 @@ Now you can execute the PHAR like this:
 :ref:`Next Chapter: Configuration <configuration>`
 
 .. _Composer: https://getcomposer.org/
-.. _DBAL: https://www.doctrine-project.org/projects/dbal.html
-.. _ORM: https://www.doctrine-project.org/projects/orm.html
+.. _DBAL: https://www.doctrine-project.org/projects/dbal.php
+.. _ORM: https://www.doctrine-project.org/projects/orm.php
 .. _releases: https://github.com/doctrine/migrations/releases

@@ -78,7 +78,7 @@ final class MakeMessengerMiddleware extends AbstractMaker
             'Next:',
             sprintf('- Open the <info>%s</info> class and add the code you need', $middlewareClassNameDetails->getFullName()),
             '- Add the middleware to your <info>config/packages/messenger.yaml</info> file',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/messenger.html#middleware</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/messenger.php#middleware</>',
         ]);
     }
 

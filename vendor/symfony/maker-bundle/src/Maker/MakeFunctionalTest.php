@@ -84,7 +84,7 @@ class MakeFunctionalTest extends AbstractMaker
 
         $io->text([
             'Next: Open your new test class and start customizing it.',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/testing.html#functional-tests</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/testing.php#functional-tests</>',
         ]);
     }
 

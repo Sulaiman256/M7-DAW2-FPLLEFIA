@@ -22,7 +22,7 @@ Debug::enable();
 //DebugClassLoader::enable();
 
 // If you want a custom generic template when debug is not enabled
-// HtmlErrorRenderer::setTemplate('/path/to/custom/error.html.php');
+// HtmlErrorRenderer::setTemplate('/path/to/custom/error.php.php');
 
 $data = ErrorHandler::call(static function () use ($filename, $datetimeFormat) {
     // if any code executed inside this anonymous function fails, a PHP exception
@@ -38,7 +38,7 @@ $data = ErrorHandler::call(static function () use ($filename, $datetimeFormat) {
 Resources
 ---------
 
- * [Contributing](https://symfony.com/doc/current/contributing/index.html)
+ * [Contributing](https://symfony.com/doc/current/contributing/index.php)
  * [Report issues](https://github.com/symfony/symfony/issues) and
    [send Pull Requests](https://github.com/symfony/symfony/pulls)
    in the [main Symfony repository](https://github.com/symfony/symfony)

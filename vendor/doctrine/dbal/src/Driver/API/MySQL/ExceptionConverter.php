@@ -26,8 +26,8 @@ use Doctrine\DBAL\Query;
 final class ExceptionConverter implements ExceptionConverterInterface
 {
     /**
-     * @link https://dev.mysql.com/doc/mysql-errors/8.0/en/client-error-reference.html
-     * @link https://dev.mysql.com/doc/mysql-errors/8.0/en/server-error-reference.html
+     * @link https://dev.mysql.com/doc/mysql-errors/8.0/en/client-error-reference.php
+     * @link https://dev.mysql.com/doc/mysql-errors/8.0/en/server-error-reference.php
      */
     public function convert(Exception $exception, ?Query $query): DriverException
     {

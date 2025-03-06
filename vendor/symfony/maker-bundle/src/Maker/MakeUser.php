@@ -234,7 +234,7 @@ final class MakeUser extends AbstractMaker
             $nextSteps[] = "Your <info>security.yaml</info> could not be updated automatically. You'll need to add the following config manually:\n\n".$yamlExample;
         }
 
-        $nextSteps[] = 'Create a way to authenticate! See https://symfony.com/doc/current/security.html';
+        $nextSteps[] = 'Create a way to authenticate! See https://symfony.com/doc/current/security.php';
 
         $nextSteps = array_map(function ($step) {
             return sprintf('  - %s', $step);

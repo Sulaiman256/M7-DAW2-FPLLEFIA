@@ -20,7 +20,7 @@ return static function (ContainerConfigurator $container) {
                 service('mailer.message_logger_listener'),
             ])
             ->tag('data_collector', [
-                'template' => '@WebProfiler/Collector/mailer.html.twig',
+                'template' => '@WebProfiler/Collector/mailer.php.twig',
                 'id' => 'mailer',
             ])
     ;

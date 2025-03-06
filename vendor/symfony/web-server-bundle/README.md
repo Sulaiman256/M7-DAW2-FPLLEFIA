@@ -2,7 +2,7 @@ WebServerBundle
 ===============
 
 **CAUTION**: this bundle is deprecated since Symfony 4.4. Instead, use the
-[Symfony Local Web Server](https://symfony.com/doc/current/setup/symfony_server.html).
+[Symfony Local Web Server](https://symfony.com/doc/current/setup/symfony_server.php).
 
 WebServerBundle provides commands for running applications using the PHP
 built-in web server. It simplifies your local development setup because you
@@ -12,7 +12,7 @@ application.
 Resources
 ---------
 
- * [Contributing](https://symfony.com/doc/current/contributing/index.html)
+ * [Contributing](https://symfony.com/doc/current/contributing/index.php)
  * [Report issues](https://github.com/symfony/symfony/issues) and
    [send Pull Requests](https://github.com/symfony/symfony/pulls)
    in the [main Symfony repository](https://github.com/symfony/symfony)

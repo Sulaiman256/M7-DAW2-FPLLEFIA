@@ -64,7 +64,7 @@ final class MakeVoter extends AbstractMaker
 
         $io->text([
             'Next: Open your voter and add your logic.',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/security/voters.html</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/security/voters.php</>',
         ]);
     }
 

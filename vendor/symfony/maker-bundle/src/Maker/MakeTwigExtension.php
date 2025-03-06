@@ -73,7 +73,7 @@ final class MakeTwigExtension extends AbstractMaker
 
         $io->text([
             'Next: Open your new extension class and start customizing it.',
-            'Find the documentation at <fg=yellow>http://symfony.com/doc/current/templating/twig_extension.html</>',
+            'Find the documentation at <fg=yellow>http://symfony.com/doc/current/templating/twig_extension.php</>',
         ]);
     }
 

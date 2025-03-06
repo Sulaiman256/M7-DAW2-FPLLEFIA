@@ -44,9 +44,9 @@ final class MakeTest extends AbstractMaker implements InputAwareMakerInterface
         'PantherTestCase' => 'to run e2e scenarios, using a real-browser or HTTP client and a real web server',
     ];
     private const DOCS = [
-        'TestCase' => 'https://symfony.com/doc/current/testing.html#unit-tests',
-        'KernelTestCase' => 'https://symfony.com/doc/current/testing/database.html#functional-testing-of-a-doctrine-repository',
-        'WebTestCase' => 'https://symfony.com/doc/current/testing.html#functional-tests',
+        'TestCase' => 'https://symfony.com/doc/current/testing.php#unit-tests',
+        'KernelTestCase' => 'https://symfony.com/doc/current/testing/database.php#functional-testing-of-a-doctrine-repository',
+        'WebTestCase' => 'https://symfony.com/doc/current/testing.php#functional-tests',
         'ApiTestCase' => 'https://api-platform.com/docs/distribution/testing/',
         'PantherTestCase' => 'https://github.com/symfony/panther#testing-usage',
     ];

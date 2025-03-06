@@ -8,5 +8,5 @@ tags needed.
 
 [Read the documentation][2]
 
-[1]: https://symfony.com/doc/current/frontend.html
-[2]: https://symfony.com/bundles/WebpackEncoreBundle/current/index.html
+[1]: https://symfony.com/doc/current/frontend.php
+[2]: https://symfony.com/bundles/WebpackEncoreBundle/current/index.php

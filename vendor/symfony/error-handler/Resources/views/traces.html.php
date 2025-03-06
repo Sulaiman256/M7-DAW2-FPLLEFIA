@@ -37,7 +37,7 @@
                 $isFirstUserCode = false;
             } ?>
             <div class="trace-line <?= $isVendorTrace ? 'trace-from-vendor' : ''; ?>">
-                <?= $this->include('views/trace.html.php', [
+                <?= $this->include('views/trace.php.php', [
                     'prefix' => $index,
                     'i' => $i,
                     'trace' => $trace,

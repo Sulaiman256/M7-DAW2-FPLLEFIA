@@ -1123,7 +1123,7 @@ class Response
     /**
      * Is response invalid?
      *
-     * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.php
      *
      * @final
      */

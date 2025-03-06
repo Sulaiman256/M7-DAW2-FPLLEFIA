@@ -8,4 +8,4 @@
 
 ## Documentation
 
-All available documentation can be found [here](https://www.doctrine-project.org/projects/migrations.html).
+All available documentation can be found [here](https://www.doctrine-project.org/projects/migrations.php).

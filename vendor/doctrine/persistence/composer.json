@@ -9,7 +9,7 @@
         "orm",
         "odm"
     ],
-    "homepage": "https://www.doctrine-project.org/projects/persistence.html",
+    "homepage": "https://www.doctrine-project.org/projects/persistence.php",
     "license": "MIT",
     "authors": [
         {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},

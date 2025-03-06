@@ -30,7 +30,7 @@ return static function (ContainerConfigurator $container) {
                 service('debug.validator'),
             ])
             ->tag('data_collector', [
-                'template' => '@WebProfiler/Collector/validator.html.twig',
+                'template' => '@WebProfiler/Collector/validator.php.twig',
                 'id' => 'validator',
                 'priority' => 320,
             ])

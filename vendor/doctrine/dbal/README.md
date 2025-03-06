@@ -10,7 +10,7 @@ Powerful ***D***ata***B***ase ***A***bstraction ***L***ayer with many features f
 
 ## More resources:
 
-* [Website](http://www.doctrine-project.org/projects/dbal.html)
+* [Website](http://www.doctrine-project.org/projects/dbal.php)
 * [Documentation](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/)
 * [Issue Tracker](https://github.com/doctrine/dbal/issues)
 

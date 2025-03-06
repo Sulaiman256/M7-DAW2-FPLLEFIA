@@ -76,7 +76,7 @@ final class MakeSerializerEncoder extends AbstractMaker
 
         $io->text([
             'Next: Open your new serializer encoder class and start customizing it.',
-            'Find the documentation at <fg=yellow>http://symfony.com/doc/current/serializer/custom_encoders.html</>',
+            'Find the documentation at <fg=yellow>http://symfony.com/doc/current/serializer/custom_encoders.php</>',
         ]);
     }
 

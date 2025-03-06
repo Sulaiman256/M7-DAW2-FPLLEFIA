@@ -69,7 +69,7 @@ final class MakeUnitTest extends AbstractMaker
 
         $io->text([
             'Next: Open your new test class and start customizing it.',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/testing.html#unit-tests</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/testing.php#unit-tests</>',
         ]);
     }
 

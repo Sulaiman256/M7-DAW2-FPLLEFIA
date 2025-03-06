@@ -196,7 +196,7 @@ final class MakeEntity extends AbstractMaker implements InputAwareMakerInterface
             if ($broadcast) {
                 $shortName = $entityClassDetails->getShortName();
                 $generator->generateTemplate(
-                    sprintf('broadcast/%s.stream.html.twig', $shortName),
+                    sprintf('broadcast/%s.stream.php.twig', $shortName),
                     'doctrine/broadcast_twig_template.tpl.php',
                     [
                         'class_name' => Str::asSnakeCase($shortName),

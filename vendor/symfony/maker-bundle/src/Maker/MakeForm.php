@@ -121,7 +121,7 @@ final class MakeForm extends AbstractMaker
 
         $io->text([
             'Next: Add fields to your form and start using it.',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/forms.html</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/forms.php</>',
         ]);
     }
 

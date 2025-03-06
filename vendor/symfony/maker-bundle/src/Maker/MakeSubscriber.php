@@ -111,7 +111,7 @@ final class MakeSubscriber extends AbstractMaker
 
         $io->text([
             'Next: Open your new subscriber class and start customizing it.',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/event_dispatcher.html#creating-an-event-subscriber</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/event_dispatcher.php#creating-an-event-subscriber</>',
         ]);
     }
 

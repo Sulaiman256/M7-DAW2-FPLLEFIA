@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.php.twig' %}
 
 {% block title %}Log in!{% endblock %}
 
@@ -28,7 +28,7 @@
 
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+        See https://symfony.com/doc/current/security/remember_me.php
 
         <div class="checkbox mb-3">
             <label>

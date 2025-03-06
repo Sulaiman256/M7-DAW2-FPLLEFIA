@@ -764,7 +764,7 @@ class Process implements \IteratorAggregate
      *
      * @return string|null A string representation for the exit status code, null if the Process is not terminated
      *
-     * @see http://tldp.org/LDP/abs/html/exitcodes.html
+     * @see http://tldp.org/LDP/abs/html/exitcodes.php
      * @see http://en.wikipedia.org/wiki/Unix_signal
      */
     public function getExitCodeText()

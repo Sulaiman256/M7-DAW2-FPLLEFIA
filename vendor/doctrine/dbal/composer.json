@@ -22,7 +22,7 @@
         "sqlserver",
         "sqlsrv"
     ],
-    "homepage": "https://www.doctrine-project.org/projects/dbal.html",
+    "homepage": "https://www.doctrine-project.org/projects/dbal.php",
     "license": "MIT",
     "authors": [
         {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},

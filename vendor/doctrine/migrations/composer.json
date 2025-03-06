@@ -22,7 +22,7 @@
             "email": "contact@mikesimonson.com"
         }
     ],
-    "homepage": "https://www.doctrine-project.org/projects/migrations.html",
+    "homepage": "https://www.doctrine-project.org/projects/migrations.php",
     "require": {
         "php": "^7.4 || ^8.0",
         "composer-runtime-api": "^2",

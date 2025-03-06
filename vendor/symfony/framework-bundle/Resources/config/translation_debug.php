@@ -22,7 +22,7 @@ return static function (ContainerConfigurator $container) {
         ->set('data_collector.translation', TranslationDataCollector::class)
             ->args([service('translator.data_collector')])
             ->tag('data_collector', [
-                'template' => '@WebProfiler/Collector/translation.html.twig',
+                'template' => '@WebProfiler/Collector/translation.php.twig',
                 'id' => 'translation',
                 'priority' => 275,
             ])

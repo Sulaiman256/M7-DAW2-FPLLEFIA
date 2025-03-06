@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Object-Relational-Mapper for PHP",
     "keywords": ["orm", "database"],
-    "homepage": "https://www.doctrine-project.org/projects/orm.html",
+    "homepage": "https://www.doctrine-project.org/projects/orm.php",
     "license": "MIT",
     "authors": [
         {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},

@@ -469,7 +469,7 @@ class SqliteSchemaManager extends AbstractSchemaManager
 
             if ($value['to'] === null) {
                 // Inferring a shorthand form for the foreign key constraint, where the "to" field is empty.
-                // @see https://www.sqlite.org/foreignkeys.html#fk_indexes.
+                // @see https://www.sqlite.org/foreignkeys.php#fk_indexes.
                 $foreignTableIndexes = $this->_getPortableTableIndexesList([], $value['table']);
 
                 if (! isset($foreignTableIndexes['primary'])) {

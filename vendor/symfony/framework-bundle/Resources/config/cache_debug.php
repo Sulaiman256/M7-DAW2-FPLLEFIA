@@ -20,7 +20,7 @@ return static function (ContainerConfigurator $container) {
         ->set('data_collector.cache', CacheDataCollector::class)
             ->public()
             ->tag('data_collector', [
-                'template' => '@WebProfiler/Collector/cache.html.twig',
+                'template' => '@WebProfiler/Collector/cache.php.twig',
                 'id' => 'cache',
                 'priority' => 275,
             ])

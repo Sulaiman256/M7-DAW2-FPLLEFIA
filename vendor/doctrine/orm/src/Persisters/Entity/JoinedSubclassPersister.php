@@ -23,7 +23,7 @@ use function implode;
  * The joined subclass persister maps a single entity instance to several tables in the
  * database as it is defined by the <tt>Class Table Inheritance</tt> strategy.
  *
- * @see https://martinfowler.com/eaaCatalog/classTableInheritance.html
+ * @see https://martinfowler.com/eaaCatalog/classTableInheritance.php
  */
 class JoinedSubclassPersister extends AbstractEntityInheritancePersister
 {

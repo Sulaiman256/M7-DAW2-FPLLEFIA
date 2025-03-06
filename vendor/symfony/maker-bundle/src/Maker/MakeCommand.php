@@ -98,7 +98,7 @@ final class MakeCommand extends AbstractMaker
         $this->writeSuccessMessage($io);
         $io->text([
             'Next: open your new command class and customize it!',
-            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/console.html</>',
+            'Find the documentation at <fg=yellow>https://symfony.com/doc/current/console.php</>',
         ]);
     }
 

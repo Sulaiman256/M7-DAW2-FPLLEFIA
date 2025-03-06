@@ -73,7 +73,7 @@ CODE
         $manipulator->addMethodBody($loginMethodBuilder, <<<'CODE'
 <?php
 return $this->render(
-    'security/login.html.twig',
+    'security/login.php.twig',
     [
         'last_username' => $lastUsername,
         'error' => $error,

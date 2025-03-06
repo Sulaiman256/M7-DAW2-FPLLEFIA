@@ -30,7 +30,7 @@ class MySQL80Keywords extends MySQL57Keywords
     /**
      * {@inheritDoc}
      *
-     * @link https://dev.mysql.com/doc/refman/8.0/en/keywords.html
+     * @link https://dev.mysql.com/doc/refman/8.0/en/keywords.php
      */
     protected function getKeywords()
     {

@@ -15,7 +15,7 @@ use Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
 
 return static function (ContainerConfigurator $container) {
     $container->services()
-        ->set('error_handler.error_renderer.html', HtmlErrorRenderer::class)
+        ->set('error_handler.error_renderer.php', HtmlErrorRenderer::class)
             ->args([
                 inline_service()
                     ->factory([HtmlErrorRenderer::class, 'isDebug'])
@@ -32,7 +32,7 @@ return static function (ContainerConfigurator $container) {
                 service('logger')->nullOnInvalid(),
             ])
 
-        ->alias('error_renderer.html', 'error_handler.error_renderer.html')
-        ->alias('error_renderer', 'error_renderer.html')
+        ->alias('error_renderer.php', 'error_handler.error_renderer.php')
+        ->alias('error_renderer', 'error_renderer.php')
     ;
 };

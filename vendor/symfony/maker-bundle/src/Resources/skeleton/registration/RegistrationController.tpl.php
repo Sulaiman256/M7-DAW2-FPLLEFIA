@@ -41,7 +41,7 @@ class <?= $class_name; ?> extends AbstractController
                     ->from(new Address('<?= $from_email ?>', '<?= $from_email_name ?>'))
                     ->to($user-><?= $email_getter ?>())
                     ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('registration/confirmation_email.php.twig')
             );
 <?php endif; ?>
             // do anything else you need here, like send an email
@@ -66,7 +66,7 @@ class <?= $class_name; ?> extends AbstractController
 <?php endif; ?>
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('registration/register.php.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

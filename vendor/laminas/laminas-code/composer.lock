@@ -637,7 +637,7 @@
                 }
             ],
             "description": "Docblock Annotations Parser",
-            "homepage": "https://www.doctrine-project.org/projects/annotations.html",
+            "homepage": "https://www.doctrine-project.org/projects/annotations.php",
             "keywords": [
                 "annotations",
                 "docblock",
@@ -694,7 +694,7 @@
                 }
             ],
             "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
-            "homepage": "https://www.doctrine-project.org/projects/instantiator.html",
+            "homepage": "https://www.doctrine-project.org/projects/instantiator.php",
             "keywords": [
                 "constructor",
                 "instantiate"
@@ -705,7 +705,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -767,7 +767,7 @@
                 }
             ],
             "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
+            "homepage": "https://www.doctrine-project.org/projects/lexer.php",
             "keywords": [
                 "annotations",
                 "docblock",
@@ -781,7 +781,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "url": "https://www.doctrine-project.org/sponsorship.php",
                     "type": "custom"
                 },
                 {
@@ -1952,7 +1952,7 @@
             },
             "funding": [
                 {
-                    "url": "https://phpunit.de/sponsors.html",
+                    "url": "https://phpunit.de/sponsors.php",
                     "type": "custom"
                 },
                 {

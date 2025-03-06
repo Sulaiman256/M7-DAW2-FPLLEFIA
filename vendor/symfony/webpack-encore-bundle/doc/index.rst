@@ -208,7 +208,7 @@ The ``stimulus_controller()``, ``stimulus_action()`` and ``stimulus_target()``
 Twig functions are deprecated in WebpackEncoreBundle 1.17.0. Install and
 use `symfony/stimulus-bundle`_ for that functionality.
 
-.. _`Webpack Encore`: https://symfony.com/doc/current/frontend.html
-.. _`enable the bundle manually`: https://symfony.com/doc/current/bundles.html
+.. _`Webpack Encore`: https://symfony.com/doc/current/frontend.php
+.. _`enable the bundle manually`: https://symfony.com/doc/current/bundles.php
 .. _`"splits" your files`: https://webpack.js.org/plugins/split-chunks-plugin/
-.. _`symfony/stimulus-bundle`: https://symfony.com/bundles/StimulusBundle/current/index.html
+.. _`symfony/stimulus-bundle`: https://symfony.com/bundles/StimulusBundle/current/index.php

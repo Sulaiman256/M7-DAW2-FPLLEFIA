@@ -13,7 +13,7 @@
         "xcache",
         "apcu"
     ],
-    "homepage": "https://www.doctrine-project.org/projects/cache.html",
+    "homepage": "https://www.doctrine-project.org/projects/cache.php",
     "license": "MIT",
     "authors": [
         {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},
