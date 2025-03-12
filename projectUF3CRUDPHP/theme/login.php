@@ -47,15 +47,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body class="bg-gradient-to-br from-blue-100 to-indigo-200 min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md">
-        <!-- Login Card -->
         <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
-            <!-- Header -->
             <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-center">
                 <h1 class="text-white text-3xl font-bold">Bienvenido</h1>
                 <p class="text-blue-100 mt-2">Inicia sesión para continuar</p>
             </div>
             
-            <!-- Form -->
             <div class="p-8">
                 <?php if(isset($error_message)): ?>
                     <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded" role="alert">
@@ -64,7 +61,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <?php endif; ?>
                 
                 <form action="" method="post">
-                    <!-- Email Field -->
                     <div class="mb-6">
                         <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
                             Email
@@ -84,7 +80,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                         </div>
                     </div>
                     
-                    <!-- Password Field -->
                     <div class="mb-6">
                         <label for="password" class="block text-gray-700 text-sm font-bold mb-2">
                             Contraseña
@@ -104,7 +99,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                         </div>
                     </div>
                     
-                    <!-- Remember Me & Forgot Password -->
                     <div class="flex items-center justify-between mb-6">
                         <div class="flex items-center">
                             <input type="checkbox" id="remember" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
@@ -117,7 +111,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                         </a>
                     </div>
                     
-                    <!-- Submit Button -->
                     <button 
                         type="submit" 
                         class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-all transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -131,7 +124,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <div class="bg-gray-50 px-8 py-5 border-t border-gray-100 text-center">
                 <p class="text-gray-600 text-sm">
                     ¿No tienes una cuenta? 
-                    <a href="#" class="text-blue-600 font-medium hover:text-blue-800 transition-colors">
+                    <a href="./register.php" class="text-blue-600 font-medium hover:text-blue-800 transition-colors">
                         Regístrate ahora
                     </a>
                 </p>
@@ -141,7 +134,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         <!-- Brand Logo or Text -->
         <div class="mt-8 text-center">
             <p class="text-gray-600 text-sm">
-                © 2025 Tu Empresa. Todos los derechos reservados.
+                © 2025 PearOSSulaiman. Todos los derechos reservados.
             </p>
         </div>
     </div>
