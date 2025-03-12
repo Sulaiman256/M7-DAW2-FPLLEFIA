@@ -3,6 +3,13 @@ session_start();
 include_once "../config/config.php"; 
 include_once "../controller/newsController.php";
 
+
+// Vamos a hacer que redirija el usuario si el usuario no está logueado
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 function readProject($mysqli) {
     $sql = "SELECT * FROM projects";
     $result = $mysqli->query($sql);
