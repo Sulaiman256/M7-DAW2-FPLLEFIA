@@ -61,7 +61,16 @@ $news = readNews($mysqli);
     <!--Favicon-->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-
+ <style>
+    .elipsis {
+    display: -webkit-box;               
+    -webkit-box-orient: vertical;      
+    overflow: hidden;                  
+    -webkit-line-clamp: 2;              
+    line-height: 1.5;                   
+    max-height: 4.5em;                  
+  }
+  </style>
 </head>
 
 <body>
@@ -379,9 +388,14 @@ $news = readNews($mysqli);
                             <time><?php
                             echo htmlspecialchars($new['publication_date'])
                             ?></time>
-                            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline"><?php
-                            echo htmlspecialchars($new['title'])
-                            ?>
+                            <p class="elipsis">
+                                <?php
+                                echo htmlspecialchars($new['descripcion']);
+                                ?>
+                            </p>
+                        <a href="blog-single.php?id=<?php echo $new['id']; ?>" class="h4 card-title d-block my-3 text-dark hover-text-underline"><?php echo htmlspecialchars($new['title']); ?></a>
+
+                          
                             </a>
                             <a href="#" class="btn btn-transparent">Read more</a>
                         </div>
