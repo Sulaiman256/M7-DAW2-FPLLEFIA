@@ -15,7 +15,6 @@ function readProject($mysqli) {
     $result = $mysqli->query($sql);
     
     if (!$result) {
-        // Si la consulta falla, muestra el error
         echo "Error en la consulta: " . $mysqli->error;
         return false; // Devuelve false si hay error
     }
@@ -24,6 +23,7 @@ function readProject($mysqli) {
 }
 
 $news = readNews($mysqli);
+
 
 ?>
 
@@ -129,7 +129,7 @@ $news = readNews($mysqli);
             <?php if(isset($_SESSION['user_id'])): ?>
                 <div class="flex items-center space-x-2">
                     <img width="42px" height="42px" src="<?= $_SESSION['user_avatar'] ?>" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-white">
-                    <span class="font-medium"><?= $_SESSION['user_name'] ?></span>
+                    <span class="text-white hover:text-gray-300"><?= $_SESSION['user_name'] ?></span>
                     <?php
                         if($_SESSION['user_rol'] === 'admin'){
                             echo '<a href="./admin/adminPanel.php" class="text-blue-400 hover:text-blue-600">
@@ -147,7 +147,6 @@ $news = readNews($mysqli);
             <?php endif; ?>
             <a href="./admin/adminPanel.php"></a>
             <ul class="flex space-x-4">
-                <li><a href="index.php" class="text-white hover:text-gray-300">Inicio</a></li>
                 <?php if(!isset($_SESSION['user_id'])): ?>
                     <li><a href="login.php" class="text-white hover:text-gray-300">Iniciar sesión</a></li>
                     <li><a href="register.php" class="text-white hover:text-gray-300">Registrarse</a></li>
