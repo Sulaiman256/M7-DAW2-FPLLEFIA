@@ -9,9 +9,7 @@ if ($_SESSION['user_rol'] !== 'admin') {
     exit;
 }
 
-// 2. comprobar si el formulario ha sido enviado
 if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['testimony']) && isset($_POST['image']) && isset($_POST['date'])) {
-    // 3. guardar los datos del formulario en variables
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $testimony = $_POST['testimony'];

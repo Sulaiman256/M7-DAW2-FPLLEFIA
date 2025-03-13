@@ -13,6 +13,9 @@ if ($_SESSION['user_rol'] !== 'admin') {
 $resultTestimonios = $mysqli->query("SELECT * FROM testimony");
 $testimonios = $resultTestimonios->fetch_all(MYSQLI_ASSOC);
 
+$usersResult = $mysqli->query("SELECT * FROM users");
+$users = $usersResult->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +76,43 @@ $testimonios = $resultTestimonios->fetch_all(MYSQLI_ASSOC);
     <h2>Noticias</h2>
     <h2>Proyectos</h2>
     <h2>Usuarios</h2>
+
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>password</th>
+            <th>Rol</th>
+            <th>Data de registro</th>
+            <th>Apellido</th>
+            <th>Avatar</th>
+            <th>edad</th>
+            <th>trabajo</th>
+            <th>Acciones</th>
+        </tr>
+        <?php foreach ($users as $user) : ?>
+            <tr>
+                <td><?php echo htmlspecialchars($user['name']); ?></td>
+                <td><?php echo htmlspecialchars($user['email']); ?></td>
+                <td><?php echo htmlspecialchars($user['password']); ?></td>
+                <td><?php echo htmlspecialchars($user['rol']); ?></td>
+                <td><?php echo htmlspecialchars($user['data_registre']); ?></td>
+                <td><?php echo htmlspecialchars($user['surname']); ?></td>
+                <td><?php echo htmlspecialchars($user['avatar']); ?></td>
+                <td><?php echo htmlspecialchars($user['age']); ?></td>
+                <td><?php echo htmlspecialchars($user['job']); ?></td>
+
+
+                <td>
+                    <!-- Corregido el enlace de eliminación -->
+                    <a href="./testimonials/delete-testimonials.php?id=<?php echo $testimonio['id']; ?>">Eliminar</a>
+                </td>
+                <td>
+                    <a href="./users/edit-user.php?id=<?php echo $user['id']; ?>">Editar</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
     <h2>Comentarios</h2>
 
     <a href="./testimonials/delete-testimonials.php"></a>

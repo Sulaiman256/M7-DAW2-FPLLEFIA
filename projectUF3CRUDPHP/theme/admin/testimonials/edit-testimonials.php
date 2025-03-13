@@ -11,10 +11,20 @@ if ($_SESSION['user_rol'] !== 'admin') {
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    // 2. Obtener la consulta de testimonios a editar
+
+    $stmt = $mysqli->prepare("SELECT * FROM testimony WHERE id = ?");
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $testimonio = $result->fetch_assoc();
+
+    if (!$testimonio) {
+        echo 'Testimonio no encontrado';
+        exit;
+    }
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['id'], $_POST['name'], $_POST['surname'], $_POST['testimony'], $_POST['image'], $_POST['date'])) {
-            // Recogemos los datos del formulario
             $id = $_POST['id'];
             $name = $_POST['name'];
             $surname = $_POST['surname'];
@@ -22,12 +32,18 @@ if (isset($_GET['id'])) {
             $image = $_POST['image'];
             $date = $_POST['date'];
 
-            // Ahora llamamos a la función para actualizar los datos
             editTestimonial($mysqli, $id, $name, $surname, $testimony, $image, $date);
+
+            header('Location: ../adminPanel.php');
+            exit;  
         }
     }
+} else {
+    echo 'ID de testimonio no proporcionado';
+    exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -72,7 +88,7 @@ if (isset($_GET['id'])) {
 
             <div class="flex justify-between items-center">
                 <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Actualizar</button>
-                <a href="testimonials.php" class="text-blue-500 hover:text-blue-700">Cancelar</a>
+                <a href="../adminPanel.php" class="text-blue-500 hover:text-blue-700">Cancelar</a>
             </div>
         </form>
     </div>
