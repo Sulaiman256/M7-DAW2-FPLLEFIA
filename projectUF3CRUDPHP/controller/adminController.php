@@ -146,5 +146,114 @@ function editNews($mysqli, $id, $title, $subititle, $body, $publicationDate, $de
     $stmt->close();
 }
 
+// Funciones para borrar editar leer e insertar proyectos
+
+function readProjects($mysqli) {
+    $resultProjects = $mysqli->query("SELECT * FROM projects");
+    $projects = $resultProjects->fetch_all(MYSQLI_ASSOC);
+    return $projects;
+}
+
+function deleteProject($mysqli, $id) {
+    $stmt = $mysqli->prepare("DELETE FROM projects WHERE id = ?");
+    $stmt->bind_param('i', $id);
+    if(!$stmt->execute()) {
+        die('Error en la ejecución de la consulta: ' . $stmt->error);
+        exit;
+    }
+    $stmt->close();
+    $mysqli->close();
+}
+
+function editProject ($mysqli, $id, $title, $description, $url, $image) {
+    $stmt = $mysqli->prepare(
+        "UPDATE projects SET title = ?, description = ?, url = ?, image = ? WHERE id = ?"
+    );
+
+    // 5. comprobar que la preparación tuvo éxito
+    if (!$stmt) {
+        die('Error en la preparación de la consulta: ' . $mysqli->error);
+        exit;
+    }
+
+    $stmt->bind_param('ssssi', $title, $description, $url, $image, $id);
+
+    if ($stmt->execute()) {
+        echo '';
+    } else {
+        echo 'Error al editar el proyecto';
+    }
+
+    $stmt->close();
+}
+
+function addProject($mysqli, $title, $description, $url, $image) {
+    $stmt = $mysqli->prepare(
+        "INSERT INTO projects (title, description, url, image) 
+        VALUES (?, ?, ?, ?)"
+    );
+
+    // 5. comprobar que la preparación tuvo éxito
+    if (!$stmt) {
+        die('Error en la preparación de la consulta: ' . $mysqli->error);
+        exit;
+    }
+
+    // 6. enlazar los parámetros
+    $stmt->bind_param('ssss', $title, $description, $url, $image);
+
+    // 7. ejecutar la consulta
+    if ($stmt->execute()) {
+        echo '';
+    } else {
+        echo 'Error al eliminar el proyecto';
+    }
+
+    // 8. cerrar la consulta
+    $stmt->close();
+}
+
+// Funciones para borrar editar leer e insertar usuarios
+
+function readUsers($mysqli) {
+    $resultUsers = $mysqli->query("SELECT * FROM users");
+    $users = $resultUsers->fetch_all(MYSQLI_ASSOC);
+    return $users;
+}
+
+function deleteUsers($mysqli, $id) {
+    $stmt = $mysqli->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->bind_param('i', $id);
+    if(!$stmt->execute()) {
+        die('Error en la ejecución de la consulta: ' . $stmt->error);
+        exit;
+    }
+    $stmt->close();
+    $mysqli->close();
+}
+
+// La funcion editUsers debe tener los campos name, email, password,rol, data_registre, surname, avatar, age, job 
+
+function editUsers($mysqli, $id, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job) {
+    $stmt = $mysqli->prepare(
+        "UPDATE users SET name = ?, email = ?, password = ?, rol = ?, data_registre = ?, surname = ?, avatar = ?, age = ?, job = ? WHERE id = ?"
+    );
+
+    // 5. comprobar que la preparación tuvo éxito
+    if (!$stmt) {
+        die('Error en la preparación de la consulta: ' . $mysqli->error);
+        exit;
+    }
+
+    $stmt->bind_param('sssssssssi', $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job, $id);
+
+    if ($stmt->execute()) {
+        echo '';
+    } else {
+        echo 'Error al editar el usuario';
+    }
+
+    $stmt->close();
+}
 
 ?>

@@ -26,6 +26,10 @@ $testimony = readTestimonios($mysqli);
 
 $news = readNews($mysqli);
 
+$projects = readProjects($mysqli);
+
+$users = readUsers($mysqli);
+
 
 
 
@@ -146,7 +150,83 @@ $news = readNews($mysqli);
         <?php endforeach; ?>
     </table>
     <h2 class="text-2xl mt-5">Proyectos</h2>
+    <div class="py-3">
+    <button onclick="openModalNoticias()" class="bg-blue-500 text-white px-4 py-2 rounded mb-5">Agregar Proyecto</button>
+
+    </div>
+    <table class="bg-white shadow-md rounded">
+        <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Url</th>
+            <th>Imagen</th>
+            <th>Acciones</th>
+        </tr>
+        <?php foreach ($projects as $project) : ?>
+            <tr>
+                <td><?php echo htmlspecialchars($project['title']); ?></td>
+                <td><?php echo htmlspecialchars($project['description']); ?></td>
+                <td><?php echo htmlspecialchars($project['url']); ?></td>
+                <td><?php echo htmlspecialchars($project['thumbnail']); ?></td>
+              <td style="text-align: center; vertical-align: middle; display: flex; justify-content: center; gap: 10px;">
+                    <a href="./proyects/delete-projects.php?id=<?php echo $project['id']; ?>">
+                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: red;">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                        </svg>
+                    </a>
+                    <a href="./proyects-edit-projects.php?id=<?php echo $project['id']; ?>">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
     <h2 class="text-2xl mt-5">Usuarios</h2>
+      <div class="py-3">
+    <button onclick="openModalNoticias()" class="bg-blue-500 text-white px-4 py-2 rounded mb-5">Agregar usuarios</button>
+
+    </div>
+    <table class="bg-white shadow-md rounded">
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Rol</th>
+            <th>Fecha de registro</th>
+            <th>Apellidos</th>
+            <th>Avatar</th>
+            <th>Edad</th>
+            <th>Trabajo</th>
+            <th>Acciones</th>
+        </tr>
+        <?php foreach ($users as $user) : ?>
+            <tr>
+                <td><?php echo htmlspecialchars($user['name']); ?></td>
+                <td><?php echo htmlspecialchars($user['email']); ?></td>
+                <td><?php echo htmlspecialchars($user['password']); ?></td>
+                <td><?php echo htmlspecialchars($user['rol']); ?></td>
+                <td><?php echo htmlspecialchars($user['data_registre']); ?></td>
+                <td><?php echo htmlspecialchars($user['surname']); ?></td>
+                <td><?php echo htmlspecialchars($user['avatar']); ?></td>
+                <td><?php echo htmlspecialchars($user['age']); ?></td>
+                <td><?php echo htmlspecialchars($user['job']); ?></td>
+              <td style="text-align: center; vertical-align: middle; display: flex; justify-content: center; gap: 10px;">
+                    <a href="./users/delete-users.php?id=<?php echo $user['id']; ?>">
+                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: red;">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                        </svg>
+                    </a>
+                    <a href="./users/edit-users.php?id=<?php echo $user['id']; ?>">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
     <h2 class="text-2xl mt-5">Comentarios</h2>
 
     <!-- Modal -->
