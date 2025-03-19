@@ -98,29 +98,30 @@ function deleteNews($mysqli, $id) {
 
 // funcion para agregar noticias
 
-function addNews($mysqli, $name, $surname, $testimony, $image, $date) {
-   $stmt = $mysqli->prepare(
+function addNews($mysqli, $title, $subtitle, $body, $publication_date, $descripcion) {
+    // Preparar la consulta SQL para insertar los datos
+    $stmt = $mysqli->prepare(
         "INSERT INTO news (title, subititle, body, publication_date, descripcion) 
         VALUES (?, ?, ?, ?, ?)"
     );
 
-    // 5. comprobar que la preparación tuvo éxito
+    // 5. Comprobar que la preparación tuvo éxito
     if (!$stmt) {
         die('Error en la preparación de la consulta: ' . $mysqli->error);
         exit;
     }
 
-    // 6. enlazar los parámetros
-    $stmt->bind_param('sssss', $name, $surname, $testimony, $image, $date);
+    // 6. Enlazar los parámetros
+    $stmt->bind_param('sssss', $title, $subtitle, $body, $publication_date, $descripcion);
 
-    // 7. ejecutar la consulta
-       if ($stmt->execute()) {
-        echo '';
+    // 7. Ejecutar la consulta
+    if ($stmt->execute()) {
+        echo 'Noticia guardada correctamente.';
     } else {
-        echo 'Error al eliminar la noticia';
+        echo 'Error al guardar la noticia: ' . $stmt->error;
     }
 
-    // 8. cerrar la consulta
+    // 8. Cerrar la consulta
     $stmt->close();
 }
 
@@ -189,7 +190,7 @@ function editProject ($mysqli, $id, $title, $description, $url, $image) {
 
 function addProject($mysqli, $title, $description, $url, $image) {
     $stmt = $mysqli->prepare(
-        "INSERT INTO projects (title, description, url, image) 
+        "INSERT INTO projects (title, description, url, thumbnail) 
         VALUES (?, ?, ?, ?)"
     );
 
@@ -232,6 +233,35 @@ function deleteUsers($mysqli, $id) {
     $mysqli->close();
 }
 
+// La funcion addUsers debe tener los campos name, email, password,rol, data_registre, surname, avatar, age, job
+
+function addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job) {
+    $stmt = $mysqli->prepare(
+        "INSERT INTO users (name, email, password, rol, data_registre, surname, avatar, age, job) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+
+    // 5. comprobar que la preparación tuvo éxito
+    if (!$stmt) {
+        die('Error en la preparación de la consulta: ' . $mysqli->error);
+        exit;
+    }
+
+    // 6. enlazar los parámetros
+    $stmt->bind_param('ssssssssi', $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job);
+
+    // 7. ejecutar la consulta
+    if ($stmt->execute()) {
+        echo '';
+    } else {
+        echo 'Error al eliminar el usuario';
+    }
+
+    // 8. cerrar la consulta
+    $stmt->close();
+}
+
+
 // La funcion editUsers debe tener los campos name, email, password,rol, data_registre, surname, avatar, age, job 
 
 function editUsers($mysqli, $id, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job) {
@@ -251,6 +281,48 @@ function editUsers($mysqli, $id, $name, $email, $password, $rol, $data_registre,
         echo '';
     } else {
         echo 'Error al editar el usuario';
+    }
+
+    $stmt->close();
+}
+
+
+// Ahora funciones para añadir comentarios
+
+function readComments($mysqli) {
+    $resultComments = $mysqli->query("SELECT * FROM comentarios");
+    $comments = $resultComments->fetch_all(MYSQLI_ASSOC);
+    return $comments;
+}
+
+function deleteComments($mysqli, $id) {
+    $stmt = $mysqli->prepare("DELETE FROM comentarios WHERE id = ?");
+    $stmt->bind_param('i', $id);
+    if(!$stmt->execute()) {
+        die('Error en la ejecución de la consulta: ' . $stmt->error);
+        exit;
+    }
+    $stmt->close();
+    $mysqli->close();
+}
+
+function editComments($mysqli, $id, $comentario, $fecha) {
+    $stmt = $mysqli->prepare(
+        "UPDATE comentarios SET comment = ?, date = ? WHERE id = ?"
+    );
+
+    // 5. comprobar que la preparación tuvo éxito
+    if (!$stmt) {
+        die('Error en la preparación de la consulta: ' . $mysqli->error);
+        exit;
+    }
+
+    $stmt->bind_param('ssi', $comentario, $fecha, $id);
+
+    if ($stmt->execute()) {
+        echo '';
+    } else {
+        echo 'Error al editar el comentario';
     }
 
     $stmt->close();

@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once '../../config/config.php';
 include_once '../../controller/adminController.php';
@@ -21,19 +20,55 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['testimony
     $addTestimony = addTestimonial($mysqli, $name, $surname, $testimony, $image, $date);
 }
 
+// Guardamos el formulario de insert de noticias
+
+if (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['body']) && isset($_POST['publication_date']) && isset($_POST['descripcion'])) {
+    // 3. Guardar los datos del formulario en variables
+    $title = $_POST['title'];
+    $subtitle = $_POST['subtitle']; // Corregido de 'subititle' a 'subtitle'
+    $body = $_POST['body'];
+    $publication_date = $_POST['publication_date'];
+    $descripcion = $_POST['descripcion'];
+
+    // Llamar a la función para agregar la noticia
+    $addNews = addNews($mysqli, $title, $subtitle, $body, $publication_date, $descripcion);
+}
+
+if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['url']) && isset($_POST['thumbnail'])) {
+    // 3. Guardar los datos del formulario en variables
+    $title = $_POST['title'];
+    $description = $_POST['description']; // Corregido de 'subititle' a 'subtitle'
+    $url = $_POST['url'];
+    $thumbnail = $_POST['thumbnail'];
+
+    // Llamar a la función para agregar la noticia
+    $addProyect = addProject($mysqli, $title, $description, $url, $thumbnail);
+
+
+}
+
+if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['rol']) && isset($_POST['data_registre']) && isset($_POST['surname']) && isset($_POST['avatar']) && isset($_POST['age']) && isset($_POST['job'])) {
+    // 3. Guardar los datos del formulario en variables
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $rol = $_POST['rol'];
+    $data_registre = $_POST['data_registre'];
+    $surname = $_POST['surname'];
+    $avatar = $_POST['avatar'];
+    $age = $_POST['age'];
+    $job = $_POST['job'];
+
+    // Llamar a la función para agregar la noticia
+    $addUsers = addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job );
+}
+
 // 2. Mostramos de momento solo los testimonios
 $testimony = readTestimonios($mysqli);
-
 $news = readNews($mysqli);
-
 $projects = readProjects($mysqli);
-
 $users = readUsers($mysqli);
-
-
-
-
-
+$comments = readComments($mysqli);
 ?>
 
 <!DOCTYPE html>
@@ -64,8 +99,19 @@ $users = readUsers($mysqli);
         a:hover {
             text-decoration: underline;
         }
-
-
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-5">
@@ -74,203 +120,502 @@ $users = readUsers($mysqli);
         <a href="../index.php">Home</a>
     </button>
 
-    <h2 class="text-2xl mb-3">Testimonios</h2>
+    <!-- Cards Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+        <!-- Testimonios Card -->
+        <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('testimonios')">
+            <div class="flex flex-col items-center">
+                <svg class="w-12 h-12 text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-center">Testimonios</h3>
+                <p class="text-gray-500 text-center mt-2"><?php echo count($testimony); ?> registros</p>
+            </div>
+        </div>
 
-    <button onclick="openModal()" class="bg-blue-500 text-white px-4 py-2 rounded mb-5">Agregar Testimonio</button>
+        <!-- Noticias Card -->
+        <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('noticias')">
+            <div class="flex flex-col items-center">
+                <svg class="w-12 h-12 text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-center">Noticias</h3>
+                <p class="text-gray-500 text-center mt-2"><?php echo count($news); ?> registros</p>
+            </div>
+        </div>
 
-    <table class="bg-white shadow-md rounded">
-        <tr>
-            <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Testimonio</th>
-            <th>Imagen</th>
-            <th>Fecha</th>
-            <th>Acciones</th>
-        </tr>
-        <?php foreach ($testimony as $testimonio) : ?>
-            <tr>
-                <td><?php echo htmlspecialchars($testimonio['name']); ?></td>
-                <td><?php echo htmlspecialchars($testimonio['surname']); ?></td>
-                <td><?php echo htmlspecialchars($testimonio['testimony']); ?></td>
-                <td><?php echo htmlspecialchars($testimonio['image']); ?></td>
-                <td><?php echo htmlspecialchars($testimonio['date']); ?></td>
-                <td style="text-align: center; vertical-align: middle; display: flex; justify-content: center; gap: 10px;">
-                    <a href="./testimonials/delete-testimonials.php?id=<?php echo $testimonio['id']; ?>">
-                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: red;">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                        </svg>
-                    </a>
-                    <a href="./testimonials/edit-testimonials.php?id=<?php echo $testimonio['id']; ?>">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+        <!-- Proyectos Card -->
+        <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('proyectos')">
+            <div class="flex flex-col items-center">
+                <svg class="w-12 h-12 text-purple-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-center">Proyectos</h3>
+                <p class="text-gray-500 text-center mt-2"><?php echo count($projects); ?> registros</p>
+            </div>
+        </div>
 
-    <h2 class="text-2xl mt-5">Noticias</h2>
-    <div class="py-3">
-    <button onclick="openModalNoticias()" class="bg-blue-500 text-white px-4 py-2 rounded mb-5">Agregar Noticia</button>
+        <!-- Usuarios Card -->
+        <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('usuarios')">
+            <div class="flex flex-col items-center">
+                <svg class="w-12 h-12 text-yellow-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-center">Usuarios</h3>
+                <p class="text-gray-500 text-center mt-2"><?php echo count($users); ?> registros</p>
+            </div>
+        </div>
 
-    </div>
-    <table class="bg-white shadow-md rounded">
-        <tr>
-            <th>Titulo</th>
-            <th>Subtitulo</th>
-            <th>Imagen</th>
-            <th>Fecha de publicacion</th>
-            <th>Descripcion</th>
-            <th>Acciones</th>
-        </tr>
-        <?php foreach ($news as $new) : ?>
-            <tr>
-                <td><?php echo htmlspecialchars($new['title']); ?></td>
-                <td><?php echo htmlspecialchars($new['subititle']); ?></td>
-                <td><?php echo htmlspecialchars($new['body']); ?></td>
-                <td><?php echo htmlspecialchars($new['publication_date']); ?></td>
- <td class="px-4 py-2 max-w-xs">
-                    <div class="truncate" title="<?php echo htmlspecialchars($new['descripcion']); ?>">
-                        <?php echo htmlspecialchars($new['descripcion']); ?>
-                    </div>
-                </td>                <td style="text-align: center; vertical-align: middle; display: flex; justify-content: center; gap: 10px;">
-                    <a href="./news/delete-news.php?id=<?php echo $new['id']; ?>">
-                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: red;">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                        </svg>
-                    </a>
-                    <a href="./news/edit-news.php?id=<?php echo $new['id']; ?>">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <h2 class="text-2xl mt-5">Proyectos</h2>
-    <div class="py-3">
-    <button onclick="openModalNoticias()" class="bg-blue-500 text-white px-4 py-2 rounded mb-5">Agregar Proyecto</button>
-
-    </div>
-    <table class="bg-white shadow-md rounded">
-        <tr>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>Url</th>
-            <th>Imagen</th>
-            <th>Acciones</th>
-        </tr>
-        <?php foreach ($projects as $project) : ?>
-            <tr>
-                <td><?php echo htmlspecialchars($project['title']); ?></td>
-                <td><?php echo htmlspecialchars($project['description']); ?></td>
-                <td><?php echo htmlspecialchars($project['url']); ?></td>
-                <td><?php echo htmlspecialchars($project['thumbnail']); ?></td>
-              <td style="text-align: center; vertical-align: middle; display: flex; justify-content: center; gap: 10px;">
-                    <a href="./proyects/delete-projects.php?id=<?php echo $project['id']; ?>">
-                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: red;">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                        </svg>
-                    </a>
-                    <a href="./proyects-edit-projects.php?id=<?php echo $project['id']; ?>">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <h2 class="text-2xl mt-5">Usuarios</h2>
-      <div class="py-3">
-    <button onclick="openModalNoticias()" class="bg-blue-500 text-white px-4 py-2 rounded mb-5">Agregar usuarios</button>
-
-    </div>
-    <table class="bg-white shadow-md rounded">
-        <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Rol</th>
-            <th>Fecha de registro</th>
-            <th>Apellidos</th>
-            <th>Avatar</th>
-            <th>Edad</th>
-            <th>Trabajo</th>
-            <th>Acciones</th>
-        </tr>
-        <?php foreach ($users as $user) : ?>
-            <tr>
-                <td><?php echo htmlspecialchars($user['name']); ?></td>
-                <td><?php echo htmlspecialchars($user['email']); ?></td>
-                <td><?php echo htmlspecialchars($user['password']); ?></td>
-                <td><?php echo htmlspecialchars($user['rol']); ?></td>
-                <td><?php echo htmlspecialchars($user['data_registre']); ?></td>
-                <td><?php echo htmlspecialchars($user['surname']); ?></td>
-                <td><?php echo htmlspecialchars($user['avatar']); ?></td>
-                <td><?php echo htmlspecialchars($user['age']); ?></td>
-                <td><?php echo htmlspecialchars($user['job']); ?></td>
-              <td style="text-align: center; vertical-align: middle; display: flex; justify-content: center; gap: 10px;">
-                    <a href="./users/delete-users.php?id=<?php echo $user['id']; ?>">
-                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: red;">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                        </svg>
-                    </a>
-                    <a href="./users/edit-users.php?id=<?php echo $user['id']; ?>">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <h2 class="text-2xl mt-5">Comentarios</h2>
-
-    <!-- Modal -->
-    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center">
-        <div class="bg-white p-8 rounded-lg w-96">
-            <h2 class="text-2xl mb-4">Agregar Testimonio</h2>
-            <form action="" method="POST">
-                <label for="name">Nombre:</label>
-                <input type="text" name="name" placeholder="Nombre" id="name" class="w-full p-2 border mb-2">
-                <label for="surname">Apellidos:</label>
-                <input type="text" name="surname" id="surname" placeholder="Apellidos" class="w-full p-2 border mb-2">
-                <label for="testimony">Testimonio:</label>
-                <textarea name="testimony" id="testimony" placeholder="Testimonio" class="w-full p-2 border mb-2"></textarea>
-                <label for="image">Imagen:</label>
-                <input type="text" name="image" id="image" placeholder="URL" class="w-full p-2 border mb-2">
-                <label for="date">Fecha:</label>
-                <input type="date" name="date" id="date" class="w-full p-2 border mb-2">
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded w-full">Guardar</button>
-            </form>
-            <button onclick="closeModal()" class="mt-3 text-red-500">Cerrar</button>
+        <!-- Comentarios Card -->
+        <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('comentarios')">
+            <div class="flex flex-col items-center">
+                <svg class="w-12 h-12 text-red-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-center">Comentarios</h3>
+                <p class="text-gray-500 text-center mt-2"><?php echo count($comments); ?> registros</p>
+            </div>
         </div>
     </div>
 
-        <div id="modalNoticias" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center">
-        <div class="bg-white p-8 rounded-lg w-96">
-            <h2 class="text-2xl mb-4">Agregar Testimonio</h2>
-            <form action="" method="POST">
-                <label for="name">Nombre:</label>
-                <input type="text" name="name" placeholder="Nombre" id="name" class="w-full p-2 border mb-2">
-                <label for="surname">Apellidos:</label>
-                <input type="text" name="surname" id="surname" placeholder="Apellidos" class="w-full p-2 border mb-2">
-                <label for="testimony">Testimonio:</label>
-                <textarea name="testimony" id="testimony" placeholder="Testimonio" class="w-full p-2 border mb-2"></textarea>
-                <label for="image">Imagen:</label>
-                <input type="text" name="image" id="image" placeholder="URL" class="w-full p-2 border mb-2">
-                <label for="date">Fecha:</label>
-                <input type="date" name="date" id="date" class="w-full p-2 border mb-2">
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded w-full">Guardar</button>
-            </form>
-            <button onclick="closeModalNoticias()" class="mt-3 text-red-500">Cerrar</button>
+    <!-- Tables Sections -->
+    <div id="sections-container" class="mt-8">
+        <!-- Testimonios Section -->
+        <div id="testimonios" class="section">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Testimonios</h2>
+                    <button onclick="openModal()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        Agregar Testimonio
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="py-3 px-4 text-left">Nombre</th>
+                                <th class="py-3 px-4 text-left">Apellidos</th>
+                                <th class="py-3 px-4 text-left">Testimonio</th>
+                                <th class="py-3 px-4 text-left">Imagen</th>
+                                <th class="py-3 px-4 text-left">Fecha</th>
+                                <th class="py-3 px-4 text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($testimony as $testimonio) : ?>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['name']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['surname']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['testimony']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['image']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['date']); ?></td>
+                                    <td class="py-3 px-4 flex justify-center gap-3">
+                                        <a href="./testimonials/delete-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-red-500 hover:text-red-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="./testimonials/edit-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-blue-500 hover:text-blue-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Noticias Section -->
+        <div id="noticias" class="section">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Noticias</h2>
+                    <button onclick="openModalNoticias()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        Agregar Noticia
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="py-3 px-4 text-left">Titulo</th>
+                                <th class="py-3 px-4 text-left">Subtitulo</th>
+                                <th class="py-3 px-4 text-left">Imagen</th>
+                                <th class="py-3 px-4 text-left">Fecha de publicación</th>
+                                <th class="py-3 px-4 text-left">Descripción</th>
+                                <th class="py-3 px-4 text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($news as $new) : ?>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($new['title']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($new['subititle']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($new['body']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($new['publication_date']); ?></td>
+                                    <td class="py-3 px-4 max-w-xs">
+                                        <div class="truncate" title="<?php echo htmlspecialchars($new['descripcion']); ?>">
+                                            <?php echo htmlspecialchars($new['descripcion']); ?>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 flex justify-center gap-3">
+                                        <a href="./news/delete-news.php?id=<?php echo $new['id']; ?>" class="text-red-500 hover:text-red-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="./news/edit-news.php?id=<?php echo $new['id']; ?>" class="text-blue-500 hover:text-blue-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proyectos Section -->
+        <div id="proyectos" class="section">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Proyectos</h2>
+                    <button onclick="openModalProyectos()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        Agregar Proyecto
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="py-3 px-4 text-left">Titulo</th>
+                                <th class="py-3 px-4 text-left">Descripción</th>
+                                <th class="py-3 px-4 text-left">URL</th>
+                                <th class="py-3 px-4 text-left">Imagen</th>
+                                <th class="py-3 px-4 text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($projects as $project) : ?>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($project['title']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($project['description']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($project['url']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($project['thumbnail']); ?></td>
+                                    <td class="py-3 px-4 flex justify-center gap-3">
+                                        <a href="./proyects/delete-projects.php?id=<?php echo $project['id']; ?>" class="text-red-500 hover:text-red-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="./proyects/edit-projects.php?id=<?php echo $project['id']; ?>" class="text-blue-500 hover:text-blue-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usuarios Section -->
+        <div id="usuarios" class="section">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Usuarios</h2>
+                    <button onclick="openModalUsuarios()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        Agregar Usuario
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="py-3 px-4 text-left">Nombre</th>
+                                <th class="py-3 px-4 text-left">Email</th>
+                                <th class="py-3 px-4 text-left">Password</th>
+                                <th class="py-3 px-4 text-left">Rol</th>
+                                <th class="py-3 px-4 text-left">Fecha de registro</th>
+                                <th class="py-3 px-4 text-left">Apellidos</th>
+                                <th class="py-3 px-4 text-left">Avatar</th>
+                                <th class="py-3 px-4 text-left">Edad</th>
+                                <th class="py-3 px-4 text-left">Trabajo</th>
+                                <th class="py-3 px-4 text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($users as $user) : ?>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['name']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['email']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['password']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['rol']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['data_registre']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['surname']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['avatar']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['age']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['job']); ?></td>
+                                    <td class="py-3 px-4 flex justify-center gap-3">
+                                        <a href="./users/delete-users.php?id=<?php echo $user['id']; ?>" class="text-red-500 hover:text-red-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="./users/edit-users.php?id=<?php echo $user['id']; ?>" class="text-blue-500 hover:text-blue-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="comentarios" class="section">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Comentarios</h2>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="py-3 px-4 text-left">Comentario</th>
+                                <th class="py-3 px-4 text-left">Fecha</th>
+                                <th class="py-3 px-4 text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($comments as $comment) : ?>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($comment['comment']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($comment['date']); ?></td>
+                                    <td class="py-3 px-4 flex justify-center gap-3">
+                                        <a href="./comments/delete-comments.php?id=<?php echo $comment['id']; ?>" class="text-red-500 hover:text-red-700">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Modals -->
+    <!-- Testimonios Modal -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+        <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
+            <h2 class="text-2xl font-bold mb-4">Agregar Testimonio</h2>
+            <form action="" method="POST">
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre:</label>
+                    <input type="text" name="name" id="name" placeholder="Nombre" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="surname" class="block text-sm font-medium text-gray-700 mb-1">Apellidos:</label>
+                    <input type="text" name="surname" id="surname" placeholder="Apellidos" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="testimony" class="block text-sm font-medium text-gray-700 mb-1">Testimonio:</label>
+                    <textarea name="testimony" id="testimony" placeholder="Testimonio" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Imagen:</label>
+                    <input type="text" name="image" id="image" placeholder="URL" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Fecha:</label>
+                    <input type="date" name="date" id="date" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Noticias Modal -->
+    <div id="modalNoticias" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+        <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
+            <h2 class="text-2xl font-bold mb-4">Agregar Noticia</h2>
+            <form action="" method="POST">
+                <!-- Form fields for news -->
+                <div class="mb-4">
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Título:</label>
+                    <input type="text" name="title" id="title" placeholder="Título" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="subtitle" class="block text-sm font-medium text-gray-700 mb-1">Subtítulo:</label>
+                    <input type="text" name="subtitle" id="subtitle" placeholder="Subtítulo" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="body" class="block text-sm font-medium text-gray-700 mb-1">Imagen:</label>
+                    <input type="text" name="body" id="body" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="publication_date" class="block text-sm font-medium text-gray-700 mb-1">Fecha de publicación:</label>
+                    <input type="date" name="publication_date" id="publication_date" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="descripcion" class="block text-sm font-medium text-gray-700 mb-1">Descripción:</label>
+                    <textarea name="descripcion" id="descripcion" placeholder="Descripción" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="closeModalNoticias()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+     <div id="modalProyectos" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+        <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
+            <h2 class="text-2xl font-bold mb-4">Agregar Proyectos</h2>
+            <form action="" method="POST">
+                <!-- Form fields for news -->
+                <div class="mb-4">
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Título:</label>
+                    <input type="text" name="title" id="title" placeholder="Título" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Descripcion:</label>
+                    <input type="text" name="description" id="description" placeholder="Descripcion" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="url" class="block text-sm font-medium text-gray-700 mb-1">Imagen:</label>
+                    <input type="text" name="url" id="url" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="thumbnail" class="block text-sm font-medium text-gray-700 mb-1">Thumbnail:</label>
+                    <textarea name="thumbnail" id="thumbnail" placeholder="thumbnail" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="closeModalProyectos()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalUser" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+        <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
+            <h2 class="text-2xl font-bold mb-4">Agregar usuarios</h2>
+            <form action="" method="POST">
+                <!-- Form fields for news -->
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre:</label>
+                    <input type="text" name="name" id="name" placeholder="Nombre" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email:</label>
+                    <input type="email" name="email" id="email" placeholder="Email" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña:</label>
+                    <input type="password" name="password" id="password" placeholder="password" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+               <div class="mb-4">
+                    <label for="rol" class="block text-sm font-medium text-gray-700 mb-1">Rol:</label>
+                    <select name="rol" id="rol" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                        <option value="user" selected>User</option>
+                    </select>
+                </div>
+
+               <div class="mb-4">
+                <label for="data_register" class="block text-sm font-medium text-gray-700 mb-1">Fecha de registro:</label>
+                <input type="date" name="data_register" id="data_register" 
+                       value="<?php echo date('Y-m-d'); ?>" 
+                        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+               </div>
+
+                <div class="mb-4">
+                      <label for="surname" class="block text-sm font-medium text-gray-700 mb-1">Apellidos:</label>
+                      <input type="text" name="surname" id="surname" placeholder="Apellidos" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                      <label for="avatar" class="block text-sm font-medium text-gray-700 mb-1">Avatar:</label>
+                      <input type="text" name="avatar" id="avatar" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mb-4">
+                      <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Edad:</label>
+                      <input type="number" name="age" id="age" placeholder="Edad" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mb-4">
+                      <label for="job" class="block text-sm font-medium text-gray-700 mb-1">Trabajo:</label>
+                      <input type="text" name="job" id="job" placeholder="Trabajo" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="closeModalUsuarios()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        
     <script>
+        // Show the first section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('testimonios');
+        });
+
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Modal functions
         function openModal() {
             document.getElementById('modal').classList.remove('hidden');
         }
@@ -279,12 +624,31 @@ $users = readUsers($mysqli);
             document.getElementById('modal').classList.add('hidden');
         }
 
-           function openModalNoticias() {
+        function openModalNoticias() {
             document.getElementById('modalNoticias').classList.remove('hidden');
         }
 
         function closeModalNoticias() {
             document.getElementById('modalNoticias').classList.add('hidden');
+        }
+
+        // Add functions for other modals
+        function openModalProyectos() {
+            // Implement similar to other modals
+            document.getElementById('modalProyectos').classList.remove('hidden');
+        }
+
+        function closeModalProyectos() {
+            document.getElementById('modalProyectos').classList.add('hidden');
+
+        }
+        function openModalUsuarios() {
+         document.getElementById('modalUser').classList.remove('hidden');
+
+        }
+
+        function closeModalUsuarios() {
+            document.getElementById('modalUser').classList.add('hidden');
         }
     </script>
 </body>
