@@ -9,58 +9,213 @@ if ($_SESSION['user_rol'] !== 'admin') {
     exit;
 }
 
-if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['testimony']) && isset($_POST['image']) && isset($_POST['date'])) {
-    // 3. guardar los datos del formulario en variables
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $testimony = $_POST['testimony'];
-    $image = $_POST['image'];
-    $date = $_POST['date'];
+    $date = $_POST['date']; 
 
-    $addTestimony = addTestimonial($mysqli, $name, $surname, $testimony, $image, $date);
+    $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;  // Usar ruta correcta desde el directorio actual
+
+    $testimonio = '';  
+
+    // Verificar si se subió una imagen
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['image']['tmp_name'];
+        $fileName = $_FILES['image']['name'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+        $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg'];
+
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+            $testimonioDir = $uploadDir . 'testimonio' . DIRECTORY_SEPARATOR;  
+            
+            if (!is_dir($testimonioDir)) {
+                mkdir($testimonioDir, 0777, true); 
+            }
+
+            $destPath = $testimonioDir . $newFileName;
+            
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                $testimonio = $newFileName;  // Almacenar el nombre del archivo
+            } else {
+                $error_message = 'Hubo un error al subir la imagen del testimonio';
+            }
+        } else {
+            $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG';
+        }
+        if (empty($error_message)) {
+        // Asegúrate de pasar el nombre de la imagen a la función de guardar
+        $addTestimonyFile = addTestimonial($mysqli, $name, $surname, $testimony, $testimonio, $date);
+    } else {
+        // Mostrar error si algo salió mal
+        echo $error_message;
+    }
+    } 
 }
+
+
 
 // Guardamos el formulario de insert de noticias
 
-if (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['body']) && isset($_POST['publication_date']) && isset($_POST['descripcion'])) {
-    // 3. Guardar los datos del formulario en variables
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_POST['subititle']) && isset($_FILES['body']) && isset($_POST['publication_date']) && isset($_POST['descripcion'])) {
     $title = $_POST['title'];
-    $subtitle = $_POST['subtitle']; // Corregido de 'subititle' a 'subtitle'
-    $body = $_POST['body'];
+    $subtitle = $_POST['subititle'];
+    $body = $_FILES['body'];
     $publication_date = $_POST['publication_date'];
     $descripcion = $_POST['descripcion'];
 
-    // Llamar a la función para agregar la noticia
-    $addNews = addNews($mysqli, $title, $subtitle, $body, $publication_date, $descripcion);
+    // Ruta para subir archivos
+    $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+
+    $imageName = ''; 
+
+    if (isset($body) && $body['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $body['tmp_name'];
+        $fileName = $body['name'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+        $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg'];
+
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+            $imageDir = $uploadDir . 'news' . DIRECTORY_SEPARATOR;
+
+            if (!is_dir($imageDir)) {
+                mkdir($imageDir, 0777, true);
+            }
+
+            $destPath = $imageDir . $newFileName;
+
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                $imageName = $newFileName; 
+            } else {
+                $error_message = 'Hubo un error al subir la imagen.';
+            }
+        } else {
+            $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG.';
+        }
+        if (empty($error_message)) {
+        // Asegúrate de pasar el nombre de la imagen a la función de guardar
+    $addNews = addNews($mysqli, $title, $subtitle, $imageName, $publication_date, $descripcion);
+    echo $title;
+    echo $subtitle;
+    echo $imageName;
+    } else {
+        // Mostrar error si algo salió mal
+        echo $error_message;
+    }
+    }
+
+
 }
 
-if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['url']) && isset($_POST['thumbnail'])) {
-    // 3. Guardar los datos del formulario en variables
+// Proyectos
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['url']) && isset($_FILES['thumbnail'])) {
     $title = $_POST['title'];
     $description = $_POST['description']; // Corregido de 'subititle' a 'subtitle'
     $url = $_POST['url'];
-    $thumbnail = $_POST['thumbnail'];
+    $thumbnail = $_FILES['thumbnail'];
 
-    // Llamar a la función para agregar la noticia
-    $addProyect = addProject($mysqli, $title, $description, $url, $thumbnail);
+
+    // Ruta para subir archivos
+    $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+
+    $imageName = ''; 
+
+    if (isset($thumbnail) && $thumbnail['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $thumbnail['tmp_name'];
+        $fileName = $thumbnail['name'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+        $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg'];
+
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+            $imageDir = $uploadDir . 'projects' . DIRECTORY_SEPARATOR;
+
+            if (!is_dir($imageDir)) {
+                mkdir($imageDir, 0777, true);
+            }
+
+            $destPath = $imageDir . $newFileName;
+
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                $imageName = $newFileName; 
+            } else {
+                $error_message = 'Hubo un error al subir la imagen.';
+            }
+        } else {
+            $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG.';
+        }
+        if (empty($error_message)) {
+        // Asegúrate de pasar el nombre de la imagen a la función de guardar
+    $addProjects = addProject($mysqli, $title, $description, $url, $imageName);
+    } else {
+        // Mostrar error si algo salió mal
+        echo $error_message;
+    }
+    }
 
 
 }
-
-if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['rol']) && isset($_POST['data_registre']) && isset($_POST['surname']) && isset($_POST['avatar']) && isset($_POST['age']) && isset($_POST['job'])) {
-    // 3. Guardar los datos del formulario en variables
-    $name = $_POST['name'];
+ 
+// usuarios
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['rol']) && isset($_POST['data_register']) && isset($_POST['surname']) && isset($_FILES['avatar']) && isset($_POST['age']) && isset($_POST['job'])) {
+   
+ $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $rol = $_POST['rol'];
-    $data_registre = $_POST['data_registre'];
+    $data_registre = $_POST['data_register'];
     $surname = $_POST['surname'];
-    $avatar = $_POST['avatar'];
+    $avatar = $_FILES['avatar'];
     $age = $_POST['age'];
     $job = $_POST['job'];
 
-    // Llamar a la función para agregar la noticia
-    $addUsers = addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job );
+
+    // Ruta para subir archivos
+    $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+
+    $imageName = ''; 
+
+    if (isset($avatar) && $avatar['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $avatar['tmp_name'];
+        $fileName = $avatar['name'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+        $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg'];
+
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+            $imageDir = $uploadDir . 'userAvatar' . DIRECTORY_SEPARATOR;
+
+            if (!is_dir($imageDir)) {
+                mkdir($imageDir, 0777, true);
+            }
+
+            $destPath = $imageDir . $newFileName;
+
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                $imageName = $newFileName; 
+            } else {
+                $error_message = 'Hubo un error al subir la imagen.';
+            }
+        } else {
+            $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG.';
+        }
+        if (empty($error_message)) {
+        // Asegúrate de pasar el nombre de la imagen a la función de guardar
+    $addUsers = addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surname, $imageName, $age, $job);
+    
+    } else {
+        // Mostrar error si algo salió mal
+        echo $error_message;
+    }
+    }
+
+
 }
 
 // 2. Mostramos de momento solo los testimonios
@@ -69,6 +224,9 @@ $news = readNews($mysqli);
 $projects = readProjects($mysqli);
 $users = readUsers($mysqli);
 $comments = readComments($mysqli);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +277,7 @@ $comments = readComments($mysqli);
     <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
         <a href="../index.php">Home</a>
     </button>
-
+<a href="../uploads/"></a>
     <!-- Cards Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
         <!-- Testimonios Card -->
@@ -431,7 +589,7 @@ $comments = readComments($mysqli);
     <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
         <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-4">Agregar Testimonio</h2>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre:</label>
                     <input type="text" name="name" id="name" placeholder="Nombre" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -446,7 +604,7 @@ $comments = readComments($mysqli);
                 </div>
                 <div class="mb-4">
                     <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Imagen:</label>
-                    <input type="text" name="image" id="image" placeholder="URL" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="file" accept="image/*" name="image" id="image" placeholder="URL" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="mb-4">
                     <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Fecha:</label>
@@ -464,23 +622,21 @@ $comments = readComments($mysqli);
         </div>
     </div>
 
-    <!-- Noticias Modal -->
     <div id="modalNoticias" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
         <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-4">Agregar Noticia</h2>
-            <form action="" method="POST">
-                <!-- Form fields for news -->
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="mb-4">
                     <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Título:</label>
                     <input type="text" name="title" id="title" placeholder="Título" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="mb-4">
-                    <label for="subtitle" class="block text-sm font-medium text-gray-700 mb-1">Subtítulo:</label>
-                    <input type="text" name="subtitle" id="subtitle" placeholder="Subtítulo" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="subititle" class="block text-sm font-medium text-gray-700 mb-1">Subtítulo:</label>
+                    <input type="text" name="subititle" id="subititle" placeholder="Subtítulo" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="mb-4">
                     <label for="body" class="block text-sm font-medium text-gray-700 mb-1">Imagen:</label>
-                    <input type="text" name="body" id="body" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="file" accept="image/*" name="body" id="body" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="mb-4">
                     <label for="publication_date" class="block text-sm font-medium text-gray-700 mb-1">Fecha de publicación:</label>
@@ -501,11 +657,10 @@ $comments = readComments($mysqli);
             </form>
         </div>
     </div>
-
      <div id="modalProyectos" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
         <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-4">Agregar Proyectos</h2>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <!-- Form fields for news -->
                 <div class="mb-4">
                     <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Título:</label>
@@ -516,12 +671,12 @@ $comments = readComments($mysqli);
                     <input type="text" name="description" id="description" placeholder="Descripcion" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="mb-4">
-                    <label for="url" class="block text-sm font-medium text-gray-700 mb-1">Imagen:</label>
+                    <label for="url" class="block text-sm font-medium text-gray-700 mb-1">URL:</label>
                     <input type="text" name="url" id="url" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="mb-4">
                     <label for="thumbnail" class="block text-sm font-medium text-gray-700 mb-1">Thumbnail:</label>
-                    <textarea name="thumbnail" id="thumbnail" placeholder="thumbnail" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+                    <input type="file" accept="image/*" name="thumbnail" id="thumbnail" placeholder="Imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="closeModalProyectos()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
@@ -538,7 +693,7 @@ $comments = readComments($mysqli);
     <div id="modalUser" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
         <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-4">Agregar usuarios</h2>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <!-- Form fields for news -->
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre:</label>
@@ -572,7 +727,7 @@ $comments = readComments($mysqli);
                 </div>
                 <div class="mb-4">
                       <label for="avatar" class="block text-sm font-medium text-gray-700 mb-1">Avatar:</label>
-                      <input type="text" name="avatar" id="avatar" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      <input type="file" accept="image/*" name="avatar" id="avatar" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="mb-4">

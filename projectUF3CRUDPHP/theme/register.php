@@ -5,19 +5,50 @@ session_start();
 require_once '../config/config.php';
 include_once '../controller/usersController.php';
 
+$uploadDir = __DIR__ . '/uploads/'; 
 
+$avatar = ''; 
+$proyecto = '';  
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $avatar = $_POST['avatar'];
-    $age = $_POST['age'];  // Asegúrate de capturar 'age'
-    $job = $_POST['job'];  // Asegúrate de capturar 'job'
+    $age = $_POST['age'];  
+    $job = $_POST['job'];  
 
-$registerUser = createUser($mysqli, $name, $surname, $email, $password, $avatar, $age, $job);
+    if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['avatar']['tmp_name'];
+        $fileName = $_FILES['avatar']['name'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+        $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg'];
+
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+            $avatarDir = $uploadDir . 'userAvatar/'; 
+            
+            if (!is_dir($avatarDir)) {
+                mkdir($avatarDir, 0777, true); 
+            }
+
+            $destPath = $avatarDir . $newFileName;
+            
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                $avatar = $newFileName; 
+            } else {
+                $error_message = 'Hubo un error al subir la imagen del avatar';
+            }
+        } else {
+            $error_message = 'Formato de archivo de avatar no permitido';
+        }
+    } 
+    if (empty($error_message)) {
+        $registerUser = createUser($mysqli, $name, $surname, $email, $password, $avatar, $proyecto, $age, $job);
+    }
 }
+
 
 ?>
 
@@ -27,9 +58,7 @@ $registerUser = createUser($mysqli, $name, $surname, $email, $password, $avatar,
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gradient-to-br from-blue-100 to-indigo-200 min-h-screen flex items-center justify-center p-4">
@@ -47,7 +76,7 @@ $registerUser = createUser($mysqli, $name, $surname, $email, $password, $avatar,
                     </div>
                 <?php endif; ?>
                 
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class="mb-4">
                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2">
                             Nombre
@@ -133,11 +162,13 @@ $registerUser = createUser($mysqli, $name, $surname, $email, $password, $avatar,
                                 <i class="fas fa-image text-gray-400"></i>
                             </div>
                             <input 
-                                type="text" 
+                                type="file" 
                                 name="avatar" 
                                 id="avatar" 
                                 class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
                                 placeholder="URL de tu imagen"
+                                accept="image/*"
+                                required
                             >
                         </div>
                     </div>
@@ -200,7 +231,6 @@ $registerUser = createUser($mysqli, $name, $surname, $email, $password, $avatar,
             </div>
         </div>
         
-        <!-- Brand Logo or Text -->
         <div class="mt-8 text-center">
             <p class="text-gray-600 text-sm">
                 © 2025 PearOSSulaiman. Todos los derechos reservados.

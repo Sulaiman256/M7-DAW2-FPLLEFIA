@@ -128,7 +128,7 @@ $news = readNews($mysqli);
             </div>
             <?php if(isset($_SESSION['user_id'])): ?>
                 <div class="flex items-center space-x-2">
-                    <img width="42px" height="42px" src="<?= $_SESSION['user_avatar'] ?>" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-white">
+                    <img width="42px" height="42px" src="<?= './uploads/userAvatar/' . $_SESSION['user_avatar'] ?>" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-white">
                     <span class="text-white hover:text-gray-300"><?= $_SESSION['user_name'] ?></span>
                     <?php
                         if($_SESSION['user_rol'] === 'admin'){
