@@ -41,7 +41,7 @@ $news = readNews($mysqli);
 
 <head>
     <meta charset="utf-8">
-    <title>Agen | Bootstrap Agency Template</title>
+    <title>PearOS Sulaiman</title>
 
     <!-- mobile responsive meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,13 +78,90 @@ $news = readNews($mysqli);
     line-height: 1.5;                   
     max-height: 4.5em;                  
   }
+
+  .projects-section {
+    background-color: #f8f9fa;
+}
+
+.section-title {
+    font-weight: 700;
+    color: #333;
+}
+
+.title-underline {
+    height: 3px;
+    width: 70px;
+    background-color: #007bff;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.project-card {
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-img-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-img {
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.05);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 123, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-buttons {
+    text-align: center;
+}
+
+.project-buttons .btn {
+    margin: 0 5px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
   </style>
 </head>
 
 <body>
     <header class="navigation fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="Egen"></a>
+            <a class="navbar-brand" href="index.php"><img width="40px" src="images/pearos.png" alt="Egen"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                 aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -99,30 +176,7 @@ $news = readNews($mysqli);
                         <a class="nav-link" href="about.php">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="services.php">Services</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="blog.php">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="portfolio.php">Portfolio</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Pages</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="team.php">Team</a>
-                            <a class="dropdown-item" href="team-single.php">Team Details</a>
-                            <a class="dropdown-item" href="career.php">Career</a>
-                            <a class="dropdown-item" href="career-single.php">Career Details</a>
-                            <a class="dropdown-item" href="blog-single.php">Blog Details</a>
-                            <a class="dropdown-item" href="pricing.php">Pricing</a>
-                            </a>
-                            <a class="dropdown-item" href="faqs.php">FAQ's</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.php">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -158,193 +212,15 @@ $news = readNews($mysqli);
     </header>
 
 <section class="banner bg-cover position-relative d-flex justify-content-center align-items-center"
-  data-background="images/banner/banner2.jpg">
+  data-background="https://lasombradelhelicoptero.wordpress.com/wp-content/uploads/2011/12/1b936-pearos1.png">
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h1 class="display-1 text-white font-weight-bold font-primary">Creative Agency</h1>
+        <h1 class="display-1 text-white font-weight-bold font-primary">PearOS Sulaiman</h1>
       </div>
     </div>
   </div>
 </section>
-
-    <!-- service -->
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mx-auto text-center">
-                    <h2 class="section-title">Our Services</h2>
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                        incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut
-                        aliquip ex ea commodo consequat.</p>
-                    <div class="section-border"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <div class="card hover-bg-secondary shadow py-4 active">
-                        <div class="card-body text-center">
-                            <div class="position-relative">
-                                <i
-                                    class="icon-lg icon-box bg-gradient-primary rounded-circle ti-palette mb-5 d-inline-block text-white"></i>
-                                <i class="icon-lg icon-watermark text-white ti-palette"></i>
-                            </div>
-                            <h4 class="mb-4">Design</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <div class="card hover-bg-secondary shadow py-4">
-                        <div class="card-body text-center">
-                            <div class="position-relative">
-                                <i
-                                    class="icon-lg icon-box bg-gradient-primary rounded-circle ti-dashboard mb-5 d-inline-block text-white"></i>
-                                <i class="icon-lg icon-watermark text-white ti-dashboard"></i>
-                            </div>
-                            <h4 class="mb-4">Development</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <div class="card hover-bg-secondary shadow py-4">
-                        <div class="card-body text-center">
-                            <div class="position-relative">
-                                <i
-                                    class="icon-lg icon-box bg-gradient-primary rounded-circle ti-announcement mb-5 d-inline-block text-white"></i>
-                                <i class="icon-lg icon-watermark text-white ti-announcement"></i>
-                            </div>
-                            <h4 class="mb-4">Marketing</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- /service -->
-
-    <!-- feature -->
-    <section class="section bg-secondary position-relative">
-        <div class="bg-image overlay-secondary">
-            <img src="images/feature.jpg" alt="bg-image">
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-9 mx-auto">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4 mb-4 mb-lg-0">
-                            <img src="images/feature.jpg" alt="feature-image" class="img-fluid">
-                        </div>
-                        <div class="col-lg-7 offset-lg-1">
-                            <div class="row">
-                                <div class="col-12">
-                                    <h2 class="text-white">We know What Bait to Use</h2>
-                                    <div class="section-border ml-0"></div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="media">
-                                        <i class="icon text-gradient-primary ti-vector mr-3"></i>
-                                        <div class="media-body">
-                                            <h4 class="text-white">User Experience</h4>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                elit, sed do eiusmo</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="media">
-                                        <i class="icon text-gradient-primary ti-layout mr-3"></i>
-                                        <div class="media-body">
-                                            <h4 class="text-white">Responsive Layout</h4>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                elit, sed do eiusmo</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="media">
-                                        <i class="icon text-gradient-primary ti-headphone-alt mr-3"></i>
-                                        <div class="media-body">
-                                            <h4 class="text-white">Digital Solutions</h4>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                elit, sed do eiusmo</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="media">
-                                        <i class="icon text-gradient-primary ti-ruler-pencil mr-3"></i>
-                                        <div class="media-body">
-                                            <h4 class="text-white">Bootstrap 4x</h4>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                elit, sed do eiusmo</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- /feature -->
-
-    <!-- team -->
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mx-auto text-center">
-                    <h2>Our Team</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-                    <div class="section-border"></div>
-                </div>
-            </div>
-            <div class="row no-gutters">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card hover-shadow">
-                        <img src="images/team/member-1.jpg" alt="team-member" class="card-img-top">
-                        <div class="card-body text-center position-relative zindex-1">
-                            <h4><a class="text-dark" href="team-single.php">Sara Adams</a></h4>
-                            <i>Designer</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card hover-shadow">
-                        <img src="images/team/member-2.jpg" alt="team-member" class="card-img-top">
-                        <div class="card-body text-center position-relative zindex-1">
-                            <h4><a class="text-dark" href="team-single.php">Tom Bills</a></h4>
-                            <i>Developer</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card hover-shadow">
-                        <img src="images/team/member-3.jpg" alt="team-member" class="card-img-top">
-                        <div class="card-body text-center position-relative zindex-1">
-                            <h4><a class="text-dark" href="team-single.php">Anna Walle</a></h4>
-                            <i>Manager</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card hover-shadow">
-                        <img src="images/team/member-4.jpg" alt="team-member" class="card-img-top">
-                        <div class="card-body text-center">
-                            <h4>Devid Json</h4>
-                            <i>CEO</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- /team -->
 
     <!-- about -->
     <section class="section-lg position-relative bg-cover" data-background="images/backgrounds/about-bg.jpg">
@@ -352,19 +228,13 @@ $news = readNews($mysqli);
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-lg-6 col-md-8 col-sm-7 col-8">
-                    <h2 class="text-white mb-4">Who We Are</h2>
-                    <p class="text-light mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor
-                        incididunt
-                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut
-                        aliquip ex ea commodo consequat.</p>
+                    <h2 class="text-white mb-4">Quienes somos</h2>
+                    <p class="text-light mb-4">En Pear OS, creemos en la simplicidad, la elegancia y la eficiencia. Somos una empresa dedicada a desarrollar un sistema operativo basado en Linux que combina un diseño atractivo con un rendimiento optimizado. Nuestra misión es ofrecer una experiencia fluida, intuitiva y moderna para usuarios de todos los niveles.
+
+Inspirados en la innovación y la accesibilidad, trabajamos constantemente para mejorar Pear OS, brindando una alternativa sólida, segura y estética en el mundo de los sistemas operativos. Si buscas un entorno ágil, estable y con una interfaz hermosa, estás en el lugar adecuado.
+
+Descubre un sistema operativo diferente. Descubre Pear OS. </p>
                     <a href="about.php" class="btn btn-primary">Read More</a>
-                </div>
-                <div class="col-md-2 col-sm-4 col-4 text-right align-self-end">
-                    <a class="venobox" data-autoplay="true" data-vbtype="video"
-                        href="https://www.youtube.com/watch?v=jrkvirglgaQ"><i
-                            class="text-center icon-sm icon-box rounded-circle text-white bg-gradient-primary d-block ti-control-play"></i></a>
                 </div>
             </div>
         </div>
@@ -372,35 +242,47 @@ $news = readNews($mysqli);
     <!-- /about -->
 
     <!-- project -->
-    <section class="section">
-        <div class="container-fluid px-0">
-            <div class="row">
-                <div class="col-lg-10 mx-auto text-center">
-                    <h2>Our Feature Works</h2>
-                    <div class="section-border"></div>
-                </div>
-            </div>
-
-            <div class="row no-gutters shuffle-wrapper">
-                <?php 
-                $projects = readProject($mysqli);
-                while ($project = $projects->fetch_assoc()) { ?>
-                <div class="col-lg-4 col-md-6 shuffle-item">
-                    <div class="project-item">
-                        <img src="<?php echo htmlspecialchars($project['thumbnail']); ?>" alt="project-image"
-                            class="img-fluid w-100">
-                        <div class="project-hover bg-secondary px-4 py-3">
-                            <a href="<?php echo htmlspecialchars($project['url']); ?>"
-                                class="text-white h4"><?php echo htmlspecialchars($project['title']); ?></a>
-                            <a href="<?php echo htmlspecialchars($project['url']); ?>"><i
-                                    class="ti-link icon-xs text-white"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
+  <section class="projects-section py-5">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-title position-relative mb-3">Proyectos</h2>
+                <div class="title-underline"></div>
+                <p class="text-muted">Descubre nuestros trabajos más destacados</p>
             </div>
         </div>
-    </section>
+        
+        <!-- Projects Grid -->
+        <div class="row g-4">
+            <?php 
+            $projects = readProject($mysqli);
+            while ($project = $projects->fetch_assoc()) { ?>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card project-card h-100 border-0 shadow-sm">
+                    <div class="project-img-container">
+                        <img src="<?php echo htmlspecialchars($project['thumbnail']); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>" 
+                            class="card-img-top project-img">
+                        <div class="project-overlay">
+                            <div class="project-buttons">
+                                <a href="<?php echo htmlspecialchars($project['url']); ?>" class="btn btn-light btn-sm">
+                                    <i class="fas fa-eye me-1"></i> Ver proyecto
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo htmlspecialchars($project['title']); ?></h5>
+                        <?php if(isset($project['description'])) { ?>
+                        <p class="card-text text-muted"><?php echo htmlspecialchars($project['description']); ?></p>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+</section>
     <!-- /project -->
 
 
@@ -418,7 +300,7 @@ $news = readNews($mysqli);
                 while ($new = $news->fetch_assoc()) {?>
                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <article class="card">
-                        <img src="<?php echo htmlspecialchars($new['body']); ?>" alt="post-thumb"
+                        <img src="./uploads/news/<?php echo htmlspecialchars($new['body']); ?>" alt="post-thumb"
                             class="card-img-top mb-2">
                         <div class="card-body p-0">
                             <time><?php
@@ -491,19 +373,12 @@ $news = readNews($mysqli);
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-6 text-center text-md-left">
-                        <p class="text-light mb-0">Copyright &copy; 2019 a theme by <a class="text-gradient-primary"
-                                href="https://themefisher.com">themefisher.com</a>
+                        <p class="text-light mb-0">2025 PearOs Sulaiman
                         </p>
                     </div>
                     <div class="col-md-6">
                         <ul class="list-inline text-md-right text-center">
-                            <li class="list-inline-item"><a class="d-block p-3 text-white" href="#"><i
-                                        class="ti-facebook"></i></a></li>
-                            <li class="list-inline-item"><a class="d-block p-3 text-white" href="#"><i
-                                        class="ti-twitter-alt"></i></a></li>
-                            <li class="list-inline-item"><a class="d-block p-3 text-white" href="#"><i
-                                        class="ti-instagram"></i></a></li>
-                            <li class="list-inline-item"><a class="d-block p-3 text-white" href="#"><i
+                            <li class="list-inline-item"><a class="d-block p-3 text-white" href="https://github.com/SulaimanTahaSantos?tab=repositories"><i
                                         class="ti-github"></i></a></li>
                         </ul>
                     </div>

@@ -707,9 +707,9 @@ $comments = readComments($mysqli);
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña:</label>
                     <input type="password" name="password" id="password" placeholder="password" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
-               <div class="mb-4">
+               <div  class="mb-4">
                     <label for="rol" class="block text-sm font-medium text-gray-700 mb-1">Rol:</label>
-                    <select name="rol" id="rol" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                    <select name="rol" id="rol" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="user" selected>User</option>
                     </select>
                 </div>
@@ -718,7 +718,7 @@ $comments = readComments($mysqli);
                 <label for="data_register" class="block text-sm font-medium text-gray-700 mb-1">Fecha de registro:</label>
                 <input type="date" name="data_register" id="data_register" 
                        value="<?php echo date('Y-m-d'); ?>" 
-                        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" readonly>
                </div>
 
                 <div class="mb-4">
