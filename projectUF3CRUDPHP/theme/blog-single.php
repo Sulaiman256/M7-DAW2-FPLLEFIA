@@ -74,7 +74,7 @@ $news = readNews($mysqli);
 
 <header class="navigation fixed-top">
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="Egen"></a>
+    <a class="navbar-brand" href="index.php"><img width="40px" src="images/pearos.png" alt="Egen"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
       aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -89,28 +89,7 @@ $news = readNews($mysqli);
           <a class="nav-link" href="about.php">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="services.php">Services</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="blog.php">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="portfolio.php">Portfolio</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="team.php">Team</a>
-            <a class="dropdown-item" href="team-single.php">Team Details</a>
-            <a class="dropdown-item" href="career.php">Career</a>
-            <a class="dropdown-item" href="career-single.php">Career Details</a>
-            <a class="dropdown-item" href="blog-single.php">Blog Details</a>
-            <a class="dropdown-item" href="pricing.php">Pricing</a></a>
-            <a class="dropdown-item" href="faqs.php">FAQ's</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contact.php">Contact</a>
         </li>
       </ul>
     </div>
@@ -118,11 +97,11 @@ $news = readNews($mysqli);
 </header>
 
 <!-- page-title -->
-<section class="page-title bg-cover" data-background="images/backgrounds/page-title.jpg">
+<section class="page-title bg-cover" data-background="https://lasombradelhelicoptero.wordpress.com/wp-content/uploads/2011/12/1b936-pearos1.png">
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h1 class="display-1 text-white font-weight-bold font-primary">Blog Details</h1>
+        <h1 class="display-1 text-white font-weight-bold font-primary">Detalles de la noticia</h1>
       </div>
     </div>
   </div>
@@ -159,7 +138,7 @@ $news = readNews($mysqli);
         <div class="p-5 mb-4">
          <?php foreach ($comments as $comment): ?>
   <div class="media border-bottom py-4">
-    <img width="93px" height="93px" src="<?php echo htmlspecialchars($comment['avatar']); ?>" class="img-fluid align-self-start mr-3" alt="">
+    <img width="93px" height="93px" src="./uploads/userAvatar/<?php echo htmlspecialchars($comment['avatar']); ?>" class="img-fluid align-self-start mr-3" alt="">
     <div class="media-body">
       <h5 class="mb-0 text-secondary">
         <?php echo htmlspecialchars($comment['name']); ?>
@@ -178,21 +157,16 @@ $news = readNews($mysqli);
 <?php endforeach; ?>
 
         </div>
-        <h4 class="mb-3 pb-3 text-secondary">Leave a Comment</h4>
-        <form action="#" class="row">
-          <div class="col-12">
-            <textarea name="comment" id="comment" placeholder="Message" class="form-control mb-4 border"></textarea>
-          </div>
-          <div class="col-md-5">
-            <input type="text" name="name" id="name" class="form-control mb-4 mb-lg-0 border" placeholder="Name">
-          </div>
-          <div class="col-md-5">
-            <input type="email" name="Email" id="Email" class="form-control mb-4 mb-lg-0 border" placeholder="Email">
-          </div>
-          <div class="col-md-2">
-            <button type="submit" class="btn btn-secondary rounded-0">Send</button>
-          </div>
-        </form>
+      <h4 class="mb-3 pb-3 text-secondary">Leave a Comment</h4>
+<form action="insert_comment.php" method="POST" class="row">
+  <div class="col-12">
+    <textarea name="comment" id="comment" placeholder="Message" class="form-control mb-4 border" required></textarea>
+  </div>
+  <input type="hidden" name="id_news" value="<?php echo $id; ?>"> 
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-secondary rounded-0">Send</button>
+  </div>
+</form>
       </div>
     </div>
   </div>
@@ -208,12 +182,13 @@ $news = readNews($mysqli);
       </div>
     </div>
     <div class="row">
+      <a href="./uploads/userAvatar/"></a>
         <?php
       
        while ($new = $news->fetch_assoc()) { ?>
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
         <article class="card">
-          <img src="<?php echo htmlspecialchars($new['body']); ?>" alt="post-thumb" class="card-img-top mb-2">
+          <img src="./uploads/news/<?php echo htmlspecialchars($new['body']); ?>" alt="post-thumb" class="card-img-top mb-2">
           <div class="card-body p-0">
             <time><?php
             echo $new['publication_date'];
@@ -231,28 +206,6 @@ $news = readNews($mysqli);
         </article>
       </div>
                 <?php } ?>
-    
-      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <article class="card">
-          <img src="images/blog/post-2.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="#" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <article class="card">
-          <img src="images/blog/post-3.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="#" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
       </div>
     </div>
   </div>
@@ -303,8 +256,7 @@ $news = readNews($mysqli);
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-6 text-center text-md-left">
-          <p class="text-light mb-0">Copyright &copy; 2019 a theme by <a class="text-gradient-primary" href="https://themefisher.com">themefisher.com</a>
-          </p>
+          <p class="text-light mb-0">PearOS Sulaiman © 2021, All Right Reserved</p>
         </div>
         <div class="col-md-6">
           <ul class="list-inline text-md-right text-center">

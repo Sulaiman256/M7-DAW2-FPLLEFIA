@@ -120,7 +120,7 @@ $news = readAllNews($mysqli);
               echo htmlspecialchars($new['descripcion']);
               ?>
               </p>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
+            <a href="blog-single.php?id=<?php echo $new['id']; ?>" class="btn btn-transparent">Read more</a>
           </div>
         </article>
       </div>
