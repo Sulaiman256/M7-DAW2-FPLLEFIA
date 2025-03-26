@@ -255,13 +255,14 @@ Descubre un sistema operativo diferente. Descubre Pear OS. </p>
         
         <!-- Projects Grid -->
         <div class="row g-4">
+            
             <?php 
             $projects = readProject($mysqli);
             while ($project = $projects->fetch_assoc()) { ?>
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card project-card h-100 border-0 shadow-sm">
                     <div class="project-img-container">
-                        <img src="<?php echo htmlspecialchars($project['thumbnail']); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>" 
+                        <img src="./uploads/projects/<?php echo htmlspecialchars($project['thumbnail']); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>" 
                             class="card-img-top project-img">
                         <div class="project-overlay">
                             <div class="project-buttons">
