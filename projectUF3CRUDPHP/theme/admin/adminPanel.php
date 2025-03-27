@@ -727,7 +727,6 @@ $comments = readComments($mysqli);
         <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-4">Agregar Proyectos</h2>
             <form action="" method="POST" enctype="multipart/form-data">
-                <!-- Form fields for news -->
                 <div class="mb-4">
                     <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Título:</label>
                     <input type="text" name="title" id="title" placeholder="Título" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
