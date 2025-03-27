@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['id'], $_POST['name'], $_POST['email'], $_POST['password'], $_POST['rol'], $_POST['data_registre'], $_POST['surname'], $_POST['avatar'], $_POST['age'], $_POST['job'])) {
+        if (isset($_POST['id'], $_POST['name'], $_POST['email'], $_POST['password'], $_POST['rol'], $_POST['data_registre'], $_POST['surname'], $_POST['age'], $_POST['job'])) {
             $id = $_POST['id'];
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -32,14 +32,74 @@ if (isset($_GET['id'])) {
             $rol = $_POST['rol'];
             $data_registre = $_POST['data_registre'];
             $surname = $_POST['surname'];
-            $avatar = $_POST['avatar'];
             $age = $_POST['age'];
             $job = $_POST['job'];
+            $avatar = '';
 
-            editUsers($mysqli, $id, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job);
+            $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
 
-            header('Location: ../adminPanel.php');
-            exit;  
+            // Manejo de imagen
+            if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['avatar']['tmp_name'];
+                $fileName = $_FILES['avatar']['name'];
+                $fileNameCmps = explode(".", $fileName);
+                $fileExtension = strtolower(end($fileNameCmps));
+                $allowedExtensions = [
+                    'jpg',
+                    'png',
+                    'jpeg',
+                    'gif',
+                    'svg',
+                    'webp',
+                    'avif',
+                    'bmp',
+                    'ico',
+                    'tiff',
+                    'tif',
+                    'jfif',
+                    'pjpeg',
+                    'pjp',
+                    'JPG',
+                    'PNG',
+                    'JPEG',
+                    'GIF',
+                    'SVG',
+                    'WEBP',
+                    'AVIF',
+                    'BMP',
+                    'ICO',
+                    'TIFF',
+                    'TIF',
+                    'JFIF',
+                    'PJPEG',
+                    'PJP'
+                ];
+                if (in_array($fileExtension, $allowedExtensions)) {
+                    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                    $avatarDir = $uploadDir . 'userAvatar' . DIRECTORY_SEPARATOR;
+
+                    if (!is_dir($avatarDir)) {
+                        mkdir($avatarDir, 0777, true);
+                    }
+
+                    $destPath = $avatarDir . $newFileName;
+                    if (move_uploaded_file($fileTmpPath, $destPath)) {
+                        $avatar = $newFileName;
+                    } else {
+                        $error_message = 'Error al subir el avatar';
+                    }
+                } else {
+                    $error_message = 'Formato de imagen no permitido';
+                }
+            }
+
+            if (empty($error_message)) {
+                editUsers($mysqli, $id, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job);
+                header('Location: ../adminPanel.php');
+                exit;
+            } else {
+                echo $error_message;
+            }
         }
     }
 } else {
@@ -50,18 +110,20 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar usuarios</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 py-6 flex justify-center items-center">
 
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
         <h2 class="text-2xl font-semibold text-center mb-6">Editar usuario</h2>
 
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
 
             <div class="mb-4">
@@ -98,8 +160,8 @@ if (isset($_GET['id'])) {
             </div>
 
             <div class="mb-4">
-                <label for="avatar" class="block text-sm font-medium text-gray-700">Avatar (URL)</label>
-                <input type="text" id="avatar" name="avatar" value="<?php echo htmlspecialchars($user['avatar']); ?>" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <label for="avatar" class="block text-sm font-medium text-gray-700">Avatar</label>
+                <input type="file" accept="image/*" id="avatar" name="avatar" value="<?php echo htmlspecialchars($user['avatar']); ?>" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
             </div>
 
             <div class="mb-4">
@@ -120,4 +182,5 @@ if (isset($_GET['id'])) {
     </div>
 
 </body>
+
 </html>

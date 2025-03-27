@@ -23,63 +23,91 @@ if (isset($_GET['id'])) {
         exit;
     }
 
-   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['id'], $_POST['name'], $_POST['surname'], $_POST['testimony'], $_FILES['image'], $_POST['date'])) {
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $testimony = $_POST['testimony'];
-        $image = '';  // Inicializamos como vacío
-        $date = $_POST['date'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['id'], $_POST['name'], $_POST['surname'], $_POST['testimony'], $_FILES['image'], $_POST['date'])) {
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $surname = $_POST['surname'];
+            $testimony = $_POST['testimony'];
+            $image = '';  // Inicializamos como vacío
+            $date = $_POST['date'];
 
-        $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+            $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
 
-        // Verificar si se subió una imagen
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $fileTmpPath = $_FILES['image']['tmp_name'];
-            $fileName = $_FILES['image']['name'];
-            $fileNameCmps = explode(".", $fileName);
-            $fileExtension = strtolower(end($fileNameCmps));
-            $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp', 'avif', 'bmp', 'ico', 'tiff', 'tif', 'jfif', 'pjpeg', 'pjp'];
+            // Verificar si se subió una imagen
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['image']['tmp_name'];
+                $fileName = $_FILES['image']['name'];
+                $fileNameCmps = explode(".", $fileName);
+                $fileExtension = strtolower(end($fileNameCmps));
+                $allowedExtensions = [
+                    'jpg',
+                    'png',
+                    'jpeg',
+                    'gif',
+                    'svg',
+                    'webp',
+                    'avif',
+                    'bmp',
+                    'ico',
+                    'tiff',
+                    'tif',
+                    'jfif',
+                    'pjpeg',
+                    'pjp',
+                    'JPG',
+                    'PNG',
+                    'JPEG',
+                    'GIF',
+                    'SVG',
+                    'WEBP',
+                    'AVIF',
+                    'BMP',
+                    'ICO',
+                    'TIFF',
+                    'TIF',
+                    'JFIF',
+                    'PJPEG',
+                    'PJP'
+                ];
+                if (in_array($fileExtension, $allowedExtensions)) {
+                    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                    $testimonioDir = $uploadDir . 'testimonio' . DIRECTORY_SEPARATOR;
 
-            if (in_array($fileExtension, $allowedExtensions)) {
-                $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-                $testimonioDir = $uploadDir . 'testimonio' . DIRECTORY_SEPARATOR;
+                    if (!is_dir($testimonioDir)) {
+                        mkdir($testimonioDir, 0777, true);
+                    }
 
-                if (!is_dir($testimonioDir)) {
-                    mkdir($testimonioDir, 0777, true);
-                }
+                    $destPath = $testimonioDir . $newFileName;
 
-                $destPath = $testimonioDir . $newFileName;
-
-                if (move_uploaded_file($fileTmpPath, $destPath)) {
-                    $image = $newFileName;  // Solo asignamos el nombre de la imagen
+                    if (move_uploaded_file($fileTmpPath, $destPath)) {
+                        $image = $newFileName;  // Solo asignamos el nombre de la imagen
+                    } else {
+                        $error_message = 'Hubo un error al subir la imagen del testimonio';
+                    }
                 } else {
-                    $error_message = 'Hubo un error al subir la imagen del testimonio';
+                    $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG';
                 }
             } else {
-                $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG';
+                // Si no se sube una nueva imagen, mantenemos la imagen existente
+                $image = $testimonio['image'];
             }
-        } else {
-            // Si no se sube una nueva imagen, mantenemos la imagen existente
-            $image = $testimonio['image'];
-        }
 
-        // Si no hubo error, procedemos a editar el testimonio
-        if (empty($error_message)) {
-            editTestimonial($mysqli, $id, $name, $surname, $testimony, $image, $date);
-        } else {
-            echo $error_message;
+            // Si no hubo error, procedemos a editar el testimonio
+            if (empty($error_message)) {
+                editTestimonial($mysqli, $id, $name, $surname, $testimony, $image, $date);
+            } else {
+                echo $error_message;
+            }
         }
     }
-}
-
 }
 ?>
 
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <a href="../../"></a>
     <meta charset="UTF-8">
@@ -87,6 +115,7 @@ if (isset($_GET['id'])) {
     <title>Editar Testimonio</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 py-6 flex justify-center items-center">
 
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
@@ -128,4 +157,5 @@ if (isset($_GET['id'])) {
     </div>
 
 </body>
+
 </html>

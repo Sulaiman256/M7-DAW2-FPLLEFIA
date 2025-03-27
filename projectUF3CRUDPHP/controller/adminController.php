@@ -3,7 +3,8 @@
 
 // funcion para cargar testimonios en el panel de administrador
 
-function readTestimonios($mysqli) {
+function readTestimonios($mysqli)
+{
     $resultTestimonios = $mysqli->query("SELECT * FROM testimony");
     $testimonios = $resultTestimonios->fetch_all(MYSQLI_ASSOC);
     return $testimonios;
@@ -11,10 +12,11 @@ function readTestimonios($mysqli) {
 
 // funcion para eliminar testimonios
 
-function deleteTestimonial($mysqli, $id) {
+function deleteTestimonial($mysqli, $id)
+{
     $stmt = $mysqli->prepare("DELETE FROM testimony WHERE id = ?");
     $stmt->bind_param('i', $id);
-    if(!$stmt->execute()) {
+    if (!$stmt->execute()) {
         die('Error en la ejecución de la consulta: ' . $stmt->error);
         exit;
     }
@@ -24,8 +26,9 @@ function deleteTestimonial($mysqli, $id) {
 
 // funcion para agregar testimonios
 
-function addTestimonial($mysqli, $name, $surname, $testimony, $image, $date) {
-   $stmt = $mysqli->prepare(
+function addTestimonial($mysqli, $name, $surname, $testimony, $image, $date)
+{
+    $stmt = $mysqli->prepare(
         "INSERT INTO testimony (name, surname, testimony, image, date) 
         VALUES (?, ?, ?, ?, ?)"
     );
@@ -40,7 +43,7 @@ function addTestimonial($mysqli, $name, $surname, $testimony, $image, $date) {
     $stmt->bind_param('sssss', $name, $surname, $testimony, $image, $date);
 
     // 7. ejecutar la consulta
-       if ($stmt->execute()) {
+    if ($stmt->execute()) {
         echo '';
     } else {
         echo 'Error al eliminar el testimonio';
@@ -52,7 +55,8 @@ function addTestimonial($mysqli, $name, $surname, $testimony, $image, $date) {
 
 // funcion para editar testimonios
 
-function editTestimonial($mysqli, $id, $name, $surname, $testimony, $image, $date) {
+function editTestimonial($mysqli, $id, $name, $surname, $testimony, $image, $date)
+{
     $stmt = $mysqli->prepare(
         "UPDATE testimony SET name = ?, surname = ?, testimony = ?, image = ?, date = ? WHERE id = ?"
     );
@@ -77,18 +81,20 @@ function editTestimonial($mysqli, $id, $name, $surname, $testimony, $image, $dat
 // Funciones de noticias
 
 // funcion para cargar noticias en el panel de administrador
-function readNews($mysqli) {
-    $resultNews= $mysqli->query("SELECT * FROM news");
+function readNews($mysqli)
+{
+    $resultNews = $mysqli->query("SELECT * FROM news");
     $news = $resultNews->fetch_all(MYSQLI_ASSOC);
     return $news;
 }
 
 // funcion para eliminar noticias
 
-function deleteNews($mysqli, $id) {
+function deleteNews($mysqli, $id)
+{
     $stmt = $mysqli->prepare("DELETE FROM news WHERE id = ?");
     $stmt->bind_param('i', $id);
-    if(!$stmt->execute()) {
+    if (!$stmt->execute()) {
         die('Error en la ejecución de la consulta: ' . $stmt->error);
         exit;
     }
@@ -98,7 +104,8 @@ function deleteNews($mysqli, $id) {
 
 // funcion para agregar noticias
 
-function addNews($mysqli, $title, $subtitle, $body, $publication_date, $descripcion) {
+function addNews($mysqli, $title, $subtitle, $body, $publication_date, $descripcion)
+{
     // Preparar la consulta SQL para insertar los datos
     $stmt = $mysqli->prepare(
         "INSERT INTO news (title, subititle, body, publication_date, descripcion) 
@@ -125,7 +132,8 @@ function addNews($mysqli, $title, $subtitle, $body, $publication_date, $descripc
     $stmt->close();
 }
 
-function editNews($mysqli, $id, $title, $subititle, $body, $publicationDate, $descripcion) {
+function editNews($mysqli, $id, $title, $subititle, $body, $publicationDate, $descripcion)
+{
     $stmt = $mysqli->prepare(
         "UPDATE news SET title = ?, subititle = ?, body = ?, publication_date = ?, descripcion = ? WHERE id = ?"
     );
@@ -149,16 +157,18 @@ function editNews($mysqli, $id, $title, $subititle, $body, $publicationDate, $de
 
 // Funciones para borrar editar leer e insertar proyectos
 
-function readProjects($mysqli) {
+function readProjects($mysqli)
+{
     $resultProjects = $mysqli->query("SELECT * FROM projects");
     $projects = $resultProjects->fetch_all(MYSQLI_ASSOC);
     return $projects;
 }
 
-function deleteProject($mysqli, $id) {
+function deleteProject($mysqli, $id)
+{
     $stmt = $mysqli->prepare("DELETE FROM projects WHERE id = ?");
     $stmt->bind_param('i', $id);
-    if(!$stmt->execute()) {
+    if (!$stmt->execute()) {
         die('Error en la ejecución de la consulta: ' . $stmt->error);
         exit;
     }
@@ -166,7 +176,8 @@ function deleteProject($mysqli, $id) {
     $mysqli->close();
 }
 
-function editProject ($mysqli, $id, $title, $description, $url, $image) {
+function editProject($mysqli, $id, $title, $description, $url, $image)
+{
     $stmt = $mysqli->prepare(
         "UPDATE projects SET title = ?, description = ?, url = ?, thumbnail = ? WHERE id = ?"
     );
@@ -188,7 +199,8 @@ function editProject ($mysqli, $id, $title, $description, $url, $image) {
     $stmt->close();
 }
 
-function addProject($mysqli, $title, $description, $url, $image) {
+function addProject($mysqli, $title, $description, $url, $image)
+{
     $stmt = $mysqli->prepare(
         "INSERT INTO projects (title, description, url, thumbnail) 
         VALUES (?, ?, ?, ?)"
@@ -216,16 +228,18 @@ function addProject($mysqli, $title, $description, $url, $image) {
 
 // Funciones para borrar editar leer e insertar usuarios
 
-function readUsers($mysqli) {
+function readUsers($mysqli)
+{
     $resultUsers = $mysqli->query("SELECT * FROM users");
     $users = $resultUsers->fetch_all(MYSQLI_ASSOC);
     return $users;
 }
 
-function deleteUsers($mysqli, $id) {
+function deleteUsers($mysqli, $id)
+{
     $stmt = $mysqli->prepare("DELETE FROM users WHERE id = ?");
     $stmt->bind_param('i', $id);
-    if(!$stmt->execute()) {
+    if (!$stmt->execute()) {
         die('Error en la ejecución de la consulta: ' . $stmt->error);
         exit;
     }
@@ -235,7 +249,8 @@ function deleteUsers($mysqli, $id) {
 
 // La funcion addUsers debe tener los campos name, email, password,rol, data_registre, surname, avatar, age, job
 
-function addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job) {
+function addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job)
+{
     $stmt = $mysqli->prepare(
         "INSERT INTO users (name, email, password, rol, data_registre, surname, avatar, age, job) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
@@ -264,7 +279,8 @@ function addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surn
 
 // La funcion editUsers debe tener los campos name, email, password,rol, data_registre, surname, avatar, age, job 
 
-function editUsers($mysqli, $id, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job) {
+function editUsers($mysqli, $id, $name, $email, $password, $rol, $data_registre, $surname, $avatar, $age, $job)
+{
     $stmt = $mysqli->prepare(
         "UPDATE users SET name = ?, email = ?, password = ?, rol = ?, data_registre = ?, surname = ?, avatar = ?, age = ?, job = ? WHERE id = ?"
     );
@@ -289,16 +305,18 @@ function editUsers($mysqli, $id, $name, $email, $password, $rol, $data_registre,
 
 // Ahora funciones para añadir comentarios
 
-function readComments($mysqli) {
+function readComments($mysqli)
+{
     $resultComments = $mysqli->query("SELECT * FROM comentarios");
     $comments = $resultComments->fetch_all(MYSQLI_ASSOC);
     return $comments;
 }
 
-function deleteComments($mysqli, $id) {
+function deleteComments($mysqli, $id)
+{
     $stmt = $mysqli->prepare("DELETE FROM comentarios WHERE id = ?");
     $stmt->bind_param('i', $id);
-    if(!$stmt->execute()) {
+    if (!$stmt->execute()) {
         die('Error en la ejecución de la consulta: ' . $stmt->error);
         exit;
     }
@@ -306,7 +324,8 @@ function deleteComments($mysqli, $id) {
     $mysqli->close();
 }
 
-function editComments($mysqli, $id, $comentario, $fecha) {
+function editComments($mysqli, $id, $comentario, $fecha)
+{
     $stmt = $mysqli->prepare(
         "UPDATE comentarios SET comment = ?, date = ? WHERE id = ?"
     );
@@ -327,5 +346,3 @@ function editComments($mysqli, $id, $comentario, $fecha) {
 
     $stmt->close();
 }
-
-?>

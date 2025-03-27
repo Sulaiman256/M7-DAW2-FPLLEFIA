@@ -13,11 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $testimony = $_POST['testimony'];
-    $date = $_POST['date']; 
+    $date = $_POST['date'];
 
     $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;  // Usar ruta correcta desde el directorio actual
 
-    $testimonio = '';  
+    $testimonio = '';
 
     // Verificar si se subió una imagen
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -29,14 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (in_array($fileExtension, $allowedExtensions)) {
             $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-            $testimonioDir = $uploadDir . 'testimonio' . DIRECTORY_SEPARATOR;  
-            
+            $testimonioDir = $uploadDir . 'testimonio' . DIRECTORY_SEPARATOR;
+
             if (!is_dir($testimonioDir)) {
-                mkdir($testimonioDir, 0777, true); 
+                mkdir($testimonioDir, 0777, true);
             }
 
             $destPath = $testimonioDir . $newFileName;
-            
+
             if (move_uploaded_file($fileTmpPath, $destPath)) {
                 $testimonio = $newFileName;  // Almacenar el nombre del archivo
             } else {
@@ -46,13 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG';
         }
         if (empty($error_message)) {
-        // Asegúrate de pasar el nombre de la imagen a la función de guardar
-        $addTestimonyFile = addTestimonial($mysqli, $name, $surname, $testimony, $testimonio, $date);
-    } else {
-        // Mostrar error si algo salió mal
-        echo $error_message;
+            // Asegúrate de pasar el nombre de la imagen a la función de guardar
+            $addTestimonyFile = addTestimonial($mysqli, $name, $surname, $testimony, $testimonio, $date);
+        } else {
+            // Mostrar error si algo salió mal
+            echo $error_message;
+        }
     }
-    } 
 }
 
 
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_P
     // Ruta para subir archivos
     $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
 
-    $imageName = ''; 
+    $imageName = '';
 
     if (isset($body) && $body['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $body['tmp_name'];
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_P
             $destPath = $imageDir . $newFileName;
 
             if (move_uploaded_file($fileTmpPath, $destPath)) {
-                $imageName = $newFileName; 
+                $imageName = $newFileName;
             } else {
                 $error_message = 'Hubo un error al subir la imagen.';
             }
@@ -97,18 +97,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_P
             $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG.';
         }
         if (empty($error_message)) {
-        // Asegúrate de pasar el nombre de la imagen a la función de guardar
-    $addNews = addNews($mysqli, $title, $subtitle, $imageName, $publication_date, $descripcion);
-    echo $title;
-    echo $subtitle;
-    echo $imageName;
-    } else {
-        // Mostrar error si algo salió mal
-        echo $error_message;
+            // Asegúrate de pasar el nombre de la imagen a la función de guardar
+            $addNews = addNews($mysqli, $title, $subtitle, $imageName, $publication_date, $descripcion);
+            echo $title;
+            echo $subtitle;
+            echo $imageName;
+        } else {
+            // Mostrar error si algo salió mal
+            echo $error_message;
+        }
     }
-    }
-
-
 }
 
 // Proyectos
@@ -122,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_P
     // Ruta para subir archivos
     $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
 
-    $imageName = ''; 
+    $imageName = '';
 
     if (isset($thumbnail) && $thumbnail['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $thumbnail['tmp_name'];
@@ -142,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_P
             $destPath = $imageDir . $newFileName;
 
             if (move_uploaded_file($fileTmpPath, $destPath)) {
-                $imageName = $newFileName; 
+                $imageName = $newFileName;
             } else {
                 $error_message = 'Hubo un error al subir la imagen.';
             }
@@ -150,21 +148,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_P
             $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG.';
         }
         if (empty($error_message)) {
-        // Asegúrate de pasar el nombre de la imagen a la función de guardar
-    $addProjects = addProject($mysqli, $title, $description, $url, $imageName);
-    } else {
-        // Mostrar error si algo salió mal
-        echo $error_message;
+            // Asegúrate de pasar el nombre de la imagen a la función de guardar
+            $addProjects = addProject($mysqli, $title, $description, $url, $imageName);
+        } else {
+            // Mostrar error si algo salió mal
+            echo $error_message;
+        }
     }
-    }
-
-
 }
- 
+
 // usuarios
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['rol']) && isset($_POST['data_register']) && isset($_POST['surname']) && isset($_FILES['avatar']) && isset($_POST['age']) && isset($_POST['job'])) {
-   
- $name = $_POST['name'];
+
+    $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $rol = $_POST['rol'];
@@ -178,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
     // Ruta para subir archivos
     $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
 
-    $imageName = ''; 
+    $imageName = '';
 
     if (isset($avatar) && $avatar['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $avatar['tmp_name'];
@@ -198,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
             $destPath = $imageDir . $newFileName;
 
             if (move_uploaded_file($fileTmpPath, $destPath)) {
-                $imageName = $newFileName; 
+                $imageName = $newFileName;
             } else {
                 $error_message = 'Hubo un error al subir la imagen.';
             }
@@ -206,16 +202,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
             $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG.';
         }
         if (empty($error_message)) {
-        // Asegúrate de pasar el nombre de la imagen a la función de guardar
-    $addUsers = addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surname, $imageName, $age, $job);
-    
-    } else {
-        // Mostrar error si algo salió mal
-        echo $error_message;
+            // Asegúrate de pasar el nombre de la imagen a la función de guardar
+            $addUsers = addUsers($mysqli, $name, $email, $password, $rol, $data_registre, $surname, $imageName, $age, $job);
+        } else {
+            // Mostrar error si algo salió mal
+            echo $error_message;
+        }
     }
-    }
-
-
 }
 
 // 2. Mostramos de momento solo los testimonios
@@ -231,6 +224,7 @@ $comments = readComments($mysqli);
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -242,45 +236,53 @@ $comments = readComments($mysqli);
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
         th {
             background-color: #f4f4f4;
         }
+
         a {
             color: red;
             text-decoration: none;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
         .section {
             display: none;
         }
+
         .section.active {
             display: block;
         }
+
         .card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
+
 <body class="bg-gray-100 p-5">
     <h1 class="text-3xl font-bold mb-5">Panel de Administrador</h1>
     <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
         <a href="../index.php">Home</a>
     </button>
-<a href="../uploads/"></a>
-    <!-- Cards Section -->
+    <a href="../uploads/"></a>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-        <!-- Testimonios Card -->
         <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('testimonios')">
             <div class="flex flex-col items-center">
                 <svg class="w-12 h-12 text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -291,7 +293,6 @@ $comments = readComments($mysqli);
             </div>
         </div>
 
-        <!-- Noticias Card -->
         <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('noticias')">
             <div class="flex flex-col items-center">
                 <svg class="w-12 h-12 text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -302,7 +303,6 @@ $comments = readComments($mysqli);
             </div>
         </div>
 
-        <!-- Proyectos Card -->
         <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('proyectos')">
             <div class="flex flex-col items-center">
                 <svg class="w-12 h-12 text-purple-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -313,7 +313,6 @@ $comments = readComments($mysqli);
             </div>
         </div>
 
-        <!-- Usuarios Card -->
         <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('usuarios')">
             <div class="flex flex-col items-center">
                 <svg class="w-12 h-12 text-yellow-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -324,7 +323,6 @@ $comments = readComments($mysqli);
             </div>
         </div>
 
-        <!-- Comentarios Card -->
         <div class="card bg-white rounded-lg shadow-md p-6 cursor-pointer" onclick="showSection('comentarios')">
             <div class="flex flex-col items-center">
                 <svg class="w-12 h-12 text-red-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -336,9 +334,7 @@ $comments = readComments($mysqli);
         </div>
     </div>
 
-    <!-- Tables Sections -->
     <div id="sections-container" class="mt-8">
-        <!-- Testimonios Section -->
         <div id="testimonios" class="section">
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex justify-between items-center mb-6">
@@ -347,7 +343,7 @@ $comments = readComments($mysqli);
                         Agregar Testimonio
                     </button>
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead>
@@ -361,52 +357,51 @@ $comments = readComments($mysqli);
                             </tr>
                         </thead>
                         <tbody>
-   <?php foreach ($testimony as $testimonio) : ?>
-    <tr class="border-b hover:bg-gray-50">
-        <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['name']); ?></td>
-        <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['surname']); ?></td>
-        <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['testimony']); ?></td>
-        <td class="py-3 px-4 relative group">
-            <div class="flex items-center">
-                <span >
-                    <?php echo htmlspecialchars($testimonio['image']); ?>
-                </span>
-                <!-- Improved hover image preview -->
-<div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
-    <div class="relative w-full h-full overflow-hidden rounded-md">
-        <img src="../uploads/testimonio/<?php echo htmlspecialchars($testimonio['image']); ?>" 
-             alt="Vista previa" 
-             class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
-        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
-            <?php echo htmlspecialchars($testimonio['image']); ?>
-        </div>
-    </div>
-</div>
-            </div>
-        </td>
-        <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['date']); ?></td>
-        <td class="py-3 px-4 flex justify-center gap-3">
-            <a href="./testimonials/delete-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-red-500 hover:text-red-700 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                </svg>
-            </a>
-            <a href="./testimonials/edit-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-blue-500 hover:text-blue-700 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                </svg>
-            </a>
-        </td>
-    </tr>
-<?php endforeach; ?>
-</tbody>
+                            <?php foreach ($testimony as $testimonio) : ?>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['name']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['surname']); ?></td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['testimony']); ?></td>
+                                    <td class="py-3 px-4 relative group">
+                                        <div class="flex items-center">
+                                            <span>
+                                                <?php echo htmlspecialchars($testimonio['image']); ?>
+                                            </span>
+                                            <!-- Improved hover image preview -->
+                                            <div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
+                                                <div class="relative w-full h-full overflow-hidden rounded-md">
+                                                    <img src="../uploads/testimonio/<?php echo htmlspecialchars($testimonio['image']); ?>"
+                                                        alt="Vista previa"
+                                                        class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
+                                                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
+                                                        <?php echo htmlspecialchars($testimonio['image']); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['date']); ?></td>
+                                    <td class="py-3 px-4 flex justify-center gap-3">
+                                        <a href="./testimonials/delete-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-red-500 hover:text-red-700 transition-colors">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="./testimonials/edit-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-blue-500 hover:text-blue-700 transition-colors">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
 
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Noticias Section -->
         <div id="noticias" class="section">
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex justify-between items-center mb-6">
@@ -415,7 +410,7 @@ $comments = readComments($mysqli);
                         Agregar Noticia
                     </button>
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead>
@@ -433,31 +428,32 @@ $comments = readComments($mysqli);
                                 <tr class="border-b hover:bg-gray-50">
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($new['title']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($new['subititle']); ?></td>
- <td class="py-3 px-4 relative group">
-            <div class="flex items-center">
-                <span >
-                    <?php echo htmlspecialchars($new['body']); ?>
-                </span>
-                <!-- Improved hover image preview -->
-<div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
-    <div class="relative w-full h-full overflow-hidden rounded-md">
-        <img src="../uploads/news/<?php echo htmlspecialchars($new['body']); ?>" 
-             alt="Vista previa" 
-             class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
-        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
-            <?php echo htmlspecialchars($news['body']); ?>
-        </div>
-    </div>
-</div>
-            </div>
-        </td>        
-        
-        </td>                                    <td class="py-3 px-4 max-w-xs">
+                                    <td class="py-3 px-4 relative group">
+                                        <div class="flex items-center">
+                                            <span>
+                                                <?php echo htmlspecialchars($new['body']); ?>
+                                            </span>
+                                            <!-- Improved hover image preview -->
+                                            <div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
+                                                <div class="relative w-full h-full overflow-hidden rounded-md">
+                                                    <img src="../uploads/news/<?php echo htmlspecialchars($new['body']); ?>"
+                                                        alt="Vista previa"
+                                                        class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
+                                                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
+                                                        <?php echo htmlspecialchars($news['body']); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    </td>
+                                    <td class="py-3 px-4 max-w-xs">
                                         <div class="truncate" title="<?php echo htmlspecialchars($new['publication_date']); ?>">
                                             <?php echo htmlspecialchars($new['publication_date']); ?>
                                         </div>
-                                    </td>  
-                                  <td class="py-3 px-4 max-w-xs">
+                                    </td>
+                                    <td class="py-3 px-4 max-w-xs">
                                         <div class="truncate" title="<?php echo htmlspecialchars($new['descripcion']); ?>">
                                             <?php echo htmlspecialchars($new['descripcion']); ?>
                                         </div>
@@ -482,7 +478,6 @@ $comments = readComments($mysqli);
             </div>
         </div>
 
-        <!-- Proyectos Section -->
         <div id="proyectos" class="section">
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex justify-between items-center mb-6">
@@ -491,7 +486,7 @@ $comments = readComments($mysqli);
                         Agregar Proyecto
                     </button>
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead>
@@ -509,24 +504,24 @@ $comments = readComments($mysqli);
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($project['title']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($project['description']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($project['url']); ?></td>
-                                     <td class="py-3 px-4 relative group">
-            <div class="flex items-center">
-                <span >
-                    <?php echo htmlspecialchars($project['thumbnail']); ?>
-                </span>
-                <!-- Improved hover image preview -->
-<div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
-    <div class="relative w-full h-full overflow-hidden rounded-md">
-        <img src="../uploads/projects/<?php echo htmlspecialchars($project['thumbnail']); ?>" 
-             alt="Vista previa" 
-             class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
-        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
-            <?php echo htmlspecialchars($project['thumbnail']); ?>
-        </div>
-    </div>
-</div>
-            </div>
-        </td> 
+                                    <td class="py-3 px-4 relative group">
+                                        <div class="flex items-center">
+                                            <span>
+                                                <?php echo htmlspecialchars($project['thumbnail']); ?>
+                                            </span>
+                                            <!-- Improved hover image preview -->
+                                            <div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
+                                                <div class="relative w-full h-full overflow-hidden rounded-md">
+                                                    <img src="../uploads/projects/<?php echo htmlspecialchars($project['thumbnail']); ?>"
+                                                        alt="Vista previa"
+                                                        class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
+                                                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
+                                                        <?php echo htmlspecialchars($project['thumbnail']); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-4 flex justify-center gap-3">
                                         <a href="./proyects/delete-projects.php?id=<?php echo $project['id']; ?>" class="text-red-500 hover:text-red-700">
                                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -547,7 +542,6 @@ $comments = readComments($mysqli);
             </div>
         </div>
 
-        <!-- Usuarios Section -->
         <div id="usuarios" class="section">
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex justify-between items-center mb-6">
@@ -556,7 +550,7 @@ $comments = readComments($mysqli);
                         Agregar Usuario
                     </button>
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead>
@@ -582,24 +576,25 @@ $comments = readComments($mysqli);
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['rol']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['data_registre']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['surname']); ?></td>
-                <td class="py-3 px-4 relative group">
-            <div class="flex items-center">
-                <span >
-                    <?php echo htmlspecialchars($user['avatar']); ?>
-                </span>
-                <!-- Improved hover image preview -->
-<div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
-    <div class="relative w-full h-full overflow-hidden rounded-md">
-        <img src="../uploads/userAvatar/<?php echo htmlspecialchars($user['avatar']); ?>" 
-             alt="Vista previa" 
-             class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
-        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
-            <?php echo htmlspecialchars($user['avatar']); ?>
-        </div>
-    </div>
-</div>
-            </div>
-        </td>                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['age']); ?></td>
+                                    <td class="py-3 px-4 relative group">
+                                        <div class="flex items-center">
+                                            <span>
+                                                <?php echo htmlspecialchars($user['avatar']); ?>
+                                            </span>
+                                            <!-- Improved hover image preview -->
+                                            <div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
+                                                <div class="relative w-full h-full overflow-hidden rounded-md">
+                                                    <img src="../uploads/userAvatar/<?php echo htmlspecialchars($user['avatar']); ?>"
+                                                        alt="Vista previa"
+                                                        class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
+                                                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
+                                                        <?php echo htmlspecialchars($user['avatar']); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['age']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['job']); ?></td>
                                     <td class="py-3 px-4 flex justify-center gap-3">
                                         <a href="./users/delete-users.php?id=<?php echo $user['id']; ?>" class="text-red-500 hover:text-red-700">
@@ -626,7 +621,7 @@ $comments = readComments($mysqli);
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold">Comentarios</h2>
                 </div>
-                
+
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead>
@@ -657,8 +652,6 @@ $comments = readComments($mysqli);
         </div>
     </div>
 
-    <!-- Modals -->
-    <!-- Testimonios Modal -->
     <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
         <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-4">Agregar Testimonio</h2>
@@ -730,7 +723,7 @@ $comments = readComments($mysqli);
             </form>
         </div>
     </div>
-     <div id="modalProyectos" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+    <div id="modalProyectos" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
         <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-4">Agregar Proyectos</h2>
             <form action="" method="POST" enctype="multipart/form-data">
@@ -767,7 +760,6 @@ $comments = readComments($mysqli);
         <div class="bg-white p-8 rounded-lg w-96 max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-4">Agregar usuarios</h2>
             <form action="" method="POST" enctype="multipart/form-data">
-                <!-- Form fields for news -->
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre:</label>
                     <input type="text" name="name" id="name" placeholder="Nombre" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -780,37 +772,37 @@ $comments = readComments($mysqli);
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña:</label>
                     <input type="password" name="password" id="password" placeholder="password" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
-               <div  class="mb-4">
+                <div class="mb-4">
                     <label for="rol" class="block text-sm font-medium text-gray-700 mb-1">Rol:</label>
                     <select name="rol" id="rol" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="user" selected>User</option>
                     </select>
                 </div>
 
-               <div class="mb-4">
-                <label for="data_register" class="block text-sm font-medium text-gray-700 mb-1">Fecha de registro:</label>
-                <input type="date" name="data_register" id="data_register" 
-                       value="<?php echo date('Y-m-d'); ?>" 
+                <div class="mb-4">
+                    <label for="data_register" class="block text-sm font-medium text-gray-700 mb-1">Fecha de registro:</label>
+                    <input type="date" name="data_register" id="data_register"
+                        value="<?php echo date('Y-m-d'); ?>"
                         class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" readonly>
-               </div>
-
-                <div class="mb-4">
-                      <label for="surname" class="block text-sm font-medium text-gray-700 mb-1">Apellidos:</label>
-                      <input type="text" name="surname" id="surname" placeholder="Apellidos" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div class="mb-4">
-                      <label for="avatar" class="block text-sm font-medium text-gray-700 mb-1">Avatar:</label>
-                      <input type="file" accept="image/*" name="avatar" id="avatar" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="mb-4">
-                      <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Edad:</label>
-                      <input type="number" name="age" id="age" placeholder="Edad" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="surname" class="block text-sm font-medium text-gray-700 mb-1">Apellidos:</label>
+                    <input type="text" name="surname" id="surname" placeholder="Apellidos" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="avatar" class="block text-sm font-medium text-gray-700 mb-1">Avatar:</label>
+                    <input type="file" accept="image/*" name="avatar" id="avatar" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="mb-4">
-                      <label for="job" class="block text-sm font-medium text-gray-700 mb-1">Trabajo:</label>
-                      <input type="text" name="job" id="job" placeholder="Trabajo" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Edad:</label>
+                    <input type="number" name="age" id="age" placeholder="Edad" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mb-4">
+                    <label for="job" class="block text-sm font-medium text-gray-700 mb-1">Trabajo:</label>
+                    <input type="text" name="job" id="job" placeholder="Trabajo" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="flex justify-between mt-6">
@@ -825,25 +817,21 @@ $comments = readComments($mysqli);
         </div>
     </div>
 
-        
+
     <script>
-        // Show the first section by default
         document.addEventListener('DOMContentLoaded', function() {
             showSection('testimonios');
         });
 
         function showSection(sectionId) {
-            // Hide all sections
             const sections = document.querySelectorAll('.section');
             sections.forEach(section => {
                 section.classList.remove('active');
             });
-            
-            // Show the selected section
+
             document.getElementById(sectionId).classList.add('active');
         }
 
-        // Modal functions
         function openModal() {
             document.getElementById('modal').classList.remove('hidden');
         }
@@ -860,9 +848,7 @@ $comments = readComments($mysqli);
             document.getElementById('modalNoticias').classList.add('hidden');
         }
 
-        // Add functions for other modals
         function openModalProyectos() {
-            // Implement similar to other modals
             document.getElementById('modalProyectos').classList.remove('hidden');
         }
 
@@ -870,8 +856,9 @@ $comments = readComments($mysqli);
             document.getElementById('modalProyectos').classList.add('hidden');
 
         }
+
         function openModalUsuarios() {
-         document.getElementById('modalUser').classList.remove('hidden');
+            document.getElementById('modalUser').classList.remove('hidden');
 
         }
 
@@ -880,4 +867,5 @@ $comments = readComments($mysqli);
         }
     </script>
 </body>
+
 </html>

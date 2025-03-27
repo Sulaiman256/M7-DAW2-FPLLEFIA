@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
         exit;
     }
 
-   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['id'], $_POST['title'], $_POST['subititle'], $_FILES['body'], $_POST['publicationDate'], $_POST['descripcion'])) {
             $id = $_POST['id'];
             $title = $_POST['title'];
@@ -40,8 +40,36 @@ if (isset($_GET['id'])) {
                 $fileName = $_FILES['body']['name'];
                 $fileNameCmps = explode(".", $fileName);
                 $fileExtension = strtolower(end($fileNameCmps));
-                $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp', 'avif', 'bmp', 'ico', 'tiff', 'tif', 'jfif', 'pjpeg', 'pjp', 
-                'JPG', 'PNG', 'JPEG', 'GIF', 'SVG', 'WEBP', 'AVIF', 'BMP', 'ICO', 'TIFF', 'TIF', 'JFIF', 'PJPEG', 'PJP'];
+                $allowedExtensions = [
+                    'jpg',
+                    'png',
+                    'jpeg',
+                    'gif',
+                    'svg',
+                    'webp',
+                    'avif',
+                    'bmp',
+                    'ico',
+                    'tiff',
+                    'tif',
+                    'jfif',
+                    'pjpeg',
+                    'pjp',
+                    'JPG',
+                    'PNG',
+                    'JPEG',
+                    'GIF',
+                    'SVG',
+                    'WEBP',
+                    'AVIF',
+                    'BMP',
+                    'ICO',
+                    'TIFF',
+                    'TIF',
+                    'JFIF',
+                    'PJPEG',
+                    'PJP'
+                ];
                 if (in_array($fileExtension, $allowedExtensions)) {
                     $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
                     $newsDir = $uploadDir . 'news' . DIRECTORY_SEPARATOR;
@@ -83,12 +111,14 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Noticia</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 py-6 flex justify-center items-center">
 
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
@@ -131,4 +161,5 @@ if (isset($_GET['id'])) {
     </div>
 
 </body>
+
 </html>
