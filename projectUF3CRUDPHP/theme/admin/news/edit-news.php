@@ -19,44 +19,82 @@ if (isset($_GET['id'])) {
     $news = $result->fetch_assoc();
 
     if (!$news) {
-        echo 'Noticia no encontrado';
+        echo 'Noticia no encontrada';
         exit;
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['id'], $_POST['title'], $_POST['subititle'], $_POST['body'], $_POST['publicationDate'], $_POST['descripcion'])) {
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['id'], $_POST['title'], $_POST['subititle'], $_FILES['body'], $_POST['publicationDate'], $_POST['descripcion'])) {
             $id = $_POST['id'];
             $title = $_POST['title'];
             $subititle = $_POST['subititle'];
-            $body = $_POST['body'];
+            $body = '';
             $publicationDate = $_POST['publicationDate'];
             $descripcion = $_POST['descripcion'];
-            editNews($mysqli, $id, $title, $subititle, $body, $publicationDate, $descripcion);
-            header('Location: ../adminPanel.php');
-            exit;  
+
+            $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+
+            // Verificar si se subió una imagen
+            if (isset($_FILES['body']) && $_FILES['body']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['body']['tmp_name'];
+                $fileName = $_FILES['body']['name'];
+                $fileNameCmps = explode(".", $fileName);
+                $fileExtension = strtolower(end($fileNameCmps));
+                $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp', 'avif', 'bmp', 'ico', 'tiff', 'tif', 'jfif', 'pjpeg', 'pjp', 
+                'JPG', 'PNG', 'JPEG', 'GIF', 'SVG', 'WEBP', 'AVIF', 'BMP', 'ICO', 'TIFF', 'TIF', 'JFIF', 'PJPEG', 'PJP'];
+                if (in_array($fileExtension, $allowedExtensions)) {
+                    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                    $newsDir = $uploadDir . 'news' . DIRECTORY_SEPARATOR;
+
+                    if (!is_dir($newsDir)) {
+                        mkdir($newsDir, 0777, true);
+                    }
+
+                    $destPath = $newsDir . $newFileName;
+
+                    if (move_uploaded_file($fileTmpPath, $destPath)) {
+                        $body = $newFileName;  // Asignamos el nombre de la nueva imagen
+                    } else {
+                        $error_message = 'Hubo un error al subir la imagen de la noticia';
+                    }
+                } else {
+                    $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG';
+                }
+            } else {
+                // Si no se sube una nueva imagen, mantenemos la imagen existente
+                $body = $news['body'];  // body contiene el nombre de la imagen
+            }
+
+            // Si no hubo error, procedemos a editar la noticia
+            if (empty($error_message)) {
+                editNews($mysqli, $id, $title, $subititle, $body, $publicationDate, $descripcion);
+                header('Location: ../adminPanel.php');
+                exit;
+            } else {
+                echo $error_message;
+            }
         }
     }
 } else {
-    echo 'ID de news no proporcionado';
+    echo 'ID de noticia no proporcionado';
     exit;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Testimonio</title>
+    <title>Editar Noticia</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 py-6 flex justify-center items-center">
 
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-        <h2 class="text-2xl font-semibold text-center mb-6">Editar Testimonio</h2>
+        <h2 class="text-2xl font-semibold text-center mb-6">Editar Noticia</h2>
 
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
 
             <div class="mb-4">
@@ -71,7 +109,8 @@ if (isset($_GET['id'])) {
 
             <div class="mb-4">
                 <label for="body" class="block text-sm font-medium text-gray-700">Imagen</label>
-                <textarea id="body" name="body" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required><?php echo $news['body']; ?></textarea>
+                <input type="file" accept="image/*" id="body" name="body" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <p class="text-sm text-gray-500 mt-2">Imagen actual: <?php echo $news['body']; ?></p>
             </div>
 
             <div class="mb-4">

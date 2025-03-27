@@ -12,7 +12,7 @@ function createUser($mysqli, $name, $surname, $email, $password, $avatar, $age, 
       // Preparar la consulta antes de insertar para evitar el SQL injection
     $stmt = $mysqli->prepare(
         "INSERT INTO users (name, email, password, rol, data_registre, surname, avatar, age, job) 
-        VALUES (?, ?, ?, 'user', now(), ?, ?, ?, ?)"
+        VALUES (?, ?, ?, 'user', CURDATE(), ?, ?, ?, ?)"
     );
 
     // Comprobar que la preparación tuvo éxito

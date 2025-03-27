@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fileName = $_FILES['avatar']['name'];
         $fileNameCmps = explode(".", $fileName);
         $fileExtension = strtolower(end($fileNameCmps));
-        $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg'];
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'bmp', 'webp', 'tiff', 'ico', 'JPG', 'JPEG', 'PNG', 'GIF', 'SVG', 'BMP', 'WEBP', 'TIFF', 'ICO'];
 
         if (in_array($fileExtension, $allowedExtensions)) {
             $newFileName = md5(time() . $fileName) . '.' . $fileExtension;

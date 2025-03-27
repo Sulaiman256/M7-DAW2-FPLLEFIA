@@ -361,28 +361,46 @@ $comments = readComments($mysqli);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($testimony as $testimonio) : ?>
-                                <tr class="border-b hover:bg-gray-50">
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['name']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['surname']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['testimony']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['image']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['date']); ?></td>
-                                    <td class="py-3 px-4 flex justify-center gap-3">
-                                        <a href="./testimonials/delete-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-red-500 hover:text-red-700">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                            </svg>
-                                        </a>
-                                        <a href="./testimonials/edit-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-blue-500 hover:text-blue-700">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                            </svg>
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
+   <?php foreach ($testimony as $testimonio) : ?>
+    <tr class="border-b hover:bg-gray-50">
+        <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['name']); ?></td>
+        <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['surname']); ?></td>
+        <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['testimony']); ?></td>
+        <td class="py-3 px-4 relative group">
+            <div class="flex items-center">
+                <span >
+                    <?php echo htmlspecialchars($testimonio['image']); ?>
+                </span>
+                <!-- Improved hover image preview -->
+<div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
+    <div class="relative w-full h-full overflow-hidden rounded-md">
+        <img src="../uploads/testimonio/<?php echo htmlspecialchars($testimonio['image']); ?>" 
+             alt="Vista previa" 
+             class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
+            <?php echo htmlspecialchars($testimonio['image']); ?>
+        </div>
+    </div>
+</div>
+            </div>
+        </td>
+        <td class="py-3 px-4"><?php echo htmlspecialchars($testimonio['date']); ?></td>
+        <td class="py-3 px-4 flex justify-center gap-3">
+            <a href="./testimonials/delete-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-red-500 hover:text-red-700 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+            </a>
+            <a href="./testimonials/edit-testimonials.php?id=<?php echo $testimonio['id']; ?>" class="text-blue-500 hover:text-blue-700 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+            </a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</tbody>
+
                     </table>
                 </div>
             </div>
@@ -415,9 +433,31 @@ $comments = readComments($mysqli);
                                 <tr class="border-b hover:bg-gray-50">
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($new['title']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($new['subititle']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($new['body']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($new['publication_date']); ?></td>
-                                    <td class="py-3 px-4 max-w-xs">
+ <td class="py-3 px-4 relative group">
+            <div class="flex items-center">
+                <span >
+                    <?php echo htmlspecialchars($new['body']); ?>
+                </span>
+                <!-- Improved hover image preview -->
+<div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
+    <div class="relative w-full h-full overflow-hidden rounded-md">
+        <img src="../uploads/news/<?php echo htmlspecialchars($new['body']); ?>" 
+             alt="Vista previa" 
+             class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
+            <?php echo htmlspecialchars($news['body']); ?>
+        </div>
+    </div>
+</div>
+            </div>
+        </td>        
+        
+        </td>                                    <td class="py-3 px-4 max-w-xs">
+                                        <div class="truncate" title="<?php echo htmlspecialchars($new['publication_date']); ?>">
+                                            <?php echo htmlspecialchars($new['publication_date']); ?>
+                                        </div>
+                                    </td>  
+                                  <td class="py-3 px-4 max-w-xs">
                                         <div class="truncate" title="<?php echo htmlspecialchars($new['descripcion']); ?>">
                                             <?php echo htmlspecialchars($new['descripcion']); ?>
                                         </div>
@@ -469,7 +509,24 @@ $comments = readComments($mysqli);
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($project['title']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($project['description']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($project['url']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($project['thumbnail']); ?></td>
+                                     <td class="py-3 px-4 relative group">
+            <div class="flex items-center">
+                <span >
+                    <?php echo htmlspecialchars($project['thumbnail']); ?>
+                </span>
+                <!-- Improved hover image preview -->
+<div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
+    <div class="relative w-full h-full overflow-hidden rounded-md">
+        <img src="../uploads/projects/<?php echo htmlspecialchars($project['thumbnail']); ?>" 
+             alt="Vista previa" 
+             class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
+            <?php echo htmlspecialchars($project['thumbnail']); ?>
+        </div>
+    </div>
+</div>
+            </div>
+        </td> 
                                     <td class="py-3 px-4 flex justify-center gap-3">
                                         <a href="./proyects/delete-projects.php?id=<?php echo $project['id']; ?>" class="text-red-500 hover:text-red-700">
                                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -525,8 +582,24 @@ $comments = readComments($mysqli);
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['rol']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['data_registre']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['surname']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['avatar']); ?></td>
-                                    <td class="py-3 px-4"><?php echo htmlspecialchars($user['age']); ?></td>
+                <td class="py-3 px-4 relative group">
+            <div class="flex items-center">
+                <span >
+                    <?php echo htmlspecialchars($user['avatar']); ?>
+                </span>
+                <!-- Improved hover image preview -->
+<div class="hidden opacity-0 scale-95 absolute z-10 top-0 left-[60%] -ml-16 bg-white border border-gray-200 shadow-xl p-2 rounded-lg w-36 h-36 transform transition-all duration-300 ease-in-out group-hover:block group-hover:opacity-100 group-hover:scale-100">
+    <div class="relative w-full h-full overflow-hidden rounded-md">
+        <img src="../uploads/userAvatar/<?php echo htmlspecialchars($user['avatar']); ?>" 
+             alt="Vista previa" 
+             class="w-full h-full object-cover rounded-md transition-transform duration-300 hover:scale-110">
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-xs py-1 px-2 truncate">
+            <?php echo htmlspecialchars($user['avatar']); ?>
+        </div>
+    </div>
+</div>
+            </div>
+        </td>                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['age']); ?></td>
                                     <td class="py-3 px-4"><?php echo htmlspecialchars($user['job']); ?></td>
                                     <td class="py-3 px-4 flex justify-center gap-3">
                                         <a href="./users/delete-users.php?id=<?php echo $user['id']; ?>" class="text-red-500 hover:text-red-700">
@@ -671,8 +744,8 @@ $comments = readComments($mysqli);
                     <input type="text" name="description" id="description" placeholder="Descripcion" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="mb-4">
-                    <label for="url" class="block text-sm font-medium text-gray-700 mb-1">URL:</label>
-                    <input type="text" name="url" id="url" placeholder="URL de la imagen" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="url" class="block text-sm font-medium text-gray-700 mb-1">URL del proyecto:</label>
+                    <input type="text" name="url" id="url" placeholder="URL del proyecto" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="mb-4">
                     <label for="thumbnail" class="block text-sm font-medium text-gray-700 mb-1">Thumbnail:</label>

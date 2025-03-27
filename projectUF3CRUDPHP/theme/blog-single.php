@@ -115,7 +115,7 @@ $news = readNews($mysqli);
         <h3 class="font-tertiary mb-5"><?php
         echo $new['title'];
         ?></h3>
-        <img src="<?php echo htmlspecialchars($new['body']); ?>" alt="post-thumb" class="img-fluid w-100 mb-3">
+        <img src="./uploads/news/<?php echo htmlspecialchars($new['body']); ?>" alt="post-thumb" class="img-fluid w-100 mb-3">
         <p><?php
         echo $new['publication_date'];
         ?></p>

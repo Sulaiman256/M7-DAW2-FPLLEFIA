@@ -168,7 +168,7 @@ function deleteProject($mysqli, $id) {
 
 function editProject ($mysqli, $id, $title, $description, $url, $image) {
     $stmt = $mysqli->prepare(
-        "UPDATE projects SET title = ?, description = ?, url = ?, image = ? WHERE id = ?"
+        "UPDATE projects SET title = ?, description = ?, url = ?, thumbnail = ? WHERE id = ?"
     );
 
     // 5. comprobar que la preparación tuvo éxito

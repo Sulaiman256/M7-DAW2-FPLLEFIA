@@ -23,24 +23,57 @@ if (isset($_GET['id'])) {
         exit;
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['id'], $_POST['name'], $_POST['surname'], $_POST['testimony'], $_POST['image'], $_POST['date'])) {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $surname = $_POST['surname'];
-            $testimony = $_POST['testimony'];
-            $image = $_POST['image'];
-            $date = $_POST['date'];
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['id'], $_POST['name'], $_POST['surname'], $_POST['testimony'], $_FILES['image'], $_POST['date'])) {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $testimony = $_POST['testimony'];
+        $image = '';  // Inicializamos como vacío
+        $date = $_POST['date'];
 
+        $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+
+        // Verificar si se subió una imagen
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['image']['tmp_name'];
+            $fileName = $_FILES['image']['name'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+            $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp', 'avif', 'bmp', 'ico', 'tiff', 'tif', 'jfif', 'pjpeg', 'pjp'];
+
+            if (in_array($fileExtension, $allowedExtensions)) {
+                $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                $testimonioDir = $uploadDir . 'testimonio' . DIRECTORY_SEPARATOR;
+
+                if (!is_dir($testimonioDir)) {
+                    mkdir($testimonioDir, 0777, true);
+                }
+
+                $destPath = $testimonioDir . $newFileName;
+
+                if (move_uploaded_file($fileTmpPath, $destPath)) {
+                    $image = $newFileName;  // Solo asignamos el nombre de la imagen
+                } else {
+                    $error_message = 'Hubo un error al subir la imagen del testimonio';
+                }
+            } else {
+                $error_message = 'Formato de archivo no permitido. Solo se permiten imágenes JPG, PNG, JPEG, GIF o SVG';
+            }
+        } else {
+            // Si no se sube una nueva imagen, mantenemos la imagen existente
+            $image = $testimonio['image'];
+        }
+
+        // Si no hubo error, procedemos a editar el testimonio
+        if (empty($error_message)) {
             editTestimonial($mysqli, $id, $name, $surname, $testimony, $image, $date);
-
-            header('Location: ../adminPanel.php');
-            exit;  
+        } else {
+            echo $error_message;
         }
     }
-} else {
-    echo 'ID de testimonio no proporcionado';
-    exit;
+}
+
 }
 ?>
 
@@ -48,6 +81,7 @@ if (isset($_GET['id'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <a href="../../"></a>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Testimonio</title>
@@ -58,7 +92,7 @@ if (isset($_GET['id'])) {
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
         <h2 class="text-2xl font-semibold text-center mb-6">Editar Testimonio</h2>
 
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
 
             <div class="mb-4">
@@ -78,7 +112,7 @@ if (isset($_GET['id'])) {
 
             <div class="mb-4">
                 <label for="image" class="block text-sm font-medium text-gray-700">Imagen</label>
-                <input type="text" id="image" name="image" value="<?php echo $testimonio['image']; ?>" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                <input type="file" accept="image/*" id="image" name="image" value="<?php echo $testimonio['image']; ?>" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
             </div>
 
             <div class="mb-4">
